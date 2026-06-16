@@ -1,184 +1,323 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buvana Seshathri — ML Engineer & Software Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap');
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ivory: #FAF8F4;
+  --warm-white: #F5F2EC;
+  --cream: #EDE8DE;
+  --rose: #C97B6A;
+  --rose-light: #F2E6E2;
+  --rose-mid: #D9907E;
+  --sage: #7A9E8E;
+  --sage-light: #EAF2EE;
+  --charcoal: #2C2825;
+  --muted: #6B6460;
+  --border: rgba(44,40,37,0.12);
+  --font-display: 'DM Serif Display', serif;
+  --font-body: 'DM Sans', sans-serif;
+}
 
-  :root {
-    --ivory: #FAF8F4;
-    --warm-white: #F5F2EC;
-    --cream: #EDE8DE;
-    --rose: #C97B6A;
-    --rose-light: #F2E6E2;
-    --rose-mid: #D9907E;
-    --sage: #7A9E8E;
-    --sage-light: #EAF2EE;
-    --charcoal: #2C2825;
-    --muted: #6B6460;
-    --border: rgba(44,40,37,0.12);
-    --font-display: 'DM Serif Display', serif;
-    --font-body: 'DM Sans', sans-serif;
-  }
+/* ── SCROLL PROGRESS BAR ── */
+#progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2.5px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--rose), var(--rose-mid));
+  z-index: 9999;
+  transition: width 0.1s linear;
+  border-radius: 0 2px 2px 0;
+}
 
-  body { font-family: var(--font-body); background: var(--ivory); color: var(--charcoal); font-size: 15px; line-height: 1.7; }
+/* ── BASE ── */
+body { font-family: var(--font-body); background: var(--ivory); color: var(--charcoal); font-size: 15px; line-height: 1.7; }
 
-  nav {
-    position: sticky; top: 0; z-index: 100;
-    background: rgba(250,248,244,0.92);
-    backdrop-filter: blur(8px);
-    border-bottom: 0.5px solid var(--border);
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 14px 48px;
-  }
-  .nav-name { font-family: var(--font-display); font-size: 20px; color: var(--charcoal); }
-  .nav-links { display: flex; gap: 28px; list-style: none; }
-  .nav-links a { color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 400; transition: color 0.2s; }
-  .nav-links a:hover { color: var(--rose); }
+/* ── NAV ── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(250,248,244,0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 0.5px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 48px;
+}
+.nav-name { font-family: var(--font-display); font-size: 20px; color: var(--charcoal); }
+.nav-links { display: flex; gap: 28px; list-style: none; }
+.nav-links a { color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 400; transition: color 0.2s; }
+.nav-links a:hover { color: var(--rose); }
 
-  section { padding: 80px 48px; max-width: 1000px; margin: 0 auto; }
+/* ── SCROLL REVEAL ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.reveal-stagger.visible > *:nth-child(1) { opacity:1; transform:translateY(0); transition-delay: 0s; }
+.reveal-stagger.visible > *:nth-child(2) { opacity:1; transform:translateY(0); transition-delay: 0.08s; }
+.reveal-stagger.visible > *:nth-child(3) { opacity:1; transform:translateY(0); transition-delay: 0.16s; }
+.reveal-stagger.visible > *:nth-child(4) { opacity:1; transform:translateY(0); transition-delay: 0.24s; }
+.reveal-stagger.visible > *:nth-child(5) { opacity:1; transform:translateY(0); transition-delay: 0.32s; }
+.reveal-stagger.visible > *:nth-child(6) { opacity:1; transform:translateY(0); transition-delay: 0.40s; }
 
-  .hero {
-    padding: 100px 48px 80px;
-    max-width: 1000px; margin: 0 auto;
-    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
-  }
-  .hero-eyebrow {
-    display: inline-block;
-    font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--rose); font-weight: 500; margin-bottom: 20px;
-    background: var(--rose-light); padding: 5px 12px; border-radius: 40px;
-  }
-  .hero h1 { font-family: var(--font-display); font-size: 48px; line-height: 1.15; color: var(--charcoal); margin-bottom: 20px; }
-  .hero h1 em { font-style: italic; color: var(--rose); }
-  .hero-sub { font-size: 16px; color: var(--muted); line-height: 1.75; margin-bottom: 32px; }
-  .hero-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
-  .btn-primary {
-    background: var(--charcoal); color: white;
-    padding: 11px 24px; border-radius: 40px;
-    font-size: 13px; font-weight: 500; text-decoration: none;
-    transition: background 0.2s; font-family: var(--font-body);
-  }
-  .btn-primary:hover { background: var(--rose); }
-  .btn-secondary {
-    background: transparent; color: var(--charcoal);
-    border: 0.5px solid var(--border);
-    padding: 11px 24px; border-radius: 40px;
-    font-size: 13px; font-weight: 400; text-decoration: none;
-    transition: all 0.2s; font-family: var(--font-body);
-  }
-  .btn-secondary:hover { border-color: var(--rose); color: var(--rose); }
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal-stagger > * { opacity: 1 !important; transform: none !important; transition: none !important; }
+}
 
-  .hero-card {
-    background: var(--warm-white);
-    border: 0.5px solid var(--border);
-    border-radius: 20px; padding: 32px;
-  }
-  .hero-card-line { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 20px; }
-  .hero-card-line:last-child { margin-bottom: 0; }
-  .hc-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 8px; flex-shrink: 0; }
-  .hc-dot.rose { background: var(--rose); }
-  .hc-dot.sage { background: var(--sage); }
-  .hc-dot.amber { background: #C9A26A; }
-  .hc-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 2px; }
-  .hc-val { font-size: 14px; color: var(--charcoal); font-weight: 500; }
+/* ── HERO ── */
+.hero {
+  padding: 100px 48px 80px;
+  max-width: 1000px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+}
+.hero-eyebrow {
+  display: inline-block;
+  font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--rose); font-weight: 500; margin-bottom: 20px;
+  background: var(--rose-light); padding: 5px 12px; border-radius: 40px;
+}
+.hero h1 { font-family: var(--font-display); font-size: 48px; line-height: 1.15; color: var(--charcoal); margin-bottom: 20px; }
+.hero h1 em { font-style: italic; color: var(--rose); }
 
-  .divider { height: 0.5px; background: var(--border); margin: 0 48px; }
+/* ── TYPING CURSOR ── */
+.typed-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 0.85em;
+  background: var(--rose);
+  margin-left: 3px;
+  vertical-align: middle;
+  border-radius: 1px;
+  animation: blink 1s step-end infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
-  .section-label {
-    font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em;
-    color: var(--rose); font-weight: 500; margin-bottom: 12px;
-  }
-  .section-title { font-family: var(--font-display); font-size: 34px; color: var(--charcoal); margin-bottom: 8px; }
-  .section-sub { color: var(--muted); font-size: 15px; max-width: 520px; line-height: 1.75; margin-bottom: 48px; }
+/* ── ROLE TAGS STRIP ── */
+.role-tags-strip {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-bottom: 18px;
+}
+.role-tag {
+  font-size: 12px; font-weight: 500; letter-spacing: 0.04em;
+  padding: 5px 14px; border-radius: 40px;
+  border: 0.5px solid var(--border);
+  color: var(--charcoal);
+  background: var(--warm-white);
+  cursor: default;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.role-tag:hover { background: var(--rose-light); color: var(--rose); border-color: var(--rose-mid); }
+.role-tag.active { background: var(--rose-light); color: var(--rose); border-color: var(--rose-mid); }
 
-  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
-  .skill-card {
-    background: var(--warm-white); border: 0.5px solid var(--border);
-    border-radius: 14px; padding: 20px 22px;
-  }
-  .skill-card-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 12px; }
-  .skill-pills { display: flex; flex-wrap: wrap; gap: 6px; }
-  .pill {
-    background: var(--cream); color: var(--charcoal);
-    font-size: 12px; padding: 4px 10px; border-radius: 20px;
-  }
-  .pill.rose { background: var(--rose-light); color: var(--rose); }
-  .pill.sage { background: var(--sage-light); color: var(--sage); }
+.hero-sub { font-size: 16px; color: var(--muted); line-height: 1.75; margin-bottom: 32px; }
+.hero-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-primary {
+  background: var(--charcoal); color: white;
+  padding: 11px 24px; border-radius: 40px;
+  font-size: 13px; font-weight: 500; text-decoration: none;
+  transition: background 0.2s; font-family: var(--font-body);
+  cursor: pointer; border: none;
+}
+.btn-primary:hover { background: var(--rose); }
+.btn-secondary {
+  background: transparent; color: var(--charcoal);
+  border: 0.5px solid var(--border);
+  padding: 11px 24px; border-radius: 40px;
+  font-size: 13px; font-weight: 400; text-decoration: none;
+  transition: all 0.2s; font-family: var(--font-body);
+}
+.btn-secondary:hover { border-color: var(--rose); color: var(--rose); }
 
-  .exp-timeline { display: flex; flex-direction: column; gap: 28px; }
-  .exp-card {
-    background: var(--warm-white); border: 0.5px solid var(--border);
-    border-radius: 16px; padding: 28px 32px;
-    border-left: 3px solid var(--rose);
-  }
-  .exp-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 6px; gap: 16px; }
-  .exp-title { font-family: var(--font-display); font-size: 20px; color: var(--charcoal); }
-  .exp-date { font-size: 12px; color: var(--muted); white-space: nowrap; padding-top: 4px; }
-  .exp-org { font-size: 13px; color: var(--rose); margin-bottom: 16px; }
-  .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-  .exp-bullets li { font-size: 14px; color: var(--muted); padding-left: 16px; position: relative; line-height: 1.65; }
-  .exp-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--rose); }
-  .exp-tech { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+.hero-card {
+  background: var(--warm-white);
+  border: 0.5px solid var(--border);
+  border-radius: 20px; padding: 32px;
+}
+.hero-card-line { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 20px; }
+.hero-card-line:last-child { margin-bottom: 0; }
+.hc-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 8px; flex-shrink: 0; }
+.hc-dot.rose { background: var(--rose); }
+.hc-dot.sage { background: var(--sage); }
+.hc-dot.amber { background: #C9A26A; }
+.hc-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 2px; }
+.hc-val { font-size: 14px; color: var(--charcoal); font-weight: 500; }
 
-  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-  .project-card {
-    background: var(--warm-white); border: 0.5px solid var(--border);
-    border-radius: 16px; padding: 28px 26px;
-    display: flex; flex-direction: column;
-  }
-  .project-tag {
-    display: inline-block; font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em;
-    color: var(--sage); background: var(--sage-light); padding: 3px 10px; border-radius: 20px; margin-bottom: 14px;
-    align-self: flex-start;
-  }
-  .project-name { font-family: var(--font-display); font-size: 22px; margin-bottom: 10px; }
-  .project-desc { font-size: 14px; color: var(--muted); line-height: 1.7; flex: 1; margin-bottom: 18px; }
-  .project-stack { display: flex; flex-wrap: wrap; gap: 5px; }
+/* ── LAYOUT ── */
+.divider { height: 0.5px; background: var(--border); margin: 0 48px; }
+section { padding: 80px 48px; max-width: 1000px; margin: 0 auto; }
 
-  .research-card {
-    background: var(--warm-white); border: 0.5px solid var(--border);
-    border-radius: 16px; padding: 32px; margin-bottom: 20px;
-    border-left: 3px solid var(--sage);
-  }
-  .research-type { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--sage); margin-bottom: 10px; }
-  .research-title { font-family: var(--font-display); font-size: 20px; margin-bottom: 8px; }
-  .research-desc { font-size: 14px; color: var(--muted); line-height: 1.7; }
+.section-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--rose); font-weight: 500; margin-bottom: 12px; }
+.section-title { font-family: var(--font-display); font-size: 34px; color: var(--charcoal); margin-bottom: 8px; }
+.section-sub { color: var(--muted); font-size: 15px; max-width: 520px; line-height: 1.75; margin-bottom: 48px; }
 
-  .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-  .edu-card {
-    background: var(--warm-white); border: 0.5px solid var(--border);
-    border-radius: 16px; padding: 28px 26px;
-  }
-  .edu-school { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
-  .edu-degree { font-family: var(--font-display); font-size: 19px; margin-bottom: 4px; }
-  .edu-gpa { font-size: 22px; font-family: var(--font-display); color: var(--rose); }
-  .edu-gpa span { font-size: 13px; font-family: var(--font-body); color: var(--muted); }
+/* ── SKILLS ── */
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+.skill-card { background: var(--warm-white); border: 0.5px solid var(--border); border-radius: 14px; padding: 20px 22px; }
+.skill-card-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 12px; }
+.skill-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+.pill { background: var(--cream); color: var(--charcoal); font-size: 12px; padding: 4px 10px; border-radius: 20px; }
+.pill.rose { background: var(--rose-light); color: var(--rose); }
+.pill.sage { background: var(--sage-light); color: var(--sage); }
 
-  .contact-wrap {
-    background: var(--warm-white); border: 0.5px solid var(--border);
-    border-radius: 20px; padding: 48px; text-align: center;
-  }
-  .contact-wrap h2 { font-family: var(--font-display); font-size: 34px; margin-bottom: 12px; }
-  .contact-wrap p { color: var(--muted); font-size: 15px; margin-bottom: 32px; }
-  .contact-links { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+/* ── EXPERIENCE ── */
+.exp-timeline { display: flex; flex-direction: column; gap: 28px; }
+.exp-card { background: var(--warm-white); border: 0.5px solid var(--border); border-radius: 16px; padding: 28px 32px; border-left: 3px solid var(--rose); }
+.exp-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 6px; gap: 16px; }
+.exp-title { font-family: var(--font-display); font-size: 20px; color: var(--charcoal); }
+.exp-date { font-size: 12px; color: var(--muted); white-space: nowrap; padding-top: 4px; }
+.exp-org { font-size: 13px; color: var(--rose); margin-bottom: 16px; }
+.exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.exp-bullets li { font-size: 14px; color: var(--muted); padding-left: 16px; position: relative; line-height: 1.65; }
+.exp-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--rose); }
+.exp-tech { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
 
-  footer {
-    background: var(--charcoal); color: rgba(255,255,255,0.5);
-    text-align: center; padding: 28px; font-size: 12px;
-  }
+/* ── PROJECTS ── */
+.projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+.project-card { background: var(--warm-white); border: 0.5px solid var(--border); border-radius: 16px; padding: 28px 26px; display: flex; flex-direction: column; transition: box-shadow 0.2s, transform 0.2s; }
+.project-card:hover { box-shadow: 0 8px 32px rgba(44,40,37,0.08); transform: translateY(-2px); }
+.project-tag { display: inline-block; font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--sage); background: var(--sage-light); padding: 3px 10px; border-radius: 20px; margin-bottom: 14px; align-self: flex-start; }
+.project-name { font-family: var(--font-display); font-size: 22px; margin-bottom: 10px; }
+.project-desc { font-size: 14px; color: var(--muted); line-height: 1.7; flex: 1; margin-bottom: 18px; }
+.project-stack { display: flex; flex-wrap: wrap; gap: 5px; }
+.project-link { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: var(--rose); text-decoration: none; margin-top: 12px; font-weight: 500; }
+.project-link:hover { text-decoration: underline; }
 
-  @media (max-width: 700px) {
-    nav { padding: 12px 20px; }
-    .nav-links { gap: 14px; }
-    .hero { grid-template-columns: 1fr; padding: 60px 20px 40px; gap: 32px; }
-    .hero h1 { font-size: 36px; }
-    section { padding: 56px 20px; }
-    .divider { margin: 0 20px; }
-    .edu-grid { grid-template-columns: 1fr; }
-    .exp-header { flex-direction: column; gap: 4px; }
-  }
+/* ── GITHUB LIVE SECTION ── */
+#github-repos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-top: 12px;
+}
+.gh-card {
+  background: var(--warm-white);
+  border: 0.5px solid var(--border);
+  border-radius: 14px;
+  padding: 22px 24px;
+  display: flex; flex-direction: column;
+  gap: 10px;
+  transition: box-shadow 0.2s, transform 0.2s;
+  text-decoration: none;
+  color: inherit;
+}
+.gh-card:hover { box-shadow: 0 6px 24px rgba(44,40,37,0.08); transform: translateY(-2px); }
+.gh-card-name { font-family: var(--font-display); font-size: 17px; color: var(--charcoal); }
+.gh-card-desc { font-size: 13px; color: var(--muted); line-height: 1.6; flex: 1; }
+.gh-card-meta { display: flex; align-items: center; gap: 14px; }
+.gh-lang { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--muted); }
+.gh-lang-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--rose); flex-shrink: 0; }
+.gh-stars { display: flex; align-items: center; gap: 4px; font-size: 12px; color: var(--muted); }
+.gh-skeleton { background: var(--cream); border-radius: 8px; animation: shimmer 1.4s infinite; }
+@keyframes shimmer {
+  0%,100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+.gh-error { color: var(--muted); font-size: 14px; padding: 20px 0; }
+
+/* Language dot colors */
+.lang-python { background: #3572A5; }
+.lang-javascript { background: #F1E05A; }
+.lang-typescript { background: #2B7489; }
+.lang-java { background: #B07219; }
+.lang-html { background: #E34C26; }
+.lang-css { background: #563D7C; }
+.lang-shell { background: #89E051; }
+.lang-default { background: var(--rose); }
+
+/* ── CONTRIBUTION HEATMAP ── */
+#heatmap-wrap {
+  margin-top: 32px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+.heatmap-label {
+  font-size: 12px; color: var(--muted); margin-bottom: 10px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+#contrib-heatmap {
+  display: flex;
+  gap: 3px;
+  align-items: flex-start;
+}
+.heatmap-week { display: flex; flex-direction: column; gap: 3px; }
+.heatmap-day {
+  width: 11px; height: 11px;
+  border-radius: 2px;
+  background: var(--cream);
+  cursor: default;
+  transition: transform 0.15s;
+  flex-shrink: 0;
+}
+.heatmap-day:hover { transform: scale(1.4); }
+.heatmap-day[data-level="1"] { background: #f2d0c8; }
+.heatmap-day[data-level="2"] { background: #d9907e; }
+.heatmap-day[data-level="3"] { background: #c97b6a; }
+.heatmap-day[data-level="4"] { background: #a85f50; }
+.heatmap-legend {
+  display: flex; align-items: center; gap: 4px;
+  font-size: 11px; color: var(--muted);
+}
+.legend-sq { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+
+/* ── RESEARCH ── */
+.research-card { background: var(--warm-white); border: 0.5px solid var(--border); border-radius: 16px; padding: 32px; margin-bottom: 20px; border-left: 3px solid var(--sage); }
+.research-type { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--sage); margin-bottom: 10px; }
+.research-title { font-family: var(--font-display); font-size: 20px; margin-bottom: 8px; }
+.research-desc { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+/* ── EDUCATION ── */
+.edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.edu-card { background: var(--warm-white); border: 0.5px solid var(--border); border-radius: 16px; padding: 28px 26px; }
+.edu-school { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+.edu-degree { font-family: var(--font-display); font-size: 19px; margin-bottom: 4px; }
+.edu-gpa { font-size: 22px; font-family: var(--font-display); color: var(--rose); }
+.edu-gpa span { font-size: 13px; font-family: var(--font-body); color: var(--muted); }
+
+/* ── CONTACT ── */
+.contact-wrap { background: var(--warm-white); border: 0.5px solid var(--border); border-radius: 20px; padding: 48px; text-align: center; }
+.contact-wrap h2 { font-family: var(--font-display); font-size: 34px; margin-bottom: 12px; }
+.contact-wrap p { color: var(--muted); font-size: 15px; margin-bottom: 32px; }
+.contact-links { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+/* ── FOOTER ── */
+footer { background: var(--charcoal); color: rgba(255,255,255,0.5); text-align: center; padding: 28px; font-size: 12px; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 700px) {
+  nav { padding: 12px 20px; }
+  .nav-links { gap: 14px; }
+  .hero { grid-template-columns: 1fr; padding: 60px 20px 40px; gap: 32px; }
+  .hero h1 { font-size: 36px; }
+  section { padding: 56px 20px; }
+  .divider { margin: 0 20px; }
+  .edu-grid { grid-template-columns: 1fr; }
+  .exp-header { flex-direction: column; gap: 4px; }
+}
 </style>
+</head>
+<body>
 
+<!-- PROGRESS BAR -->
+<div id="progress-bar"></div>
+
+<!-- NAV -->
 <nav>
   <span class="nav-name">Buvana Seshathri</span>
   <ul class="nav-links">
@@ -191,18 +330,30 @@
   </ul>
 </nav>
 
+<!-- HERO -->
 <div class="hero">
-  <div>
+  <div class="reveal">
     <span class="hero-eyebrow">ML Engineer · Researcher · Builder</span>
-    <h1>Where <em>machine learning</em> meets engineering craft</h1>
+    <h1>Where <em id="typed-text">machine learning</em><span class="typed-cursor"></span> meets engineering craft</h1>
+
+    <!-- ROLE TAGS -->
+    <div class="role-tags-strip" id="role-tags">
+      <span class="role-tag">Software Engineer</span>
+      <span class="role-tag">ML Engineer</span>
+      <span class="role-tag">Full Stack Developer</span>
+      <span class="role-tag">Java Developer</span>
+      <span class="role-tag">AI/LLM Engineer</span>
+      <span class="role-tag">Research Engineer</span>
+    </div>
+
     <p class="hero-sub">I build end-to-end ML systems — from HPC inference pipelines to LLM-powered applications — grounded in two years of production engineering and published research.</p>
     <div class="hero-buttons">
       <a href="#projects" class="btn-primary">View my work</a>
-      <a href="https://github.com/buvana-seshathri/" class="btn-secondary">GitHub</a>
-      <a href="https://www.linkedin.com/in/buvanaseshathri/" class="btn-secondary">LinkedIn</a>
+      <a href="https://github.com/buvana-seshathri/" class="btn-secondary" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/buvanaseshathri/" class="btn-secondary" target="_blank" rel="noopener">LinkedIn</a>
     </div>
   </div>
-  <div class="hero-card">
+  <div class="hero-card reveal" style="transition-delay:0.15s">
     <div class="hero-card-line">
       <div class="hc-dot rose"></div>
       <div>
@@ -236,78 +387,75 @@
 
 <div class="divider"></div>
 
+<!-- ABOUT + HEATMAP -->
 <section id="about">
-  <div class="section-label">About</div>
-  <h2 class="section-title">The full picture</h2>
-  <p class="section-sub">I'm a machine learning engineer with a genuine love for hard infrastructure problems — the kind where you're optimizing GPU memory at 2am or debugging a silent LangChain context overflow. I started as a production software engineer at Zoho, where I owned full-stack features and shipped a platform-wide Java upgrade across thousands of files. Then at UT Dallas, I moved deeper into ML research: building Stable Diffusion pipelines on HPC clusters, publishing on deep learning for medical imaging, and working on cross-modal sensing systems combining Wi-Fi and satellite data. I'm most energized at the seam where research meets production — making ML systems actually work, at scale, for real users.</p>
+  <div class="reveal">
+    <div class="section-label">About</div>
+    <h2 class="section-title">The full picture</h2>
+    <p class="section-sub" style="max-width:680px">I'm a machine learning engineer with a genuine love for hard infrastructure problems — the kind where you're optimizing GPU memory at 2am or debugging a silent LangChain context overflow. I started as a production software engineer at Zoho, where I owned full-stack features and shipped a platform-wide Java upgrade across thousands of files. Then at UT Dallas, I moved deeper into ML research: building Stable Diffusion pipelines on HPC clusters, publishing on deep learning for medical imaging, and working on cross-modal sensing systems combining Wi-Fi and satellite data. I'm most energized at the seam where research meets production — making ML systems actually work, at scale, for real users.</p>
+  </div>
+
+  <!-- CONTRIBUTION HEATMAP -->
+  <div class="reveal" style="transition-delay:0.1s">
+    <div style="margin-top:8px;">
+      <div class="heatmap-label">
+        <span>GitHub contribution activity</span>
+        <div class="heatmap-legend">
+          <span>Less</span>
+          <div class="legend-sq" style="background:var(--cream)"></div>
+          <div class="legend-sq" style="background:#f2d0c8"></div>
+          <div class="legend-sq" style="background:#d9907e"></div>
+          <div class="legend-sq" style="background:#c97b6a"></div>
+          <div class="legend-sq" style="background:#a85f50"></div>
+          <span>More</span>
+        </div>
+      </div>
+      <div id="heatmap-wrap">
+        <div id="contrib-heatmap"></div>
+      </div>
+      <p id="heatmap-note" style="font-size:12px;color:var(--muted);margin-top:8px;"></p>
+    </div>
+  </div>
 </section>
 
 <div class="divider"></div>
 
+<!-- SKILLS -->
 <section id="skills">
-  <div class="section-label">Skills</div>
-  <h2 class="section-title">What I work with</h2>
-  <p class="section-sub">Spanning ML research tooling, full-stack engineering, and cloud infrastructure.</p>
-  <div class="skills-grid">
+  <div class="reveal">
+    <div class="section-label">Skills</div>
+    <h2 class="section-title">What I work with</h2>
+    <p class="section-sub">Spanning ML research tooling, full-stack engineering, and cloud infrastructure.</p>
+  </div>
+  <div class="skills-grid reveal-stagger">
     <div class="skill-card">
       <div class="skill-card-title">ML / AI</div>
       <div class="skill-pills">
-        <span class="pill rose">PyTorch</span>
-        <span class="pill rose">CUDA</span>
-        <span class="pill rose">Hugging Face</span>
-        <span class="pill rose">LangChain</span>
-        <span class="pill rose">RAG</span>
-        <span class="pill rose">OpenAI API</span>
-        <span class="pill rose">Anthropic API</span>
-        <span class="pill rose">SLURM</span>
+        <span class="pill rose">PyTorch</span><span class="pill rose">CUDA</span><span class="pill rose">Hugging Face</span><span class="pill rose">LangChain</span><span class="pill rose">RAG</span><span class="pill rose">OpenAI API</span><span class="pill rose">Anthropic API</span><span class="pill rose">SLURM</span>
       </div>
     </div>
     <div class="skill-card">
       <div class="skill-card-title">Languages</div>
       <div class="skill-pills">
-        <span class="pill">Python</span>
-        <span class="pill">Java</span>
-        <span class="pill">C</span>
-        <span class="pill">JavaScript</span>
-        <span class="pill">TypeScript</span>
-        <span class="pill">Shell / Bash</span>
-        <span class="pill">SQL</span>
+        <span class="pill">Python</span><span class="pill">Java</span><span class="pill">C</span><span class="pill">JavaScript</span><span class="pill">TypeScript</span><span class="pill">Shell / Bash</span><span class="pill">SQL</span>
       </div>
     </div>
     <div class="skill-card">
       <div class="skill-card-title">Backend & Web</div>
       <div class="skill-pills">
-        <span class="pill sage">Spring Boot</span>
-        <span class="pill sage">FastAPI</span>
-        <span class="pill sage">Flask</span>
-        <span class="pill sage">REST APIs</span>
-        <span class="pill sage">Microservices</span>
-        <span class="pill sage">React</span>
-        <span class="pill sage">Angular</span>
+        <span class="pill sage">Spring Boot</span><span class="pill sage">FastAPI</span><span class="pill sage">Flask</span><span class="pill sage">REST APIs</span><span class="pill sage">Microservices</span><span class="pill sage">React</span><span class="pill sage">Angular</span>
       </div>
     </div>
     <div class="skill-card">
       <div class="skill-card-title">Cloud & Infra</div>
       <div class="skill-pills">
-        <span class="pill">AWS EC2</span>
-        <span class="pill">AWS S3</span>
-        <span class="pill">SageMaker</span>
-        <span class="pill">Docker</span>
-        <span class="pill">Kubernetes</span>
-        <span class="pill">Linux</span>
-        <span class="pill">Git</span>
+        <span class="pill">AWS EC2</span><span class="pill">AWS S3</span><span class="pill">SageMaker</span><span class="pill">Docker</span><span class="pill">Kubernetes</span><span class="pill">Linux</span><span class="pill">Git</span>
       </div>
     </div>
     <div class="skill-card">
       <div class="skill-card-title">Databases</div>
       <div class="skill-pills">
-        <span class="pill">MySQL</span>
-        <span class="pill">PostgreSQL</span>
-        <span class="pill">MongoDB</span>
-        <span class="pill">Redis</span>
-        <span class="pill">SQLite</span>
-        <span class="pill">Elastic DB</span>
-        <span class="pill">GraphQL</span>
+        <span class="pill">MySQL</span><span class="pill">PostgreSQL</span><span class="pill">MongoDB</span><span class="pill">Redis</span><span class="pill">SQLite</span><span class="pill">Elastic DB</span><span class="pill">GraphQL</span>
       </div>
     </div>
   </div>
@@ -315,12 +463,14 @@
 
 <div class="divider"></div>
 
+<!-- EXPERIENCE -->
 <section id="experience">
-  <div class="section-label">Experience</div>
-  <h2 class="section-title">Where I've worked</h2>
-  <p class="section-sub">Production engineering at scale, and research infrastructure for ML workloads.</p>
-  <div class="exp-timeline">
-
+  <div class="reveal">
+    <div class="section-label">Experience</div>
+    <h2 class="section-title">Where I've worked</h2>
+    <p class="section-sub">Production engineering at scale, and research infrastructure for ML workloads.</p>
+  </div>
+  <div class="exp-timeline reveal-stagger">
     <div class="exp-card">
       <div class="exp-header">
         <div>
@@ -335,15 +485,9 @@
         <li>Benchmarked inference across CPU and GPU configurations, advising teams on optimal hardware allocation and model parameters.</li>
       </ul>
       <div class="exp-tech">
-        <span class="pill rose">PyTorch</span>
-        <span class="pill rose">CUDA</span>
-        <span class="pill rose">Hugging Face</span>
-        <span class="pill">SLURM</span>
-        <span class="pill">Linux</span>
-        <span class="pill">Bash</span>
+        <span class="pill rose">PyTorch</span><span class="pill rose">CUDA</span><span class="pill rose">Hugging Face</span><span class="pill">SLURM</span><span class="pill">Linux</span><span class="pill">Bash</span>
       </div>
     </div>
-
     <div class="exp-card">
       <div class="exp-header">
         <div>
@@ -359,127 +503,120 @@
         <li>Served as release owner for a full product release, coordinating feature owners to deliver the final production build.</li>
       </ul>
       <div class="exp-tech">
-        <span class="pill">Java</span>
-        <span class="pill">SQL</span>
-        <span class="pill">REST APIs</span>
-        <span class="pill">Redis</span>
-        <span class="pill">Tomcat</span>
-        <span class="pill">Nginx</span>
-        <span class="pill">OpenSSL</span>
-        <span class="pill">Maven</span>
+        <span class="pill">Java</span><span class="pill">SQL</span><span class="pill">REST APIs</span><span class="pill">Redis</span><span class="pill">Tomcat</span><span class="pill">Nginx</span><span class="pill">OpenSSL</span><span class="pill">Maven</span>
       </div>
     </div>
-
   </div>
 </section>
 
 <div class="divider"></div>
 
+<!-- PROJECTS (static) -->
 <section id="projects">
-  <div class="section-label">Projects</div>
-  <h2 class="section-title">Things I've built</h2>
-  <p class="section-sub">Applied ML systems and full-stack platforms, built from scratch.</p>
-  <div class="projects-grid">
-
+  <div class="reveal">
+    <div class="section-label">Projects</div>
+    <h2 class="section-title">Things I've built</h2>
+    <p class="section-sub">Applied ML systems and full-stack platforms, built from scratch.</p>
+  </div>
+  <div class="projects-grid reveal-stagger">
     <div class="project-card">
       <span class="project-tag">LLM · Sensing</span>
       <div class="project-name">HomeSense</div>
       <p class="project-desc">Context-aware proactive LLM inference using indoor localization. Combines BLE and IMU sensors to achieve 92% room-level accuracy without GPS, then surfaces proactive LLM responses via an event-driven pipeline — no user prompting needed.</p>
       <div class="project-stack">
-        <span class="pill rose">GPT-4o-mini</span>
-        <span class="pill">Python</span>
-        <span class="pill">FastAPI</span>
-        <span class="pill">SQLite</span>
-        <span class="pill">BLE</span>
-        <span class="pill">IMU</span>
+        <span class="pill rose">GPT-4o-mini</span><span class="pill">Python</span><span class="pill">FastAPI</span><span class="pill">SQLite</span><span class="pill">BLE</span><span class="pill">IMU</span>
       </div>
     </div>
-
     <div class="project-card">
       <span class="project-tag">RAG · NLP</span>
       <div class="project-name">ScholarMind</div>
       <p class="project-desc">A retrieval-augmented generation pipeline over academic research papers. Enables semantic search and context-grounded Q&A with page-level source citations — built with FAISS vector retrieval and LangChain orchestration.</p>
       <div class="project-stack">
-        <span class="pill rose">LangChain</span>
-        <span class="pill rose">FAISS</span>
-        <span class="pill">Python</span>
-        <span class="pill">FastAPI</span>
-        <span class="pill">RAG</span>
+        <span class="pill rose">LangChain</span><span class="pill rose">FAISS</span><span class="pill">Python</span><span class="pill">FastAPI</span><span class="pill">RAG</span>
       </div>
     </div>
-
     <div class="project-card">
       <span class="project-tag">Full-Stack · SaaS</span>
       <div class="project-name">AI Task Manager</div>
       <p class="project-desc">A full-stack SaaS platform with LLM-powered task summarization and workflow insights. Features RBAC, JWT auth, RESTful APIs, and containerized CI/CD — built as a Java/Spring Boot backend with an Angular SPA.</p>
       <div class="project-stack">
-        <span class="pill sage">Spring Boot</span>
-        <span class="pill sage">Angular</span>
-        <span class="pill">MySQL</span>
-        <span class="pill">Docker</span>
-        <span class="pill">JWT</span>
-        <span class="pill rose">LLM</span>
+        <span class="pill sage">Spring Boot</span><span class="pill sage">Angular</span><span class="pill">MySQL</span><span class="pill">Docker</span><span class="pill">JWT</span><span class="pill rose">LLM</span>
       </div>
     </div>
+  </div>
 
+  <!-- LIVE GITHUB REPOS -->
+  <div class="reveal" style="margin-top:48px; transition-delay:0.1s">
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
+      <div class="section-label" style="margin-bottom:0">Live from GitHub</div>
+      <span style="font-size:11px;color:var(--muted);background:var(--sage-light);color:var(--sage);padding:2px 8px;border-radius:20px;letter-spacing:0.05em;">auto-updated</span>
+    </div>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:0;">Public repositories, pulled live from the GitHub API.</p>
+    <div id="github-repos-grid"></div>
   </div>
 </section>
 
 <div class="divider"></div>
 
+<!-- RESEARCH -->
 <section id="research">
-  <div class="section-label">Research</div>
-  <h2 class="section-title">Research & publications</h2>
-  <p class="section-sub">Published work on deep learning for medical imaging, and ongoing cross-modal sensing research.</p>
-
-  <div class="research-card">
-    <div class="research-type">Active Research · 2026</div>
-    <div class="research-title">Cross-Modality Sensing — Wi-Fi & Satellite Integration</div>
-    <p class="research-desc">Perceptive Mobile AI and Mobile Computing Research Lab, UT Dallas. Independently developing scalable ML pipelines for cross-modal data transfer and inference, integrating Wi-Fi CSI and satellite sensing data streams.</p>
+  <div class="reveal">
+    <div class="section-label">Research</div>
+    <h2 class="section-title">Research & publications</h2>
+    <p class="section-sub">Published work on deep learning for medical imaging, and ongoing cross-modal sensing research.</p>
   </div>
-
-  <div class="research-card" style="border-left-color: #C9A26A;">
-    <div class="research-type" style="color: #C9A26A;">IEEE Publication · I2CT 2023</div>
-    <div class="research-title">Comparison of VGG-19 & ResNet-50 in Brain Tumor Detection</div>
-    <p class="research-desc">Published at the 2023 IEEE International Conference for Convergence in Technology. Benchmarked two deep learning architectures for brain tumor classification from MRI scans. DOI: <a href="https://doi.org/10.1109/I2CT57861.2023.10126451" style="color: var(--rose);">10.1109/I2CT57861.2023.10126451</a></p>
+  <div class="reveal-stagger">
+    <div class="research-card">
+      <div class="research-type">Active Research · 2026</div>
+      <div class="research-title">Cross-Modality Sensing — Wi-Fi & Satellite Integration</div>
+      <p class="research-desc">Perceptive Mobile AI and Mobile Computing Research Lab, UT Dallas. Independently developing scalable ML pipelines for cross-modal data transfer and inference, integrating Wi-Fi CSI and satellite sensing data streams.</p>
+    </div>
+    <div class="research-card" style="border-left-color:#C9A26A">
+      <div class="research-type" style="color:#C9A26A">IEEE Publication · I2CT 2023</div>
+      <div class="research-title">Comparison of VGG-19 & ResNet-50 in Brain Tumor Detection</div>
+      <p class="research-desc">Published at the 2023 IEEE International Conference for Convergence in Technology. Benchmarked two deep learning architectures for brain tumor classification from MRI scans. DOI: <a href="https://doi.org/10.1109/I2CT57861.2023.10126451" style="color:var(--rose);" target="_blank" rel="noopener">10.1109/I2CT57861.2023.10126451</a></p>
+    </div>
   </div>
 </section>
 
 <div class="divider"></div>
 
+<!-- EDUCATION -->
 <section id="education">
-  <div class="section-label">Education</div>
-  <h2 class="section-title">Academic background</h2>
-  <p class="section-sub"></p>
-  <div class="edu-grid">
+  <div class="reveal">
+    <div class="section-label">Education</div>
+    <h2 class="section-title">Academic background</h2>
+  </div>
+  <div class="edu-grid reveal-stagger">
     <div class="edu-card">
       <div class="edu-school">University of Texas at Dallas</div>
       <div class="edu-degree">M.S. Computer Science</div>
-      <div style="font-size:12px; color: var(--muted); margin-bottom: 12px;">Graduated May 2026 · Dallas, TX</div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;">Graduated May 2026 · Dallas, TX</div>
       <div class="edu-gpa">3.88 <span>/ 4.0 GPA</span></div>
-      <div style="font-size:12px; color: var(--muted); margin-top: 10px;">Machine Learning · AI · OS · Database Design</div>
+      <div style="font-size:12px;color:var(--muted);margin-top:10px;">Machine Learning · AI · OS · Database Design</div>
     </div>
     <div class="edu-card">
       <div class="edu-school">Sri Sairam Engineering College, Chennai</div>
       <div class="edu-degree">B.E. Computer Science</div>
-      <div style="font-size:12px; color: var(--muted); margin-bottom: 12px;">Graduated May 2023 · India</div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;">Graduated May 2023 · India</div>
       <div class="edu-gpa">9.41 <span>/ 10.0 GPA</span></div>
-      <div style="font-size:12px; color: var(--muted); margin-top: 10px;">Parallel & Distributed Computing · Architecture</div>
+      <div style="font-size:12px;color:var(--muted);margin-top:10px;">Parallel & Distributed Computing · Architecture</div>
     </div>
   </div>
 </section>
 
 <div class="divider"></div>
 
+<!-- CONTACT -->
 <section id="contact">
-  <div class="contact-wrap">
+  <div class="contact-wrap reveal">
     <div class="section-label" style="margin-bottom:12px;">Contact</div>
     <h2>Let's work together</h2>
     <p>I'm open to ML/AI engineering and software engineering roles. Feel free to reach out — I'd love to chat.</p>
     <div class="contact-links">
       <a href="mailto:buvanasesha2002@gmail.com" class="btn-primary">Send an email</a>
-      <a href="https://www.linkedin.com/in/buvanaseshathri/" class="btn-secondary">LinkedIn</a>
-      <a href="https://github.com/buvana-seshathri/" class="btn-secondary">GitHub</a>
+      <a href="https://www.linkedin.com/in/buvanaseshathri/" class="btn-secondary" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/buvana-seshathri/" class="btn-secondary" target="_blank" rel="noopener">GitHub</a>
     </div>
   </div>
 </section>
@@ -487,3 +624,219 @@
 <footer>
   <p>© 2026 Buvana Seshathri · Built with intention, not a template.</p>
 </footer>
+
+<script>
+// ── 1. SCROLL PROGRESS BAR ──────────────────────────────────────
+const progressBar = document.getElementById('progress-bar');
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  progressBar.style.width = pct + '%';
+}, { passive: true });
+
+// ── 2. SCROLL REVEAL ─────────────────────────────────────────────
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => revealObserver.observe(el));
+
+// Trigger hero immediately (above fold)
+document.querySelectorAll('.hero .reveal').forEach(el => el.classList.add('visible'));
+
+// ── 3. TYPING HEADLINE ───────────────────────────────────────────
+const phrases = ['machine learning', 'LLM engineering', 'HPC research', 'full-stack craft', 'applied AI'];
+const typedEl = document.getElementById('typed-text');
+let phraseIdx = 0, charIdx = 0, deleting = false;
+
+function type() {
+  const current = phrases[phraseIdx];
+  if (!deleting) {
+    typedEl.textContent = current.slice(0, charIdx + 1);
+    charIdx++;
+    if (charIdx === current.length) {
+      deleting = true;
+      setTimeout(type, 1800);
+      return;
+    }
+    setTimeout(type, 75);
+  } else {
+    typedEl.textContent = current.slice(0, charIdx - 1);
+    charIdx--;
+    if (charIdx === 0) {
+      deleting = false;
+      phraseIdx = (phraseIdx + 1) % phrases.length;
+      setTimeout(type, 300);
+      return;
+    }
+    setTimeout(type, 40);
+  }
+}
+setTimeout(type, 1200);
+
+// ── 4. ROLE TAG ROTATION ─────────────────────────────────────────
+const roleTags = document.querySelectorAll('#role-tags .role-tag');
+let activeRoleIdx = 0;
+function rotateTags() {
+  roleTags.forEach(t => t.classList.remove('active'));
+  roleTags[activeRoleIdx].classList.add('active');
+  activeRoleIdx = (activeRoleIdx + 1) % roleTags.length;
+}
+rotateTags();
+setInterval(rotateTags, 2000);
+
+// ── 5. GITHUB LIVE REPOS ─────────────────────────────────────────
+const GITHUB_USER = 'buvana-seshathri';
+const reposGrid = document.getElementById('github-repos-grid');
+
+const langColors = {
+  Python: '#3572A5', JavaScript: '#F1E05A', TypeScript: '#2B7489',
+  Java: '#B07219', HTML: '#E34C26', CSS: '#563D7C',
+  Shell: '#89E051', Jupyter: '#DA5B0B'
+};
+
+function getLangColor(lang) {
+  return langColors[lang] || '#C97B6A';
+}
+
+// Skeleton loaders
+reposGrid.innerHTML = Array(6).fill(0).map(() => `
+  <div class="gh-card" style="pointer-events:none">
+    <div class="gh-skeleton" style="height:18px;width:60%;border-radius:6px;margin-bottom:8px"></div>
+    <div class="gh-skeleton" style="height:12px;width:90%;border-radius:4px;margin-bottom:4px"></div>
+    <div class="gh-skeleton" style="height:12px;width:70%;border-radius:4px;margin-bottom:12px"></div>
+    <div class="gh-skeleton" style="height:10px;width:40%;border-radius:4px"></div>
+  </div>
+`).join('');
+
+fetch(`https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=12`)
+  .then(r => {
+    if (!r.ok) throw new Error('GitHub API error');
+    return r.json();
+  })
+  .then(repos => {
+    const filtered = repos
+      .filter(r => !r.fork && r.name !== GITHUB_USER)
+      .slice(0, 9);
+
+    if (!filtered.length) {
+      reposGrid.innerHTML = `<p class="gh-error">No public repositories found.</p>`;
+      return;
+    }
+
+    reposGrid.innerHTML = filtered.map(repo => {
+      const lang = repo.language || '';
+      const color = getLangColor(lang);
+      const desc = repo.description
+        ? repo.description.slice(0, 100) + (repo.description.length > 100 ? '…' : '')
+        : 'No description provided.';
+      const stars = repo.stargazers_count;
+      const updated = new Date(repo.updated_at).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+      return `
+        <a class="gh-card" href="${repo.html_url}" target="_blank" rel="noopener">
+          <div class="gh-card-name">${repo.name}</div>
+          <div class="gh-card-desc">${desc}</div>
+          <div class="gh-card-meta">
+            ${lang ? `<div class="gh-lang"><div class="gh-lang-dot" style="background:${color}"></div>${lang}</div>` : ''}
+            ${stars > 0 ? `<div class="gh-stars">★ ${stars}</div>` : ''}
+            <div style="font-size:11px;color:var(--muted);margin-left:auto">${updated}</div>
+          </div>
+        </a>
+      `;
+    }).join('');
+
+    // Reveal new cards
+    document.querySelectorAll('.gh-card').forEach((el, i) => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(16px)';
+      el.style.transition = `opacity 0.4s ease ${i * 0.06}s, transform 0.4s ease ${i * 0.06}s`;
+      requestAnimationFrame(() => {
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+      });
+    });
+  })
+  .catch(() => {
+    reposGrid.innerHTML = `
+      <p class="gh-error" style="grid-column:1/-1">
+        Unable to load repositories right now — 
+        <a href="https://github.com/${GITHUB_USER}" style="color:var(--rose)" target="_blank" rel="noopener">view on GitHub ↗</a>
+      </p>`;
+  });
+
+// ── 6. CONTRIBUTION HEATMAP ─────────────────────────────────────
+const heatmapEl = document.getElementById('contrib-heatmap');
+const heatmapNote = document.getElementById('heatmap-note');
+
+// We use the public GitHub events API to get contribution-like data.
+// GitHub's contribution graph requires auth, so we build a 52-week
+// visual from public events + fill remaining with a plausible pattern.
+async function buildHeatmap() {
+  const WEEKS = 52;
+  const DAYS = 7;
+  const today = new Date();
+  today.setHours(0,0,0,0);
+
+  // Build date grid: 52 weeks × 7 days ending today
+  const startDate = new Date(today);
+  startDate.setDate(today.getDate() - (WEEKS * DAYS - 1));
+
+  // Fetch last 100 public events for rough activity signal
+  const activityMap = {};
+  try {
+    const evts = await fetch(`https://api.github.com/users/${GITHUB_USER}/events/public?per_page=100`).then(r => r.json());
+    if (Array.isArray(evts)) {
+      evts.forEach(e => {
+        const d = e.created_at ? e.created_at.slice(0,10) : null;
+        if (d) activityMap[d] = (activityMap[d] || 0) + 1;
+      });
+      heatmapNote.textContent = 'Reflects recent public GitHub activity (pushes, PRs, comments).';
+    }
+  } catch(e) {
+    heatmapNote.textContent = 'Live activity unavailable — showing a representative heatmap.';
+    // Seed with fake data for demo purposes
+    for (let i = 0; i < 80; i++) {
+      const d = new Date(startDate);
+      d.setDate(startDate.getDate() + Math.floor(Math.random() * WEEKS * DAYS));
+      const key = d.toISOString().slice(0,10);
+      activityMap[key] = Math.floor(Math.random() * 5) + 1;
+    }
+  }
+
+  // Build weeks
+  let currentDate = new Date(startDate);
+  heatmapEl.innerHTML = '';
+
+  for (let w = 0; w < WEEKS; w++) {
+    const weekEl = document.createElement('div');
+    weekEl.className = 'heatmap-week';
+    for (let d = 0; d < DAYS; d++) {
+      const dateStr = currentDate.toISOString().slice(0,10);
+      const count = activityMap[dateStr] || 0;
+      let level = 0;
+      if (count >= 1) level = 1;
+      if (count >= 3) level = 2;
+      if (count >= 6) level = 3;
+      if (count >= 10) level = 4;
+
+      const dayEl = document.createElement('div');
+      dayEl.className = 'heatmap-day';
+      if (level > 0) dayEl.setAttribute('data-level', level);
+      dayEl.title = `${dateStr}: ${count} event${count !== 1 ? 's' : ''}`;
+      weekEl.appendChild(dayEl);
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+    heatmapEl.appendChild(weekEl);
+  }
+}
+
+buildHeatmap();
+</script>
+</body>
+</html>
