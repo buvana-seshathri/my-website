@@ -849,6 +849,9 @@ footer { background: var(--charcoal); color: rgba(255,255,255,0.5); text-align: 
   <p>© 2026 Buvana Seshathri · Built with intention, not a template.</p>
 </footer>
 
+<!-- GARDEN TOOLTIP — body-level so position:fixed never breaks from ancestor transforms -->
+<div id="garden-tooltip"></div>
+
 <script>
 // ── DARK MODE ─────────────────────────────────────────────────────
 const themeBtn = document.getElementById('theme-toggle');
@@ -1344,8 +1347,6 @@ gameCanvas.addEventListener('touchmove', e => {
   gctx.fillText('Press Start to play ↑', GW/2, GH/2);
 })();
 </script>
-<!-- GARDEN TOOLTIP — at body level so position:fixed is never broken by ancestor transforms -->
-<div id="garden-tooltip"></div>
 
 </body>
 </html>
