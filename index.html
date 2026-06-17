@@ -65,6 +65,44 @@ body.dark .pill.sage { background: var(--sage-light); color: var(--sage); }
 }
 #theme-toggle:hover { background: var(--rose-light); border-color: var(--rose); }
 
+/* ── THEME HINT BUBBLE ── */
+#theme-hint {
+  position: absolute;
+  right: 56px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--rose);
+  color: white;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 5px 10px 5px 9px;
+  border-radius: 20px;
+  white-space: nowrap;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  animation: hint-bob 2s ease-in-out infinite;
+  box-shadow: 0 2px 10px rgba(201,123,106,0.35);
+  transition: opacity 0.4s;
+}
+/* little tail pointing right toward button */
+#theme-hint::after {
+  content: '';
+  position: absolute;
+  right: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 5px solid transparent;
+  border-left-color: var(--rose);
+  border-right: 0;
+}
+#theme-hint.hidden { opacity: 0; pointer-events: none; }
+@keyframes hint-bob {
+  0%, 100% { transform: translateY(-50%) translateX(0); }
+  50%       { transform: translateY(-50%) translateX(-4px); }
+}
+
 /* ── SCROLL PROGRESS BAR ── */
 #progress-bar {
   position: fixed;
@@ -88,6 +126,8 @@ nav {
   border-bottom: 0.5px solid var(--border);
   display: flex; align-items: center; justify-content: space-between;
   padding: 14px 48px;
+  /* needed so the hint bubble positions relative to nav */
+  isolation: isolate;
 }
 .nav-name { font-family: var(--font-display); font-size: 20px; color: var(--charcoal); }
 .nav-links { display: flex; gap: 28px; list-style: none; }
@@ -470,6 +510,7 @@ footer { background: var(--charcoal); color: rgba(255,255,255,0.5); text-align: 
     <li><a href="#contact">Contact</a></li>
   </ul>
   <button id="theme-toggle" title="Toggle dark mode" aria-label="Toggle dark mode">☀️</button>
+  <span id="theme-hint">✨ click for surprise</span>
 </nav>
 
 <!-- HERO -->
@@ -794,7 +835,18 @@ function applyTheme(dark) {
   localStorage.setItem('theme', dark ? 'dark' : 'light');
   // Garden re-render is handled by the overriding applyTheme below after garden loads
 }
-themeBtn.addEventListener('click', () => applyTheme(!isDark()));
+themeBtn.addEventListener('click', () => {
+  applyTheme(!isDark());
+  // Dismiss hint on first click, remember it
+  const hint = document.getElementById('theme-hint');
+  if (hint) { hint.classList.add('hidden'); setTimeout(() => hint.remove(), 500); }
+  localStorage.setItem('theme-hint-seen', '1');
+});
+// If already clicked before, hide hint immediately
+if (localStorage.getItem('theme-hint-seen')) {
+  const hint = document.getElementById('theme-hint');
+  if (hint) hint.remove();
+}
 // Init from saved preference
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme === 'dark') applyTheme(true);
@@ -1031,8 +1083,17 @@ function showTip(e, text, color) {
 }
 function moveTip(e) {
   const x = e.clientX ?? e.pageX, y = e.clientY ?? e.pageY;
-  gardenTooltip.style.left = (x + 12) + 'px';
-  gardenTooltip.style.top = (y - 36) + 'px';
+  const tw = gardenTooltip.offsetWidth || 160;
+  const th = gardenTooltip.offsetHeight || 40;
+  const vw = window.innerWidth, vh = window.innerHeight;
+  // Place above-right by default; flip left if too close to right edge, flip below if too close to top
+  let left = x + 14;
+  let top  = y - th - 10;
+  if (left + tw > vw - 8) left = x - tw - 14;
+  if (top < 8) top = y + 18;
+  if (left < 8) left = 8;
+  gardenTooltip.style.left = left + 'px';
+  gardenTooltip.style.top  = top  + 'px';
 }
 function hideTip() { gardenTooltip.classList.remove('show'); }
 document.addEventListener('mousemove', e => { if (gardenTooltip.classList.contains('show')) moveTip(e); });
