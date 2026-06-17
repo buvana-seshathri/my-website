@@ -54,16 +54,6 @@ body.dark .typed-cursor { background: var(--rose); }
 body.dark .pill { background: var(--cream); color: var(--charcoal); }
 body.dark .pill.rose { background: var(--rose-light); color: var(--rose); }
 body.dark .pill.sage { background: var(--sage-light); color: var(--sage); }
-body.dark .heatmap-day { background: #1C2330; }
-body.dark .heatmap-day[data-level="1"] { background: #0e4429; }
-body.dark .heatmap-day[data-level="2"] { background: #006d32; }
-body.dark .heatmap-day[data-level="3"] { background: #26a641; }
-body.dark .heatmap-day[data-level="4"] { background: #39d353; }
-body.dark .legend-sq-0 { background: #1C2330; }
-body.dark .legend-sq-1 { background: #0e4429; }
-body.dark .legend-sq-2 { background: #006d32; }
-body.dark .legend-sq-3 { background: #26a641; }
-body.dark .legend-sq-4 { background: #39d353; }
 
 /* ── THEME TOGGLE BTN ── */
 #theme-toggle {
@@ -290,26 +280,112 @@ section { padding: 60px 48px; max-width: 1000px; margin: 0 auto; }
 .lang-shell { background: #89E051; }
 .lang-default { background: var(--rose); }
 
-/* ── CITY HEATMAP ── */
-#city-heatmap-wrap {
+/* ── CODE GARDEN ── */
+#garden-wrap {
   margin-top: 28px;
   background: var(--warm-white);
   border: 0.5px solid var(--border);
   border-radius: 16px;
-  padding: 24px 28px;
+  padding: 24px 28px 20px;
+  position: relative;
 }
-.heatmap-header {
+.garden-header {
   display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 16px;
+  margin-bottom: 16px; flex-wrap: wrap; gap: 8px;
 }
-.heatmap-header-left { font-size: 13px; color: var(--muted); }
-.heatmap-legend {
-  display: flex; align-items: center; gap: 4px;
+.garden-title { font-size: 13px; font-weight: 500; color: var(--charcoal); }
+.garden-sub { font-size: 12px; color: var(--muted); }
+.garden-legend {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+}
+.garden-legend-item {
+  display: flex; align-items: center; gap: 5px;
   font-size: 11px; color: var(--muted);
 }
-.legend-sq { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
-#city-canvas { width: 100%; height: 160px; display: block; border-radius: 8px; }
-#heatmap-note { font-size: 12px; color: var(--muted); margin-top: 10px; }
+.garden-legend-dot {
+  width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+}
+#garden-bed {
+  display: flex;
+  gap: 4px;
+  align-items: flex-end;
+  overflow-x: auto;
+  padding-bottom: 24px;
+  padding-top: 8px;
+  position: relative;
+  min-height: 120px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--cream) transparent;
+}
+.garden-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+  position: relative;
+}
+.garden-col-label {
+  position: absolute;
+  bottom: -20px;
+  font-size: 9px;
+  color: var(--muted);
+  white-space: nowrap;
+  text-align: center;
+}
+/* The plant cell */
+.plant {
+  width: 14px;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+/* Soil dot always at bottom */
+.soil {
+  width: 14px; height: 5px;
+  border-radius: 3px;
+  background: var(--cream);
+  flex-shrink: 0;
+  transition: background 0.3s;
+}
+body.dark .soil { background: #1C2330; }
+/* Stem */
+.stem {
+  width: 2px;
+  background: #7A9E8E;
+  border-radius: 1px;
+  transition: height 0.6s cubic-bezier(0.34,1.56,0.64,1);
+  flex-shrink: 0;
+}
+body.dark .stem { background: #3FB950; }
+/* Bloom on top */
+.bloom {
+  font-size: 12px;
+  line-height: 1;
+  transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), opacity 0.4s;
+  flex-shrink: 0;
+}
+/* Tooltip */
+#garden-tooltip {
+  position: fixed;
+  background: var(--charcoal);
+  color: white;
+  font-size: 12px;
+  padding: 7px 12px;
+  border-radius: 8px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  z-index: 9999;
+  white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  max-width: 220px;
+}
+#garden-tooltip.show { opacity: 1; }
+#heatmap-note { font-size: 12px; color: var(--muted); margin-top: 12px; }
 
 /* ── GAME ── */
 #game-section {
@@ -461,22 +537,18 @@ footer { background: var(--charcoal); color: rgba(255,255,255,0.5); text-align: 
     <p class="section-sub" style="max-width:680px">I'm a machine learning engineer with a genuine love for hard infrastructure problems — the kind where you're optimizing GPU memory at 2am or debugging a silent LangChain context overflow. I started as a production software engineer at Zoho, where I owned full-stack features and shipped a platform-wide Java upgrade across thousands of files. Then at UT Dallas, I moved deeper into ML research: building Stable Diffusion pipelines on HPC clusters, publishing on deep learning for medical imaging, and working on cross-modal sensing systems combining Wi-Fi and satellite data. I'm most energized at the seam where research meets production — making ML systems actually work, at scale, for real users.</p>
   </div>
 
-  <!-- CITY HEATMAP -->
+  <!-- CODE GARDEN -->
   <div class="reveal" style="transition-delay:0.1s">
-    <div id="city-heatmap-wrap">
-      <div class="heatmap-header">
-        <span class="heatmap-header-left">GitHub activity · last 2 months</span>
-        <div class="heatmap-legend">
-          <span>Less</span>
-          <div class="legend-sq" id="lsq0"></div>
-          <div class="legend-sq" id="lsq1"></div>
-          <div class="legend-sq" id="lsq2"></div>
-          <div class="legend-sq" id="lsq3"></div>
-          <div class="legend-sq" id="lsq4"></div>
-          <span>More</span>
+    <div id="garden-wrap">
+      <div class="garden-header">
+        <div>
+          <span class="garden-title">Code Garden</span>
+          <span class="garden-sub">· last 60 days of GitHub activity</span>
         </div>
+        <div class="garden-legend" id="garden-legend"></div>
       </div>
-      <canvas id="city-canvas" height="160"></canvas>
+      <div id="garden-bed"></div>
+      <div id="garden-tooltip"></div>
       <p id="heatmap-note"></p>
     </div>
   </div>
@@ -720,28 +792,14 @@ function applyTheme(dark) {
   document.body.classList.toggle('dark', dark);
   themeBtn.textContent = dark ? '🌙' : '☀️';
   localStorage.setItem('theme', dark ? 'dark' : 'light');
-  updateLegendColors();
-  if (cityDrawn) drawCity(cityData);
+  // Garden re-render is handled by the overriding applyTheme below after garden loads
 }
-themeBtn.addEventListener('click', () => {
-  applyTheme(!isDark());
-  if (cityDrawn) drawCity(cityData);
-});
+themeBtn.addEventListener('click', () => applyTheme(!isDark()));
 // Init from saved preference
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme === 'dark') applyTheme(true);
 
-function updateLegendColors() {
-  const dark = isDark();
-  const cols = dark
-    ? ['#1C2330','#0e4429','#006d32','#26a641','#39d353']
-    : ['#EDE8DE','#f2d0c8','#d9907e','#c97b6a','#a85f50'];
-  ['lsq0','lsq1','lsq2','lsq3','lsq4'].forEach((id,i) => {
-    const el = document.getElementById(id);
-    if (el) el.style.background = cols[i];
-  });
-}
-updateLegendColors();
+function updateLegendColors() {} // no-op placeholder — garden handles its own legend
 
 // ── 1. SCROLL PROGRESS BAR ───────────────────────────────────────
 const progressBar = document.getElementById('progress-bar');
@@ -757,12 +815,34 @@ const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add('visible');
-      revealObserver.unobserve(entry.target);
+    } else {
+      // Remove on exit so it re-animates when scrolled back into view
+      entry.target.classList.remove('visible');
     }
   });
 }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => revealObserver.observe(el));
-document.querySelectorAll('.hero .reveal').forEach(el => el.classList.add('visible'));
+// Hero is above fold — mark visible immediately and don't unmark it
+document.querySelectorAll('.hero .reveal').forEach(el => {
+  el.classList.add('visible');
+  el.dataset.heroEl = '1';
+});
+// Override: keep hero elements permanently visible
+const _origDisconnect = revealObserver.observe.bind(revealObserver);
+const heroEls = new Set(document.querySelectorAll('.hero .reveal'));
+const revealObserver2 = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (heroEls.has(entry.target)) return; // never un-reveal hero
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    } else {
+      entry.target.classList.remove('visible');
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+// Re-observe everything with the hero-aware observer
+revealObserver.disconnect();
+document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => revealObserver2.observe(el));
 
 // ── 3. TYPING HEADLINE ───────────────────────────────────────────
 const phrases = ['machine learning', 'LLM engineering', 'HPC research', 'full-stack systems', 'applied AI', 'published research'];
@@ -822,239 +902,212 @@ fetch(`https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=1
   })
   .catch(() => { reposGrid.innerHTML = `<p class="gh-error" style="grid-column:1/-1">Unable to load repositories — <a href="https://github.com/${GITHUB_USER}" style="color:var(--rose)" target="_blank" rel="noopener">view on GitHub ↗</a></p>`; });
 
-// ── 6. CITY BUILDING HEATMAP ─────────────────────────────────────
-const canvas = document.getElementById('city-canvas');
-const ctx = canvas.getContext('2d');
-const heatmapNote = document.getElementById('heatmap-note');
-let cityData = [];
-let cityDrawn = false;
+// ── 6. CODE GARDEN ───────────────────────────────────────────────
+const gardenBed = document.getElementById('garden-bed');
+const gardenTooltip = document.getElementById('garden-tooltip');
+const gardenNote = document.getElementById('heatmap-note');
+const gardenLegend = document.getElementById('garden-legend');
 
-function getLevelColors() {
-  if (isDark()) return ['#1C2330','#0e4429','#006d32','#26a641','#39d353'];
-  return ['#EDE8DE','#f2d0c8','#d9907e','#c97b6a','#a85f50'];
+// Plant species per repo type / language — emoji + color
+const PLANT_SPECIES = [
+  { emoji: '🌸', color: '#C97B6A', darkColor: '#FF7B9C', label: 'Python' },
+  { emoji: '🌻', color: '#C9A26A', darkColor: '#F9C74F', label: 'JavaScript' },
+  { emoji: '🌿', color: '#7A9E8E', darkColor: '#3FB950', label: 'Java' },
+  { emoji: '🌷', color: '#D9907E', darkColor: '#FF9EBC', label: 'TypeScript' },
+  { emoji: '🍀', color: '#8BAE7A', darkColor: '#56D364', label: 'Shell/Other' },
+  { emoji: '🌵', color: '#6B9E7A', darkColor: '#2EA043', label: 'HTML/CSS' },
+];
+
+// Map repo language → species index
+function langToSpecies(lang) {
+  if (!lang) return 4;
+  const l = lang.toLowerCase();
+  if (l === 'python') return 0;
+  if (l === 'javascript') return 1;
+  if (l === 'java') return 2;
+  if (l === 'typescript') return 3;
+  if (l === 'html' || l === 'css') return 5;
+  return 4;
 }
 
-function drawCity(data) {
-  // Resize canvas to match display
-  const dpr = window.devicePixelRatio || 1;
-  const displayW = canvas.parentElement.clientWidth - 56;
-  canvas.width = displayW * dpr;
-  canvas.height = 160 * dpr;
-  canvas.style.width = displayW + 'px';
-  canvas.style.height = '160px';
-  ctx.scale(dpr, dpr);
+let gardenData = []; // [{date, count, level, repos:[{name,lang}]}]
 
-  const W = displayW, H = 160;
+function buildLegend(speciesUsed) {
+  gardenLegend.innerHTML = [...speciesUsed].map(si => {
+    const s = PLANT_SPECIES[si];
+    return `<div class="garden-legend-item"><span>${s.emoji}</span><span>${s.label}</span></div>`;
+  }).join('');
+}
+
+function renderGarden(data) {
+  gardenBed.innerHTML = '';
+  const speciesUsed = new Set();
   const dark = isDark();
-  const cols = getLevelColors();
-  const skyTop = dark ? '#0a0f1a' : '#fdf6f0';
-  const skyBot = dark ? '#101726' : '#f5efe8';
-  const groundCol = dark ? '#161B22' : '#EDE8DE';
-  const starCol = 'rgba(255,255,255,0.7)';
-  const moonCol = '#fffde7';
-  const sunCol = '#FFCC66';
 
-  // Sky gradient
-  const skyGrad = ctx.createLinearGradient(0,0,0,H);
-  skyGrad.addColorStop(0, skyTop);
-  skyGrad.addColorStop(1, skyBot);
-  ctx.fillStyle = skyGrad;
-  ctx.fillRect(0,0,W,H);
+  data.forEach((day, i) => {
+    const col = document.createElement('div');
+    col.className = 'garden-col';
 
-  // Sun or Moon
-  if (dark) {
-    // Stars
-    ctx.fillStyle = starCol;
-    for (let i=0;i<40;i++) {
-      const sx = (Math.sin(i*137.5)*0.5+0.5)*W;
-      const sy = (Math.cos(i*97.3)*0.5+0.5)*(H*0.55);
-      const sr = i%5===0 ? 1.2 : 0.6;
-      ctx.beginPath(); ctx.arc(sx,sy,sr,0,Math.PI*2); ctx.fill();
-    }
-    // Moon
-    ctx.fillStyle = moonCol;
-    ctx.shadowColor='rgba(255,253,231,0.4)'; ctx.shadowBlur=12;
-    ctx.beginPath(); ctx.arc(W*0.82, 28, 14, 0, Math.PI*2); ctx.fill();
-    ctx.fillStyle = skyTop;
-    ctx.beginPath(); ctx.arc(W*0.82+6, 24, 11, 0, Math.PI*2); ctx.fill();
-    ctx.shadowBlur = 0;
-  } else {
-    // Flowers scattered
-    function drawFlower(fx, fy, size, col) {
-      const petalCols = ['#F2D0C8','#D9907E','#C97B6A','#FFCBA4','#EAF2EE'];
-      for (let p=0;p<5;p++) {
-        const angle = (p/5)*Math.PI*2;
-        ctx.fillStyle = petalCols[p%petalCols.length];
-        ctx.beginPath();
-        ctx.ellipse(fx+Math.cos(angle)*size*0.9, fy+Math.sin(angle)*size*0.9, size*0.7, size*0.4, angle, 0, Math.PI*2);
-        ctx.fill();
-      }
-      ctx.fillStyle = '#F9E4A0';
-      ctx.beginPath(); ctx.arc(fx,fy,size*0.5,0,Math.PI*2); ctx.fill();
-    }
-    // Sun
-    ctx.fillStyle = sunCol;
-    ctx.shadowColor='rgba(255,200,80,0.3)'; ctx.shadowBlur=18;
-    ctx.beginPath(); ctx.arc(W*0.85, 30, 18, 0, Math.PI*2); ctx.fill();
-    ctx.shadowBlur=0;
-    // Subtle clouds
-    function drawCloud(cx,cy,r) {
-      ctx.fillStyle='rgba(255,255,255,0.55)';
-      [[-r*0.5,r*0.2,r*0.7],[0,0,r],[r*0.5,r*0.2,r*0.7]].forEach(([ox,oy,cr])=>{
-        ctx.beginPath(); ctx.arc(cx+ox,cy+oy,cr,0,Math.PI*2); ctx.fill();
-      });
-    }
-    drawCloud(W*0.25, 22, 10);
-    drawCloud(W*0.55, 18, 8);
-    // Flowers in sky band
-    [[W*0.05,38],[W*0.18,32],[W*0.42,40],[W*0.65,35],[W*0.78,40]].forEach(([fx,fy]) => drawFlower(fx,fy,5));
-  }
-
-  // Ground strip
-  const groundY = H - 22;
-  ctx.fillStyle = groundCol;
-  ctx.fillRect(0, groundY, W, H - groundY);
-
-  // Draw buildings from data
-  const DAYS = 60;
-  const buildingW = Math.floor((W - 20) / DAYS) - 1;
-  const gap = 1;
-
-  data.forEach((entry, i) => {
-    const level = entry.level;
-    const x = 10 + i * (buildingW + gap);
-    const maxFloors = 8;
-    const floors = level === 0 ? 1 : Math.max(2, level * 2 + Math.floor(i % 2));
-    const floorH = 8;
-    const bH = floors * floorH;
-    const bY = groundY - bH;
-
-    // Building body
-    const bCol = dark
-      ? ['#1C2330','#1f2d3d','#243040','#293550','#2e3a5c'][Math.min(level,4)]
-      : ['#EDE8DE','#e0d5c8','#d4c8b8','#c8baa8','#bca898'][Math.min(level,4)];
-    ctx.fillStyle = bCol;
-    ctx.fillRect(x, bY, buildingW, bH);
-
-    // Roof
-    ctx.fillStyle = dark ? '#3a4a5c' : '#c0b0a0';
-    ctx.fillRect(x, bY, buildingW, 3);
-
-    // Windows / lights
-    for (let f = 1; f < floors; f++) {
-      for (let win = 0; win < Math.min(2, Math.floor(buildingW/4)); win++) {
-        const wx = x + 2 + win * (Math.floor(buildingW/2));
-        const wy = bY + f * floorH - floorH + 2;
-        const ww = Math.max(2, Math.floor(buildingW/2) - 2);
-        const wh = floorH - 3;
-        if (dark) {
-          // Window lights in dark mode
-          const lit = level > 0 && (Math.sin(i*7.3+f*3.1+win)>0);
-          if (lit) {
-            ctx.fillStyle = ['#fffde7','#fff9c4','#ffeb3b','#c8e6c9','#b3e5fc'][level % 5];
-            ctx.shadowColor = ctx.fillStyle; ctx.shadowBlur = 4;
-          } else {
-            ctx.fillStyle = '#0d1117'; ctx.shadowBlur = 0;
-          }
-        } else {
-          // Flower / cute deco in windows in light mode
-          if (level >= 2) {
-            ctx.fillStyle = 'rgba(201,123,106,0.25)';
-          } else {
-            ctx.fillStyle = 'rgba(255,255,255,0.4)';
-          }
-          ctx.shadowBlur = 0;
-        }
-        ctx.fillRect(wx, wy, ww, wh);
-        ctx.shadowBlur = 0;
-      }
+    // Date label every ~7 days or on 1st of month
+    const d = new Date(day.date);
+    const showLabel = d.getDate() === 1 || i === 0 || i === data.length - 1;
+    if (showLabel) {
+      const lbl = document.createElement('div');
+      lbl.className = 'garden-col-label';
+      lbl.textContent = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      col.appendChild(lbl);
     }
 
-    // Light mode: tiny flower on rooftop for active days
-    if (!dark && level >= 2) {
-      const fx = x + buildingW/2, fy = bY - 4;
-      const petalCols = ['#F2D0C8','#D9907E','#7A9E8E','#FFCBA4'];
-      for (let p=0;p<4;p++) {
-        const a=(p/4)*Math.PI*2;
-        ctx.fillStyle=petalCols[p];
-        ctx.beginPath(); ctx.ellipse(fx+Math.cos(a)*2.5,fy+Math.sin(a)*2.5,2.2,1.2,a,0,Math.PI*2); ctx.fill();
-      }
-      ctx.fillStyle='#F9E4A0'; ctx.beginPath(); ctx.arc(fx,fy,1.5,0,Math.PI*2); ctx.fill();
+    if (day.count === 0) {
+      // Empty soil
+      const plant = document.createElement('div');
+      plant.className = 'plant';
+      plant.innerHTML = `<div class="soil"></div>`;
+      plant.title = `${day.date}: no activity`;
+      plant.addEventListener('mouseenter', e => showTip(e, `${day.date}\nNo commits`, null));
+      plant.addEventListener('mouseleave', hideTip);
+      col.appendChild(plant);
+    } else {
+      // Pick species from most-used repo or fallback
+      const si = day.repos && day.repos.length ? langToSpecies(day.repos[0].lang) : 0;
+      speciesUsed.add(si);
+      const species = PLANT_SPECIES[si];
+      const stemH = Math.min(4 + day.level * 14, 72); // 4–72px
+      const bloomSize = day.level >= 3 ? '14px' : day.level === 2 ? '12px' : '10px';
+
+      const plant = document.createElement('div');
+      plant.className = 'plant';
+      plant.style.cursor = 'pointer';
+
+      const bloom = document.createElement('div');
+      bloom.className = 'bloom';
+      bloom.textContent = species.emoji;
+      bloom.style.fontSize = bloomSize;
+      bloom.style.opacity = '0';
+      bloom.style.transform = 'scale(0.3)';
+
+      const stem = document.createElement('div');
+      stem.className = 'stem';
+      stem.style.height = '0px';
+
+      const soil = document.createElement('div');
+      soil.className = 'soil';
+      soil.style.background = dark ? species.darkColor + '44' : species.color + '44';
+
+      plant.appendChild(bloom);
+      plant.appendChild(stem);
+      plant.appendChild(soil);
+
+      // Animate in with stagger
+      setTimeout(() => {
+        stem.style.height = stemH + 'px';
+        bloom.style.opacity = '1';
+        bloom.style.transform = 'scale(1)';
+      }, 30 + i * 12);
+
+      const repoNames = day.repos ? day.repos.map(r => r.name).join(', ') : '';
+      const tipText = `${day.date}\n${day.count} event${day.count !== 1 ? 's' : ''}${repoNames ? '\n' + repoNames : ''}`;
+      plant.addEventListener('mouseenter', e => showTip(e, tipText, species.color));
+      plant.addEventListener('mouseleave', hideTip);
+      plant.addEventListener('touchstart', e => { e.preventDefault(); showTip(e.touches[0], tipText, species.color); }, { passive: false });
+      plant.addEventListener('touchend', hideTip);
+
+      col.appendChild(plant);
     }
 
-    // Dark mode: antenna on tallest buildings
-    if (dark && level >= 3) {
-      ctx.strokeStyle = '#3fb950'; ctx.lineWidth = 1;
-      ctx.beginPath(); ctx.moveTo(x+buildingW/2, bY); ctx.lineTo(x+buildingW/2, bY-8); ctx.stroke();
-      ctx.fillStyle='#39d353'; ctx.shadowColor='#39d353'; ctx.shadowBlur=4;
-      ctx.beginPath(); ctx.arc(x+buildingW/2, bY-8, 1.5, 0, Math.PI*2); ctx.fill();
-      ctx.shadowBlur=0;
-    }
+    gardenBed.appendChild(col);
   });
 
-  // Date labels — just month names
-  ctx.fillStyle = isDark() ? 'rgba(139,148,158,0.8)' : 'rgba(107,100,96,0.7)';
-  ctx.font = '9px DM Sans, sans-serif';
-  ctx.textAlign = 'left';
-  const today2 = new Date(); today2.setHours(0,0,0,0);
-  const startD = new Date(today2); startD.setDate(today2.getDate() - 59);
-  let lastMonth = -1;
-  data.forEach((_, i) => {
-    const d = new Date(startD); d.setDate(startD.getDate() + i);
-    if (d.getDate() === 1 || (i === 0)) {
-      const mn = d.toLocaleDateString('en-US',{month:'short'});
-      if (d.getMonth() !== lastMonth) {
-        ctx.fillText(mn, 10 + i*(buildingW+gap), H - 6);
-        lastMonth = d.getMonth();
-      }
-    }
-  });
-
-  cityDrawn = true;
+  buildLegend(speciesUsed);
+  // Scroll to end (most recent)
+  setTimeout(() => { gardenBed.scrollLeft = gardenBed.scrollWidth; }, 100);
 }
 
-async function buildCityHeatmap() {
+function showTip(e, text, color) {
+  const lines = text.split('\n');
+  gardenTooltip.innerHTML = `<strong style="color:${color||'#fff'}">${lines[0]}</strong>${lines.slice(1).map(l=>`<br>${l}`).join('')}`;
+  gardenTooltip.classList.add('show');
+  moveTip(e);
+}
+function moveTip(e) {
+  const x = e.clientX ?? e.pageX, y = e.clientY ?? e.pageY;
+  gardenTooltip.style.left = (x + 12) + 'px';
+  gardenTooltip.style.top = (y - 36) + 'px';
+}
+function hideTip() { gardenTooltip.classList.remove('show'); }
+document.addEventListener('mousemove', e => { if (gardenTooltip.classList.contains('show')) moveTip(e); });
+
+async function buildGarden() {
   const DAYS = 60;
   const today = new Date(); today.setHours(0,0,0,0);
+  // Start from exactly 59 days ago so we get today as day 60
   const startDate = new Date(today); startDate.setDate(today.getDate() - (DAYS - 1));
-  const activityMap = {};
+
+  const activityMap = {}; // date → {count, repos:[{name,lang}]}
 
   try {
-    const evts = await fetch(`https://api.github.com/users/${GITHUB_USER}/events/public?per_page=100`).then(r => r.json());
+    const [evts, repos] = await Promise.all([
+      fetch(`https://api.github.com/users/${GITHUB_USER}/events/public?per_page=100`).then(r => r.json()),
+      fetch(`https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=30`).then(r => r.json()),
+    ]);
+    // Build repo→lang map
+    const repoLangMap = {};
+    if (Array.isArray(repos)) repos.forEach(r => { repoLangMap[r.name] = r.language || ''; });
+
     if (Array.isArray(evts)) {
       evts.forEach(e => {
-        const d = e.created_at ? e.created_at.slice(0,10) : null;
-        if (d) activityMap[d] = (activityMap[d] || 0) + 1;
+        const dateStr = e.created_at ? e.created_at.slice(0,10) : null;
+        if (!dateStr) return;
+        if (!activityMap[dateStr]) activityMap[dateStr] = { count: 0, repos: [] };
+        activityMap[dateStr].count++;
+        const rname = e.repo?.name?.split('/')[1];
+        if (rname) {
+          const existing = activityMap[dateStr].repos.find(r => r.name === rname);
+          if (!existing) activityMap[dateStr].repos.push({ name: rname, lang: repoLangMap[rname] || '' });
+        }
       });
-      heatmapNote.textContent = 'Reflects recent public GitHub activity (pushes, PRs, comments). Building height = activity level.';
+      gardenNote.textContent = 'Each plant represents a day of GitHub activity. Height = commits. Species = repository language. Hover for details.';
     }
-  } catch(e) {
-    heatmapNote.textContent = 'Live data unavailable — showing a representative city.';
-    for (let i=0;i<40;i++) {
-      const d=new Date(startDate); d.setDate(startDate.getDate()+Math.floor(Math.random()*DAYS));
-      activityMap[d.toISOString().slice(0,10)] = Math.floor(Math.random()*8)+1;
+  } catch(err) {
+    gardenNote.textContent = 'Live data unavailable — showing a representative garden.';
+    const species = [0,1,2,3,4];
+    for (let i = 0; i < 35; i++) {
+      const d = new Date(startDate);
+      d.setDate(startDate.getDate() + Math.floor(Math.random() * DAYS));
+      const key = d.toISOString().slice(0,10);
+      const si = species[Math.floor(Math.random()*species.length)];
+      if (!activityMap[key]) activityMap[key] = { count: 0, repos: [] };
+      activityMap[key].count += Math.floor(Math.random()*6)+1;
+      activityMap[key].repos.push({ name: 'sample-repo', lang: PLANT_SPECIES[si].label });
     }
   }
 
-  cityData = [];
-  for (let i=0;i<DAYS;i++) {
-    const d=new Date(startDate); d.setDate(startDate.getDate()+i);
+  gardenData = [];
+  for (let i = 0; i < DAYS; i++) {
+    const d = new Date(startDate); d.setDate(startDate.getDate() + i);
     const key = d.toISOString().slice(0,10);
-    const count = activityMap[key]||0;
-    let level=0;
-    if(count>=1)level=1; if(count>=3)level=2; if(count>=6)level=3; if(count>=10)level=4;
-    cityData.push({date:key,count,level});
+    const entry = activityMap[key] || { count: 0, repos: [] };
+    let level = 0;
+    if (entry.count >= 1) level = 1;
+    if (entry.count >= 3) level = 2;
+    if (entry.count >= 6) level = 3;
+    if (entry.count >= 10) level = 4;
+    gardenData.push({ date: key, count: entry.count, level, repos: entry.repos });
   }
 
-  drawCity(cityData);
-  updateLegendColors();
+  renderGarden(gardenData);
 }
 
-buildCityHeatmap();
-window.addEventListener('resize', () => { if(cityDrawn) drawCity(cityData); });
+buildGarden();
+// Re-render garden on theme toggle (colors change)
+function applyTheme(dark) {
+  document.body.classList.toggle('dark', dark);
+  themeBtn.textContent = dark ? '🌙' : '☀️';
+  localStorage.setItem('theme', dark ? 'dark' : 'light');
+  if (gardenData.length) renderGarden(gardenData);
+}
 
-// Redraw city when theme toggles
-// ── 7. MINI GAME — Code Block Drop ───────────────────────────────
+
 const gameCanvas = document.getElementById('game-canvas');
 const gctx = gameCanvas.getContext('2d');
 const startBtn = document.getElementById('game-start-btn');
