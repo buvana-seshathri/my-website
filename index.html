@@ -24,7 +24,56 @@
   --border: rgba(44,40,37,0.12);
   --font-display: 'DM Serif Display', serif;
   --font-body: 'DM Sans', sans-serif;
+  --nav-bg: rgba(250,248,244,0.92);
 }
+
+/* ── DARK / TECH MODE ── */
+body.dark {
+  --ivory: #0D1117;
+  --warm-white: #161B22;
+  --cream: #1C2330;
+  --rose: #58A6FF;
+  --rose-light: rgba(88,166,255,0.12);
+  --rose-mid: #79C0FF;
+  --sage: #3FB950;
+  --sage-light: rgba(63,185,80,0.12);
+  --charcoal: #E6EDF3;
+  --muted: #8B949E;
+  --border: rgba(255,255,255,0.08);
+  --nav-bg: rgba(13,17,23,0.92);
+}
+body.dark .hero-eyebrow { background: rgba(88,166,255,0.15); }
+body.dark .role-tag { background: var(--warm-white); }
+body.dark .role-tag.active, body.dark .role-tag:hover { background: var(--rose-light); color: var(--rose); border-color: var(--rose); }
+body.dark .btn-primary { background: var(--rose); color: #0D1117; }
+body.dark .btn-primary:hover { background: var(--rose-mid); }
+body.dark .btn-secondary { color: var(--charcoal); }
+body.dark nav { background: var(--nav-bg); }
+body.dark footer { background: #010409; }
+body.dark .typed-cursor { background: var(--rose); }
+body.dark .pill { background: var(--cream); color: var(--charcoal); }
+body.dark .pill.rose { background: var(--rose-light); color: var(--rose); }
+body.dark .pill.sage { background: var(--sage-light); color: var(--sage); }
+body.dark .heatmap-day { background: #1C2330; }
+body.dark .heatmap-day[data-level="1"] { background: #0e4429; }
+body.dark .heatmap-day[data-level="2"] { background: #006d32; }
+body.dark .heatmap-day[data-level="3"] { background: #26a641; }
+body.dark .heatmap-day[data-level="4"] { background: #39d353; }
+body.dark .legend-sq-0 { background: #1C2330; }
+body.dark .legend-sq-1 { background: #0e4429; }
+body.dark .legend-sq-2 { background: #006d32; }
+body.dark .legend-sq-3 { background: #26a641; }
+body.dark .legend-sq-4 { background: #39d353; }
+
+/* ── THEME TOGGLE BTN ── */
+#theme-toggle {
+  background: none; border: 0.5px solid var(--border);
+  border-radius: 50%; width: 34px; height: 34px;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  font-size: 16px; transition: background 0.2s, border-color 0.2s;
+  flex-shrink: 0;
+}
+#theme-toggle:hover { background: var(--rose-light); border-color: var(--rose); }
 
 /* ── SCROLL PROGRESS BAR ── */
 #progress-bar {
@@ -44,7 +93,7 @@ body { font-family: var(--font-body); background: var(--ivory); color: var(--cha
 /* ── NAV ── */
 nav {
   position: sticky; top: 0; z-index: 100;
-  background: rgba(250,248,244,0.92);
+  background: var(--nav-bg);
   backdrop-filter: blur(8px);
   border-bottom: 0.5px solid var(--border);
   display: flex; align-items: center; justify-content: space-between;
@@ -161,14 +210,14 @@ nav {
 
 /* ── LAYOUT ── */
 .divider { height: 0.5px; background: var(--border); margin: 0 48px; }
-section { padding: 80px 48px; max-width: 1000px; margin: 0 auto; }
+section { padding: 60px 48px; max-width: 1000px; margin: 0 auto; }
 
 .section-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--rose); font-weight: 500; margin-bottom: 12px; }
 .section-title { font-family: var(--font-display); font-size: 34px; color: var(--charcoal); margin-bottom: 8px; }
-.section-sub { color: var(--muted); font-size: 15px; max-width: 520px; line-height: 1.75; margin-bottom: 48px; }
+.section-sub { color: var(--muted); font-size: 15px; max-width: 520px; line-height: 1.75; margin-bottom: 28px; }
 
 /* ── SKILLS ── */
-.skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+.skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 .skill-card { background: var(--warm-white); border: 0.5px solid var(--border); border-radius: 14px; padding: 20px 22px; }
 .skill-card-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 12px; }
 .skill-pills { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -241,40 +290,56 @@ section { padding: 80px 48px; max-width: 1000px; margin: 0 auto; }
 .lang-shell { background: #89E051; }
 .lang-default { background: var(--rose); }
 
-/* ── CONTRIBUTION HEATMAP ── */
-#heatmap-wrap {
-  margin-top: 32px;
-  overflow-x: auto;
-  padding-bottom: 8px;
+/* ── CITY HEATMAP ── */
+#city-heatmap-wrap {
+  margin-top: 28px;
+  background: var(--warm-white);
+  border: 0.5px solid var(--border);
+  border-radius: 16px;
+  padding: 24px 28px;
 }
-.heatmap-label {
-  font-size: 12px; color: var(--muted); margin-bottom: 10px;
+.heatmap-header {
   display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 16px;
 }
-#contrib-heatmap {
-  display: flex;
-  gap: 3px;
-  align-items: flex-start;
-}
-.heatmap-week { display: flex; flex-direction: column; gap: 3px; }
-.heatmap-day {
-  width: 11px; height: 11px;
-  border-radius: 2px;
-  background: var(--cream);
-  cursor: default;
-  transition: transform 0.15s;
-  flex-shrink: 0;
-}
-.heatmap-day:hover { transform: scale(1.4); }
-.heatmap-day[data-level="1"] { background: #f2d0c8; }
-.heatmap-day[data-level="2"] { background: #d9907e; }
-.heatmap-day[data-level="3"] { background: #c97b6a; }
-.heatmap-day[data-level="4"] { background: #a85f50; }
+.heatmap-header-left { font-size: 13px; color: var(--muted); }
 .heatmap-legend {
   display: flex; align-items: center; gap: 4px;
   font-size: 11px; color: var(--muted);
 }
 .legend-sq { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+#city-canvas { width: 100%; height: 160px; display: block; border-radius: 8px; }
+#heatmap-note { font-size: 12px; color: var(--muted); margin-top: 10px; }
+
+/* ── GAME ── */
+#game-section {
+  max-width: 1000px; margin: 0 auto;
+  padding: 0 48px 80px;
+}
+.game-wrap {
+  background: var(--warm-white);
+  border: 0.5px solid var(--border);
+  border-radius: 20px;
+  padding: 32px;
+  text-align: center;
+}
+.game-wrap h3 { font-family: var(--font-display); font-size: 26px; margin-bottom: 6px; }
+.game-wrap p { color: var(--muted); font-size: 14px; margin-bottom: 20px; }
+#game-canvas {
+  border-radius: 12px;
+  border: 0.5px solid var(--border);
+  background: var(--ivory);
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+}
+.game-controls { margin-top: 16px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+#game-score { font-size: 14px; color: var(--muted); margin-top: 10px; }
+
+@media (max-width:700px) {
+  .skills-grid { grid-template-columns: 1fr 1fr; }
+  #game-section { padding: 0 20px 56px; }
+}
 
 /* ── RESEARCH ── */
 .research-card { background: var(--warm-white); border: 0.5px solid var(--border); border-radius: 16px; padding: 32px; margin-bottom: 20px; border-left: 3px solid var(--sage); }
@@ -328,13 +393,14 @@ footer { background: var(--charcoal); color: rgba(255,255,255,0.5); text-align: 
     <li><a href="#research">Research</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <button id="theme-toggle" title="Toggle dark mode" aria-label="Toggle dark mode">☀️</button>
 </nav>
 
 <!-- HERO -->
 <div class="hero">
   <div class="reveal">
     <span class="hero-eyebrow">ML Engineer · Researcher · Builder</span>
-    <h1>Where <em id="typed-text">machine learning</em><span class="typed-cursor"></span> meets engineering craft</h1>
+    <h1><em id="typed-text">machine learning</em><span class="typed-cursor"></span><br>meets engineering craft</h1>
 
     <!-- ROLE TAGS -->
     <div class="role-tags-strip" id="role-tags">
@@ -395,25 +461,23 @@ footer { background: var(--charcoal); color: rgba(255,255,255,0.5); text-align: 
     <p class="section-sub" style="max-width:680px">I'm a machine learning engineer with a genuine love for hard infrastructure problems — the kind where you're optimizing GPU memory at 2am or debugging a silent LangChain context overflow. I started as a production software engineer at Zoho, where I owned full-stack features and shipped a platform-wide Java upgrade across thousands of files. Then at UT Dallas, I moved deeper into ML research: building Stable Diffusion pipelines on HPC clusters, publishing on deep learning for medical imaging, and working on cross-modal sensing systems combining Wi-Fi and satellite data. I'm most energized at the seam where research meets production — making ML systems actually work, at scale, for real users.</p>
   </div>
 
-  <!-- CONTRIBUTION HEATMAP -->
+  <!-- CITY HEATMAP -->
   <div class="reveal" style="transition-delay:0.1s">
-    <div style="margin-top:8px;">
-      <div class="heatmap-label">
-        <span>GitHub contribution activity</span>
+    <div id="city-heatmap-wrap">
+      <div class="heatmap-header">
+        <span class="heatmap-header-left">GitHub activity · last 2 months</span>
         <div class="heatmap-legend">
           <span>Less</span>
-          <div class="legend-sq" style="background:var(--cream)"></div>
-          <div class="legend-sq" style="background:#f2d0c8"></div>
-          <div class="legend-sq" style="background:#d9907e"></div>
-          <div class="legend-sq" style="background:#c97b6a"></div>
-          <div class="legend-sq" style="background:#a85f50"></div>
+          <div class="legend-sq" id="lsq0"></div>
+          <div class="legend-sq" id="lsq1"></div>
+          <div class="legend-sq" id="lsq2"></div>
+          <div class="legend-sq" id="lsq3"></div>
+          <div class="legend-sq" id="lsq4"></div>
           <span>More</span>
         </div>
       </div>
-      <div id="heatmap-wrap">
-        <div id="contrib-heatmap"></div>
-      </div>
-      <p id="heatmap-note" style="font-size:12px;color:var(--muted);margin-top:8px;"></p>
+      <canvas id="city-canvas" height="160"></canvas>
+      <p id="heatmap-note"></p>
     </div>
   </div>
 </section>
@@ -456,6 +520,12 @@ footer { background: var(--charcoal); color: rgba(255,255,255,0.5); text-align: 
       <div class="skill-card-title">Databases</div>
       <div class="skill-pills">
         <span class="pill">MySQL</span><span class="pill">PostgreSQL</span><span class="pill">MongoDB</span><span class="pill">Redis</span><span class="pill">SQLite</span><span class="pill">Elastic DB</span><span class="pill">GraphQL</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-title">Tools & Practices</div>
+      <div class="skill-pills">
+        <span class="pill">Git</span><span class="pill">GitHub Actions</span><span class="pill">CI/CD</span><span class="pill">JIRA</span><span class="pill">Postman</span><span class="pill">Jupyter</span><span class="pill">VS Code</span>
       </div>
     </div>
   </div>
@@ -621,12 +691,59 @@ footer { background: var(--charcoal); color: rgba(255,255,255,0.5); text-align: 
   </div>
 </section>
 
+<div class="divider"></div>
+
+<!-- MINI GAME -->
+<div id="game-section">
+  <div class="game-wrap reveal">
+    <div class="section-label" style="margin-bottom:8px">Just for fun</div>
+    <h3>Code Block Drop 🧱</h3>
+    <p>Catch the falling code blocks! Use ← → arrow keys or A/D. Don't let them hit the ground.</p>
+    <canvas id="game-canvas" width="480" height="260"></canvas>
+    <div class="game-controls">
+      <button class="btn-primary" id="game-start-btn">Start Game</button>
+      <button class="btn-secondary" id="game-reset-btn" style="display:none">Restart</button>
+    </div>
+    <div id="game-score">Press Start to play · High score: <span id="game-hi">0</span></div>
+  </div>
+</div>
+
 <footer>
   <p>© 2026 Buvana Seshathri · Built with intention, not a template.</p>
 </footer>
 
 <script>
-// ── 1. SCROLL PROGRESS BAR ──────────────────────────────────────
+// ── DARK MODE ─────────────────────────────────────────────────────
+const themeBtn = document.getElementById('theme-toggle');
+const isDark = () => document.body.classList.contains('dark');
+function applyTheme(dark) {
+  document.body.classList.toggle('dark', dark);
+  themeBtn.textContent = dark ? '🌙' : '☀️';
+  localStorage.setItem('theme', dark ? 'dark' : 'light');
+  updateLegendColors();
+  if (cityDrawn) drawCity(cityData);
+}
+themeBtn.addEventListener('click', () => {
+  applyTheme(!isDark());
+  if (cityDrawn) drawCity(cityData);
+});
+// Init from saved preference
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'dark') applyTheme(true);
+
+function updateLegendColors() {
+  const dark = isDark();
+  const cols = dark
+    ? ['#1C2330','#0e4429','#006d32','#26a641','#39d353']
+    : ['#EDE8DE','#f2d0c8','#d9907e','#c97b6a','#a85f50'];
+  ['lsq0','lsq1','lsq2','lsq3','lsq4'].forEach((id,i) => {
+    const el = document.getElementById(id);
+    if (el) el.style.background = cols[i];
+  });
+}
+updateLegendColors();
+
+// ── 1. SCROLL PROGRESS BAR ───────────────────────────────────────
 const progressBar = document.getElementById('progress-bar');
 window.addEventListener('scroll', () => {
   const scrollTop = window.scrollY;
@@ -644,37 +761,24 @@ const revealObserver = new IntersectionObserver((entries) => {
     }
   });
 }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-
 document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => revealObserver.observe(el));
-
-// Trigger hero immediately (above fold)
 document.querySelectorAll('.hero .reveal').forEach(el => el.classList.add('visible'));
 
 // ── 3. TYPING HEADLINE ───────────────────────────────────────────
-const phrases = ['machine learning', 'LLM engineering', 'HPC research', 'full-stack craft', 'applied AI'];
+const phrases = ['machine learning', 'LLM engineering', 'HPC research', 'full-stack systems', 'applied AI', 'published research'];
 const typedEl = document.getElementById('typed-text');
 let phraseIdx = 0, charIdx = 0, deleting = false;
-
 function type() {
   const current = phrases[phraseIdx];
   if (!deleting) {
     typedEl.textContent = current.slice(0, charIdx + 1);
     charIdx++;
-    if (charIdx === current.length) {
-      deleting = true;
-      setTimeout(type, 1800);
-      return;
-    }
+    if (charIdx === current.length) { deleting = true; setTimeout(type, 1800); return; }
     setTimeout(type, 75);
   } else {
     typedEl.textContent = current.slice(0, charIdx - 1);
     charIdx--;
-    if (charIdx === 0) {
-      deleting = false;
-      phraseIdx = (phraseIdx + 1) % phrases.length;
-      setTimeout(type, 300);
-      return;
-    }
+    if (charIdx === 0) { deleting = false; phraseIdx = (phraseIdx + 1) % phrases.length; setTimeout(type, 300); return; }
     setTimeout(type, 40);
   }
 }
@@ -694,101 +798,227 @@ setInterval(rotateTags, 2000);
 // ── 5. GITHUB LIVE REPOS ─────────────────────────────────────────
 const GITHUB_USER = 'buvana-seshathri';
 const reposGrid = document.getElementById('github-repos-grid');
-
-const langColors = {
-  Python: '#3572A5', JavaScript: '#F1E05A', TypeScript: '#2B7489',
-  Java: '#B07219', HTML: '#E34C26', CSS: '#563D7C',
-  Shell: '#89E051', Jupyter: '#DA5B0B'
-};
-
-function getLangColor(lang) {
-  return langColors[lang] || '#C97B6A';
-}
-
-// Skeleton loaders
-reposGrid.innerHTML = Array(6).fill(0).map(() => `
-  <div class="gh-card" style="pointer-events:none">
-    <div class="gh-skeleton" style="height:18px;width:60%;border-radius:6px;margin-bottom:8px"></div>
-    <div class="gh-skeleton" style="height:12px;width:90%;border-radius:4px;margin-bottom:4px"></div>
-    <div class="gh-skeleton" style="height:12px;width:70%;border-radius:4px;margin-bottom:12px"></div>
-    <div class="gh-skeleton" style="height:10px;width:40%;border-radius:4px"></div>
-  </div>
-`).join('');
-
+const langColors = { Python:'#3572A5',JavaScript:'#F1E05A',TypeScript:'#2B7489',Java:'#B07219',HTML:'#E34C26',CSS:'#563D7C',Shell:'#89E051',Jupyter:'#DA5B0B' };
+const getLangColor = l => langColors[l] || '#C97B6A';
+reposGrid.innerHTML = Array(6).fill(0).map(() => `<div class="gh-card" style="pointer-events:none"><div class="gh-skeleton" style="height:18px;width:60%;border-radius:6px;margin-bottom:8px"></div><div class="gh-skeleton" style="height:12px;width:90%;border-radius:4px;margin-bottom:4px"></div><div class="gh-skeleton" style="height:12px;width:70%;border-radius:4px;margin-bottom:12px"></div><div class="gh-skeleton" style="height:10px;width:40%;border-radius:4px"></div></div>`).join('');
 fetch(`https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=12`)
-  .then(r => {
-    if (!r.ok) throw new Error('GitHub API error');
-    return r.json();
-  })
+  .then(r => { if (!r.ok) throw new Error(); return r.json(); })
   .then(repos => {
-    const filtered = repos
-      .filter(r => !r.fork && r.name !== GITHUB_USER)
-      .slice(0, 9);
-
-    if (!filtered.length) {
-      reposGrid.innerHTML = `<p class="gh-error">No public repositories found.</p>`;
-      return;
-    }
-
+    const filtered = repos.filter(r => !r.fork && r.name !== GITHUB_USER).slice(0, 9);
+    if (!filtered.length) { reposGrid.innerHTML = `<p class="gh-error">No public repositories found.</p>`; return; }
     reposGrid.innerHTML = filtered.map(repo => {
       const lang = repo.language || '';
       const color = getLangColor(lang);
-      const desc = repo.description
-        ? repo.description.slice(0, 100) + (repo.description.length > 100 ? '…' : '')
-        : 'No description provided.';
+      const desc = repo.description ? repo.description.slice(0, 100) + (repo.description.length > 100 ? '…' : '') : 'No description provided.';
       const stars = repo.stargazers_count;
       const updated = new Date(repo.updated_at).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
-      return `
-        <a class="gh-card" href="${repo.html_url}" target="_blank" rel="noopener">
-          <div class="gh-card-name">${repo.name}</div>
-          <div class="gh-card-desc">${desc}</div>
-          <div class="gh-card-meta">
-            ${lang ? `<div class="gh-lang"><div class="gh-lang-dot" style="background:${color}"></div>${lang}</div>` : ''}
-            ${stars > 0 ? `<div class="gh-stars">★ ${stars}</div>` : ''}
-            <div style="font-size:11px;color:var(--muted);margin-left:auto">${updated}</div>
-          </div>
-        </a>
-      `;
+      return `<a class="gh-card" href="${repo.html_url}" target="_blank" rel="noopener"><div class="gh-card-name">${repo.name}</div><div class="gh-card-desc">${desc}</div><div class="gh-card-meta">${lang ? `<div class="gh-lang"><div class="gh-lang-dot" style="background:${color}"></div>${lang}</div>` : ''}${stars > 0 ? `<div class="gh-stars">★ ${stars}</div>` : ''}<div style="font-size:11px;color:var(--muted);margin-left:auto">${updated}</div></div></a>`;
     }).join('');
-
-    // Reveal new cards
     document.querySelectorAll('.gh-card').forEach((el, i) => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(16px)';
-      el.style.transition = `opacity 0.4s ease ${i * 0.06}s, transform 0.4s ease ${i * 0.06}s`;
-      requestAnimationFrame(() => {
-        el.style.opacity = '1';
-        el.style.transform = 'translateY(0)';
-      });
+      el.style.opacity='0'; el.style.transform='translateY(16px)';
+      el.style.transition=`opacity 0.4s ease ${i*0.06}s, transform 0.4s ease ${i*0.06}s`;
+      requestAnimationFrame(() => { el.style.opacity='1'; el.style.transform='translateY(0)'; });
     });
   })
-  .catch(() => {
-    reposGrid.innerHTML = `
-      <p class="gh-error" style="grid-column:1/-1">
-        Unable to load repositories right now — 
-        <a href="https://github.com/${GITHUB_USER}" style="color:var(--rose)" target="_blank" rel="noopener">view on GitHub ↗</a>
-      </p>`;
+  .catch(() => { reposGrid.innerHTML = `<p class="gh-error" style="grid-column:1/-1">Unable to load repositories — <a href="https://github.com/${GITHUB_USER}" style="color:var(--rose)" target="_blank" rel="noopener">view on GitHub ↗</a></p>`; });
+
+// ── 6. CITY BUILDING HEATMAP ─────────────────────────────────────
+const canvas = document.getElementById('city-canvas');
+const ctx = canvas.getContext('2d');
+const heatmapNote = document.getElementById('heatmap-note');
+let cityData = [];
+let cityDrawn = false;
+
+function getLevelColors() {
+  if (isDark()) return ['#1C2330','#0e4429','#006d32','#26a641','#39d353'];
+  return ['#EDE8DE','#f2d0c8','#d9907e','#c97b6a','#a85f50'];
+}
+
+function drawCity(data) {
+  // Resize canvas to match display
+  const dpr = window.devicePixelRatio || 1;
+  const displayW = canvas.parentElement.clientWidth - 56;
+  canvas.width = displayW * dpr;
+  canvas.height = 160 * dpr;
+  canvas.style.width = displayW + 'px';
+  canvas.style.height = '160px';
+  ctx.scale(dpr, dpr);
+
+  const W = displayW, H = 160;
+  const dark = isDark();
+  const cols = getLevelColors();
+  const skyTop = dark ? '#0a0f1a' : '#fdf6f0';
+  const skyBot = dark ? '#101726' : '#f5efe8';
+  const groundCol = dark ? '#161B22' : '#EDE8DE';
+  const starCol = 'rgba(255,255,255,0.7)';
+  const moonCol = '#fffde7';
+  const sunCol = '#FFCC66';
+
+  // Sky gradient
+  const skyGrad = ctx.createLinearGradient(0,0,0,H);
+  skyGrad.addColorStop(0, skyTop);
+  skyGrad.addColorStop(1, skyBot);
+  ctx.fillStyle = skyGrad;
+  ctx.fillRect(0,0,W,H);
+
+  // Sun or Moon
+  if (dark) {
+    // Stars
+    ctx.fillStyle = starCol;
+    for (let i=0;i<40;i++) {
+      const sx = (Math.sin(i*137.5)*0.5+0.5)*W;
+      const sy = (Math.cos(i*97.3)*0.5+0.5)*(H*0.55);
+      const sr = i%5===0 ? 1.2 : 0.6;
+      ctx.beginPath(); ctx.arc(sx,sy,sr,0,Math.PI*2); ctx.fill();
+    }
+    // Moon
+    ctx.fillStyle = moonCol;
+    ctx.shadowColor='rgba(255,253,231,0.4)'; ctx.shadowBlur=12;
+    ctx.beginPath(); ctx.arc(W*0.82, 28, 14, 0, Math.PI*2); ctx.fill();
+    ctx.fillStyle = skyTop;
+    ctx.beginPath(); ctx.arc(W*0.82+6, 24, 11, 0, Math.PI*2); ctx.fill();
+    ctx.shadowBlur = 0;
+  } else {
+    // Flowers scattered
+    function drawFlower(fx, fy, size, col) {
+      const petalCols = ['#F2D0C8','#D9907E','#C97B6A','#FFCBA4','#EAF2EE'];
+      for (let p=0;p<5;p++) {
+        const angle = (p/5)*Math.PI*2;
+        ctx.fillStyle = petalCols[p%petalCols.length];
+        ctx.beginPath();
+        ctx.ellipse(fx+Math.cos(angle)*size*0.9, fy+Math.sin(angle)*size*0.9, size*0.7, size*0.4, angle, 0, Math.PI*2);
+        ctx.fill();
+      }
+      ctx.fillStyle = '#F9E4A0';
+      ctx.beginPath(); ctx.arc(fx,fy,size*0.5,0,Math.PI*2); ctx.fill();
+    }
+    // Sun
+    ctx.fillStyle = sunCol;
+    ctx.shadowColor='rgba(255,200,80,0.3)'; ctx.shadowBlur=18;
+    ctx.beginPath(); ctx.arc(W*0.85, 30, 18, 0, Math.PI*2); ctx.fill();
+    ctx.shadowBlur=0;
+    // Subtle clouds
+    function drawCloud(cx,cy,r) {
+      ctx.fillStyle='rgba(255,255,255,0.55)';
+      [[-r*0.5,r*0.2,r*0.7],[0,0,r],[r*0.5,r*0.2,r*0.7]].forEach(([ox,oy,cr])=>{
+        ctx.beginPath(); ctx.arc(cx+ox,cy+oy,cr,0,Math.PI*2); ctx.fill();
+      });
+    }
+    drawCloud(W*0.25, 22, 10);
+    drawCloud(W*0.55, 18, 8);
+    // Flowers in sky band
+    [[W*0.05,38],[W*0.18,32],[W*0.42,40],[W*0.65,35],[W*0.78,40]].forEach(([fx,fy]) => drawFlower(fx,fy,5));
+  }
+
+  // Ground strip
+  const groundY = H - 22;
+  ctx.fillStyle = groundCol;
+  ctx.fillRect(0, groundY, W, H - groundY);
+
+  // Draw buildings from data
+  const DAYS = 60;
+  const buildingW = Math.floor((W - 20) / DAYS) - 1;
+  const gap = 1;
+
+  data.forEach((entry, i) => {
+    const level = entry.level;
+    const x = 10 + i * (buildingW + gap);
+    const maxFloors = 8;
+    const floors = level === 0 ? 1 : Math.max(2, level * 2 + Math.floor(i % 2));
+    const floorH = 8;
+    const bH = floors * floorH;
+    const bY = groundY - bH;
+
+    // Building body
+    const bCol = dark
+      ? ['#1C2330','#1f2d3d','#243040','#293550','#2e3a5c'][Math.min(level,4)]
+      : ['#EDE8DE','#e0d5c8','#d4c8b8','#c8baa8','#bca898'][Math.min(level,4)];
+    ctx.fillStyle = bCol;
+    ctx.fillRect(x, bY, buildingW, bH);
+
+    // Roof
+    ctx.fillStyle = dark ? '#3a4a5c' : '#c0b0a0';
+    ctx.fillRect(x, bY, buildingW, 3);
+
+    // Windows / lights
+    for (let f = 1; f < floors; f++) {
+      for (let win = 0; win < Math.min(2, Math.floor(buildingW/4)); win++) {
+        const wx = x + 2 + win * (Math.floor(buildingW/2));
+        const wy = bY + f * floorH - floorH + 2;
+        const ww = Math.max(2, Math.floor(buildingW/2) - 2);
+        const wh = floorH - 3;
+        if (dark) {
+          // Window lights in dark mode
+          const lit = level > 0 && (Math.sin(i*7.3+f*3.1+win)>0);
+          if (lit) {
+            ctx.fillStyle = ['#fffde7','#fff9c4','#ffeb3b','#c8e6c9','#b3e5fc'][level % 5];
+            ctx.shadowColor = ctx.fillStyle; ctx.shadowBlur = 4;
+          } else {
+            ctx.fillStyle = '#0d1117'; ctx.shadowBlur = 0;
+          }
+        } else {
+          // Flower / cute deco in windows in light mode
+          if (level >= 2) {
+            ctx.fillStyle = 'rgba(201,123,106,0.25)';
+          } else {
+            ctx.fillStyle = 'rgba(255,255,255,0.4)';
+          }
+          ctx.shadowBlur = 0;
+        }
+        ctx.fillRect(wx, wy, ww, wh);
+        ctx.shadowBlur = 0;
+      }
+    }
+
+    // Light mode: tiny flower on rooftop for active days
+    if (!dark && level >= 2) {
+      const fx = x + buildingW/2, fy = bY - 4;
+      const petalCols = ['#F2D0C8','#D9907E','#7A9E8E','#FFCBA4'];
+      for (let p=0;p<4;p++) {
+        const a=(p/4)*Math.PI*2;
+        ctx.fillStyle=petalCols[p];
+        ctx.beginPath(); ctx.ellipse(fx+Math.cos(a)*2.5,fy+Math.sin(a)*2.5,2.2,1.2,a,0,Math.PI*2); ctx.fill();
+      }
+      ctx.fillStyle='#F9E4A0'; ctx.beginPath(); ctx.arc(fx,fy,1.5,0,Math.PI*2); ctx.fill();
+    }
+
+    // Dark mode: antenna on tallest buildings
+    if (dark && level >= 3) {
+      ctx.strokeStyle = '#3fb950'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(x+buildingW/2, bY); ctx.lineTo(x+buildingW/2, bY-8); ctx.stroke();
+      ctx.fillStyle='#39d353'; ctx.shadowColor='#39d353'; ctx.shadowBlur=4;
+      ctx.beginPath(); ctx.arc(x+buildingW/2, bY-8, 1.5, 0, Math.PI*2); ctx.fill();
+      ctx.shadowBlur=0;
+    }
   });
 
-// ── 6. CONTRIBUTION HEATMAP ─────────────────────────────────────
-const heatmapEl = document.getElementById('contrib-heatmap');
-const heatmapNote = document.getElementById('heatmap-note');
+  // Date labels — just month names
+  ctx.fillStyle = isDark() ? 'rgba(139,148,158,0.8)' : 'rgba(107,100,96,0.7)';
+  ctx.font = '9px DM Sans, sans-serif';
+  ctx.textAlign = 'left';
+  const today2 = new Date(); today2.setHours(0,0,0,0);
+  const startD = new Date(today2); startD.setDate(today2.getDate() - 59);
+  let lastMonth = -1;
+  data.forEach((_, i) => {
+    const d = new Date(startD); d.setDate(startD.getDate() + i);
+    if (d.getDate() === 1 || (i === 0)) {
+      const mn = d.toLocaleDateString('en-US',{month:'short'});
+      if (d.getMonth() !== lastMonth) {
+        ctx.fillText(mn, 10 + i*(buildingW+gap), H - 6);
+        lastMonth = d.getMonth();
+      }
+    }
+  });
 
-// We use the public GitHub events API to get contribution-like data.
-// GitHub's contribution graph requires auth, so we build a 52-week
-// visual from public events + fill remaining with a plausible pattern.
-async function buildHeatmap() {
-  const WEEKS = 52;
-  const DAYS = 7;
-  const today = new Date();
-  today.setHours(0,0,0,0);
+  cityDrawn = true;
+}
 
-  // Build date grid: 52 weeks × 7 days ending today
-  const startDate = new Date(today);
-  startDate.setDate(today.getDate() - (WEEKS * DAYS - 1));
-
-  // Fetch last 100 public events for rough activity signal
+async function buildCityHeatmap() {
+  const DAYS = 60;
+  const today = new Date(); today.setHours(0,0,0,0);
+  const startDate = new Date(today); startDate.setDate(today.getDate() - (DAYS - 1));
   const activityMap = {};
+
   try {
     const evts = await fetch(`https://api.github.com/users/${GITHUB_USER}/events/public?per_page=100`).then(r => r.json());
     if (Array.isArray(evts)) {
@@ -796,47 +1026,200 @@ async function buildHeatmap() {
         const d = e.created_at ? e.created_at.slice(0,10) : null;
         if (d) activityMap[d] = (activityMap[d] || 0) + 1;
       });
-      heatmapNote.textContent = 'Reflects recent public GitHub activity (pushes, PRs, comments).';
+      heatmapNote.textContent = 'Reflects recent public GitHub activity (pushes, PRs, comments). Building height = activity level.';
     }
   } catch(e) {
-    heatmapNote.textContent = 'Live activity unavailable — showing a representative heatmap.';
-    // Seed with fake data for demo purposes
-    for (let i = 0; i < 80; i++) {
-      const d = new Date(startDate);
-      d.setDate(startDate.getDate() + Math.floor(Math.random() * WEEKS * DAYS));
-      const key = d.toISOString().slice(0,10);
-      activityMap[key] = Math.floor(Math.random() * 5) + 1;
+    heatmapNote.textContent = 'Live data unavailable — showing a representative city.';
+    for (let i=0;i<40;i++) {
+      const d=new Date(startDate); d.setDate(startDate.getDate()+Math.floor(Math.random()*DAYS));
+      activityMap[d.toISOString().slice(0,10)] = Math.floor(Math.random()*8)+1;
     }
   }
 
-  // Build weeks
-  let currentDate = new Date(startDate);
-  heatmapEl.innerHTML = '';
-
-  for (let w = 0; w < WEEKS; w++) {
-    const weekEl = document.createElement('div');
-    weekEl.className = 'heatmap-week';
-    for (let d = 0; d < DAYS; d++) {
-      const dateStr = currentDate.toISOString().slice(0,10);
-      const count = activityMap[dateStr] || 0;
-      let level = 0;
-      if (count >= 1) level = 1;
-      if (count >= 3) level = 2;
-      if (count >= 6) level = 3;
-      if (count >= 10) level = 4;
-
-      const dayEl = document.createElement('div');
-      dayEl.className = 'heatmap-day';
-      if (level > 0) dayEl.setAttribute('data-level', level);
-      dayEl.title = `${dateStr}: ${count} event${count !== 1 ? 's' : ''}`;
-      weekEl.appendChild(dayEl);
-      currentDate.setDate(currentDate.getDate() + 1);
-    }
-    heatmapEl.appendChild(weekEl);
+  cityData = [];
+  for (let i=0;i<DAYS;i++) {
+    const d=new Date(startDate); d.setDate(startDate.getDate()+i);
+    const key = d.toISOString().slice(0,10);
+    const count = activityMap[key]||0;
+    let level=0;
+    if(count>=1)level=1; if(count>=3)level=2; if(count>=6)level=3; if(count>=10)level=4;
+    cityData.push({date:key,count,level});
   }
+
+  drawCity(cityData);
+  updateLegendColors();
 }
 
-buildHeatmap();
+buildCityHeatmap();
+window.addEventListener('resize', () => { if(cityDrawn) drawCity(cityData); });
+
+// Redraw city when theme toggles
+// ── 7. MINI GAME — Code Block Drop ───────────────────────────────
+const gameCanvas = document.getElementById('game-canvas');
+const gctx = gameCanvas.getContext('2d');
+const startBtn = document.getElementById('game-start-btn');
+const resetBtn = document.getElementById('game-reset-btn');
+const scoreEl = document.getElementById('game-score');
+const hiEl = document.getElementById('game-hi');
+let hiScore = 0, gameRunning = false, gameOver = false;
+let gScore = 0, gLives = 3, gLevel = 1;
+const GW = 480, GH = 260;
+const PADDLE_W = 80, PADDLE_H = 10, PADDLE_Y = GH - 28;
+const BLOCK_W = 44, BLOCK_H = 18;
+const CODES = ['fn()','[]','{}','AI','ML','for','API','async','git','</>','GPU','RAG'];
+let paddle = { x: GW/2 - PADDLE_W/2 };
+let blocks = [];
+let keys = { left: false, right: false };
+let gAnimId = null;
+const PADDLE_SPD = 6;
+
+function randomBlock() {
+  const idx = Math.floor(Math.random()*CODES.length);
+  const x = Math.random()*(GW - BLOCK_W - 20)+10;
+  const speed = 1.2 + gLevel*0.35 + Math.random()*0.5;
+  const type = Math.random() < 0.15 ? 'bomb' : 'code';
+  return { x, y: -BLOCK_H, w: BLOCK_W, h: BLOCK_H, speed, label: CODES[idx], type };
+}
+
+function drawGame() {
+  const dark = isDark();
+  const bg = dark ? '#0D1117' : '#FAF8F4';
+  const paddleCol = dark ? '#58A6FF' : '#C97B6A';
+  const textCol = dark ? '#E6EDF3' : '#2C2825';
+  const mutedCol = dark ? '#8B949E' : '#6B6460';
+
+  gctx.fillStyle = bg;
+  gctx.fillRect(0,0,GW,GH);
+
+  // Ground line
+  gctx.strokeStyle = dark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.07)';
+  gctx.lineWidth = 1;
+  gctx.beginPath(); gctx.moveTo(0, PADDLE_Y+PADDLE_H+4); gctx.lineTo(GW, PADDLE_Y+PADDLE_H+4); gctx.stroke();
+
+  // Paddle
+  gctx.fillStyle = paddleCol;
+  gctx.beginPath();
+  gctx.roundRect(paddle.x, PADDLE_Y, PADDLE_W, PADDLE_H, 5);
+  gctx.fill();
+
+  // Blocks
+  blocks.forEach(b => {
+    if (b.type === 'bomb') {
+      gctx.fillStyle = dark ? '#FF7B7B' : '#E05C5C';
+    } else {
+      const cols = dark
+        ? ['#58A6FF','#3FB950','#D2A8FF','#79C0FF','#56D364']
+        : ['#C97B6A','#7A9E8E','#C9A26A','#D9907E','#6B9E7A'];
+      gctx.fillStyle = cols[CODES.indexOf(b.label) % cols.length];
+    }
+    gctx.beginPath(); gctx.roundRect(b.x, b.y, b.w, b.h, 4); gctx.fill();
+    gctx.fillStyle = '#fff';
+    gctx.font = `bold 10px DM Sans, monospace`;
+    gctx.textAlign = 'center'; gctx.textBaseline = 'middle';
+    gctx.fillText(b.type==='bomb'?'💥':b.label, b.x+b.w/2, b.y+b.h/2);
+  });
+
+  // HUD
+  gctx.textAlign = 'left'; gctx.textBaseline = 'top';
+  gctx.font = '12px DM Sans, sans-serif';
+  gctx.fillStyle = mutedCol;
+  gctx.fillText(`Score: ${gScore}`, 12, 10);
+  gctx.textAlign = 'right';
+  gctx.fillText(`Lives: ${'♥'.repeat(gLives)}`, GW-12, 10);
+  gctx.textAlign = 'center';
+  gctx.fillStyle = dark ? 'rgba(88,166,255,0.15)' : 'rgba(201,123,106,0.12)';
+  gctx.fillText(`Lvl ${gLevel}`, GW/2, 10);
+}
+
+function gameLoop() {
+  if (!gameRunning) return;
+  // Move paddle
+  if (keys.left && paddle.x > 0) paddle.x = Math.max(0, paddle.x - PADDLE_SPD);
+  if (keys.right && paddle.x+PADDLE_W < GW) paddle.x = Math.min(GW-PADDLE_W, paddle.x + PADDLE_SPD);
+
+  // Spawn blocks
+  if (Math.random() < 0.018 + gLevel*0.003) blocks.push(randomBlock());
+
+  // Move blocks
+  blocks.forEach(b => b.y += b.speed);
+
+  // Collision
+  blocks = blocks.filter(b => {
+    if (b.y+b.h >= PADDLE_Y && b.y < PADDLE_Y+PADDLE_H && b.x+b.w > paddle.x && b.x < paddle.x+PADDLE_W) {
+      if (b.type==='bomb') { gLives--; } else { gScore += 10 * gLevel; }
+      return false;
+    }
+    if (b.y > GH) {
+      if (b.type !== 'bomb') gLives--;
+      return false;
+    }
+    return true;
+  });
+
+  gLevel = Math.floor(gScore/150)+1;
+  scoreEl.textContent = `Score: ${gScore} · Lives: ${'♥'.repeat(Math.max(0,gLives))} · Level: ${gLevel}`;
+
+  if (gLives <= 0) { endGame(); return; }
+  drawGame();
+  gAnimId = requestAnimationFrame(gameLoop);
+}
+
+function endGame() {
+  gameRunning = false; gameOver = true;
+  if (gScore > hiScore) { hiScore = gScore; hiEl.textContent = hiScore; }
+  const dark = isDark();
+  gctx.fillStyle = dark ? 'rgba(13,17,23,0.82)' : 'rgba(250,248,244,0.85)';
+  gctx.fillRect(0,0,GW,GH);
+  gctx.fillStyle = dark ? '#E6EDF3' : '#2C2825';
+  gctx.font = `bold 28px DM Serif Display, serif`;
+  gctx.textAlign='center'; gctx.textBaseline='middle';
+  gctx.fillText('Game Over!', GW/2, GH/2-22);
+  gctx.font='15px DM Sans,sans-serif';
+  gctx.fillStyle = dark ? '#8B949E' : '#6B6460';
+  gctx.fillText(`Score: ${gScore} · High score: ${hiScore}`, GW/2, GH/2+12);
+  resetBtn.style.display='inline-block';
+  scoreEl.textContent = `Game over · High score: ${hiScore}`;
+}
+
+function startGame() {
+  paddle.x = GW/2-PADDLE_W/2;
+  blocks = []; gScore=0; gLives=3; gLevel=1; gameOver=false; gameRunning=true;
+  startBtn.style.display='none'; resetBtn.style.display='none';
+  if (gAnimId) cancelAnimationFrame(gAnimId);
+  gameLoop();
+}
+
+startBtn.addEventListener('click', startGame);
+resetBtn.addEventListener('click', startGame);
+document.addEventListener('keydown', e => {
+  if (e.key==='ArrowLeft'||e.key==='a'||e.key==='A') keys.left=true;
+  if (e.key==='ArrowRight'||e.key==='d'||e.key==='D') keys.right=true;
+});
+document.addEventListener('keyup', e => {
+  if (e.key==='ArrowLeft'||e.key==='a'||e.key==='A') keys.left=false;
+  if (e.key==='ArrowRight'||e.key==='d'||e.key==='D') keys.right=false;
+});
+
+// Touch controls for mobile
+gameCanvas.addEventListener('touchmove', e => {
+  e.preventDefault();
+  const rect = gameCanvas.getBoundingClientRect();
+  const scaleX = GW / rect.width;
+  const tx = (e.touches[0].clientX - rect.left) * scaleX;
+  paddle.x = Math.max(0, Math.min(GW-PADDLE_W, tx - PADDLE_W/2));
+}, { passive: false });
+
+// Draw idle state
+(function idleDraw() {
+  const dark = isDark();
+  gctx.fillStyle = dark ? '#0D1117' : '#FAF8F4';
+  gctx.fillRect(0,0,GW,GH);
+  gctx.fillStyle = dark ? '#58A6FF' : '#C97B6A';
+  gctx.beginPath(); gctx.roundRect(GW/2-PADDLE_W/2, PADDLE_Y, PADDLE_W, PADDLE_H, 5); gctx.fill();
+  gctx.fillStyle = dark ? '#8B949E' : '#6B6460';
+  gctx.font='13px DM Sans,sans-serif'; gctx.textAlign='center'; gctx.textBaseline='middle';
+  gctx.fillText('Press Start to play ↑', GW/2, GH/2);
+})();
 </script>
 </body>
 </html>
