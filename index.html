@@ -7,7 +7,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@300;400;500&family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -43,7 +43,16 @@ body.dark {
   --border: rgba(255,255,255,0.08);
   --nav-bg: rgba(13,17,23,0.92);
   --font-body: 'JetBrains Mono', monospace;
+  --font-display: 'Orbitron', sans-serif;
 }
+body.dark .hero h1       { font-size: 38px; letter-spacing: -0.5px; }
+body.dark .section-title { font-size: 26px; letter-spacing: 0px; }
+body.dark .exp-title     { font-size: 17px; }
+body.dark .project-name  { font-size: 18px; }
+body.dark .research-title{ font-size: 17px; }
+body.dark .edu-degree    { font-size: 16px; }
+body.dark .gh-card-name  { font-size: 14px; }
+body.dark .contact-wrap h2 { font-size: 26px; }
 body.dark .hero-eyebrow { background: rgba(88,166,255,0.15); }
 body.dark .role-tag { background: var(--warm-white); }
 body.dark .role-tag.active, body.dark .role-tag:hover { background: var(--rose-light); color: var(--rose); border-color: var(--rose); }
@@ -832,23 +841,37 @@ footer { background: var(--charcoal); color: rgba(255,255,255,0.5); text-align: 
 
 <div class="divider"></div>
 
-<!-- MINI GAME -->
+<!-- HIDDEN FLOWER QUOTES SECTION -->
+<div id="flower-secret" style="display:none">
+  <div class="divider"></div>
+  <section id="secret-quotes">
+    <div class="reveal">
+      <div class="section-label">you found it 🌸</div>
+      <h2 class="section-title">A little garden of words</h2>
+      <p class="section-sub">Quotes that keep me going.</p>
+    </div>
+    <div id="quotes-grid" class="reveal-stagger"></div>
+  </section>
+</div>
+
+<!-- DINO GAME -->
 <div id="game-section">
   <div class="game-wrap reveal">
     <div class="section-label" style="margin-bottom:8px">Just for fun</div>
-    <h3>Code Block Drop 🧱</h3>
-    <p>Catch the falling code blocks! Use ← → arrow keys or A/D. Don't let them hit the ground.</p>
-    <canvas id="game-canvas" width="480" height="260"></canvas>
+    <h3>🦕 Dino Run</h3>
+    <p>Press <strong>Space</strong> or tap to jump. Don't hit the cacti!</p>
+    <canvas id="game-canvas" width="600" height="160"></canvas>
     <div class="game-controls">
-      <button class="btn-primary" id="game-start-btn">Start Game</button>
+      <button class="btn-primary" id="game-start-btn">Start</button>
       <button class="btn-secondary" id="game-reset-btn" style="display:none">Restart</button>
     </div>
-    <div id="game-score">Press Start to play · High score: <span id="game-hi">0</span></div>
+    <div id="game-score">Press Start · High score: <span id="game-hi">0</span></div>
   </div>
 </div>
 
 <footer>
   <p>© 2026 Buvana Seshathri · Built with intention, not a template.</p>
+  <p style="margin-top:6px;font-size:11px;opacity:0.4">psst — find the hidden 🌸 flowers on the page</p>
 </footer>
 
 <!-- GARDEN TOOLTIP — body-level so position:fixed never breaks from ancestor transforms -->
@@ -1181,24 +1204,265 @@ async function buildGarden() {
 
 buildGarden();
 
-
+// ── DINO GAME ─────────────────────────────────────────────────────
 const gameCanvas = document.getElementById('game-canvas');
 const gctx = gameCanvas.getContext('2d');
 const startBtn = document.getElementById('game-start-btn');
 const resetBtn = document.getElementById('game-reset-btn');
-const scoreEl = document.getElementById('game-score');
-const hiEl = document.getElementById('game-hi');
-let hiScore = 0, gameRunning = false, gameOver = false;
-let gScore = 0, gLives = 3, gLevel = 1;
-const GW = 480, GH = 260;
-const PADDLE_W = 80, PADDLE_H = 10, PADDLE_Y = GH - 28;
-const BLOCK_W = 44, BLOCK_H = 18;
-const CODES = ['fn()','[]','{}','AI','ML','for','API','async','git','</>','GPU','RAG'];
-let paddle = { x: GW/2 - PADDLE_W/2 };
-let blocks = [];
-let keys = { left: false, right: false };
-let gAnimId = null;
-const PADDLE_SPD = 6;
+const scoreEl  = document.getElementById('game-score');
+const hiEl     = document.getElementById('game-hi');
+const GW = 600, GH = 160;
+const GROUND_Y = GH - 30;
+let dinoRunning = false, dinoOver = false, dinoAnimId = null;
+let hiScore = 0, dScore = 0, dSpeed = 4, dFrame = 0;
+
+let dino = { x: 60, y: GROUND_Y, w: 40, h: 50, vy: 0, jumping: false, frame: 0 };
+let cacti = [], clouds = [];
+let spawnTimer = 0, spawnInterval = 90;
+
+function resetDino() {
+  dino = { x: 60, y: GROUND_Y, w: 40, h: 50, vy: 0, jumping: false, frame: 0 };
+  cacti = []; clouds = [{ x: GW, y: 25, w: 60 }, { x: GW*0.6, y: 18, w: 45 }];
+  dSpeed = 4; dScore = 0; dFrame = 0; spawnTimer = 0; spawnInterval = 90; dinoOver = false;
+}
+
+function jump() {
+  if (!dinoRunning) return;
+  if (!dino.jumping) { dino.vy = -13; dino.jumping = true; }
+}
+
+function spawnCactus() {
+  const h = 30 + Math.random() * 25;
+  const w = 16 + Math.random() * 12;
+  const count = Math.random() < 0.3 ? 2 : 1;
+  cacti.push({ x: GW + 10, y: GROUND_Y + dino.h - h, w: count === 2 ? w + 20 : w, h, count });
+}
+
+function drawDinoScene() {
+  const dark = isDark();
+  const bg    = dark ? '#0D1117' : '#FDF6FB';
+  const fg    = dark ? '#58A6FF' : '#C06FA0';
+  const ground= dark ? '#1C2330' : '#EFE3F0';
+  const muted = dark ? '#8B949E' : '#7A6880';
+  const cactusFill = dark ? '#3FB950' : '#6BAF8A';
+  const cloudFill  = dark ? '#1C2330' : '#F0E0EF';
+
+  gctx.fillStyle = bg;
+  gctx.fillRect(0, 0, GW, GH);
+
+  // Clouds
+  clouds.forEach(c => {
+    gctx.fillStyle = cloudFill;
+    gctx.beginPath();
+    gctx.ellipse(c.x, c.y, c.w/2, 10, 0, 0, Math.PI*2);
+    gctx.ellipse(c.x - c.w*0.2, c.y + 5, c.w*0.3, 8, 0, 0, Math.PI*2);
+    gctx.ellipse(c.x + c.w*0.2, c.y + 5, c.w*0.3, 8, 0, 0, Math.PI*2);
+    gctx.fill();
+  });
+
+  // Ground
+  gctx.fillStyle = ground;
+  gctx.fillRect(0, GROUND_Y + dino.h + 2, GW, 3);
+
+  // Dino — simple pixel-art style
+  const dx = dino.x, dy = dino.y;
+  // Leg animation
+  const legOff = (dino.jumping || dFrame % 10 < 5) ? 0 : 8;
+  gctx.fillStyle = fg;
+  // Body
+  gctx.beginPath(); gctx.roundRect(dx, dy + 8, dino.w, dino.h - 16, 6); gctx.fill();
+  // Head
+  gctx.beginPath(); gctx.roundRect(dx + dino.w - 18, dy, 22, 22, 5); gctx.fill();
+  // Eye
+  gctx.fillStyle = bg;
+  gctx.beginPath(); gctx.arc(dx + dino.w + 1, dy + 8, 3, 0, Math.PI*2); gctx.fill();
+  gctx.fillStyle = dark ? '#0D1117' : '#2A2035';
+  gctx.beginPath(); gctx.arc(dx + dino.w + 1, dy + 8, 1.5, 0, Math.PI*2); gctx.fill();
+  // Legs
+  gctx.fillStyle = fg;
+  if (!dino.jumping) {
+    gctx.fillRect(dx + 8,  dy + dino.h - 8, 8, legOff === 0 ? 10 : 4);
+    gctx.fillRect(dx + 22, dy + dino.h - 8, 8, legOff === 0 ? 4  : 10);
+  } else {
+    gctx.fillRect(dx + 8,  dy + dino.h - 8, 8, 6);
+    gctx.fillRect(dx + 22, dy + dino.h - 8, 8, 6);
+  }
+  // Tail
+  gctx.beginPath();
+  gctx.moveTo(dx, dy + 16);
+  gctx.quadraticCurveTo(dx - 14, dy + 20, dx - 8, dy + 30);
+  gctx.lineWidth = 7; gctx.strokeStyle = fg; gctx.lineCap = 'round';
+  gctx.stroke(); gctx.lineWidth = 1;
+
+  // Cacti
+  cacti.forEach(c => {
+    gctx.fillStyle = cactusFill;
+    gctx.beginPath(); gctx.roundRect(c.x + (c.count===2?10:0), c.y, c.count===2?c.w-18:c.w, c.h, 3); gctx.fill();
+    if (c.count === 2) {
+      gctx.beginPath(); gctx.roundRect(c.x, c.y + 8, 10, c.h - 8, 2); gctx.fill();
+      gctx.beginPath(); gctx.roundRect(c.x + c.w - 10, c.y + 8, 10, c.h - 8, 2); gctx.fill();
+    }
+    // Arms
+    gctx.beginPath(); gctx.roundRect(c.x + (c.count===2?14:2), c.y + c.h*0.35, c.count===2?10:8, 5, 2); gctx.fill();
+  });
+
+  // HUD
+  gctx.fillStyle = muted;
+  gctx.font = '12px DM Sans, sans-serif';
+  gctx.textAlign = 'right'; gctx.textBaseline = 'top';
+  gctx.fillText(`${Math.floor(dScore)}`, GW - 14, 10);
+}
+
+function dinoLoop() {
+  if (!dinoRunning) return;
+  dFrame++;
+
+  // Gravity
+  dino.vy += 0.7;
+  dino.y += dino.vy;
+  if (dino.y >= GROUND_Y) { dino.y = GROUND_Y; dino.vy = 0; dino.jumping = false; }
+
+  // Move clouds
+  clouds.forEach(c => c.x -= dSpeed * 0.3);
+  clouds = clouds.filter(c => c.x > -80);
+  if (Math.random() < 0.005) clouds.push({ x: GW + 60, y: 15 + Math.random() * 25, w: 40 + Math.random() * 40 });
+
+  // Spawn cacti
+  spawnTimer++;
+  if (spawnTimer >= spawnInterval) {
+    spawnCactus();
+    spawnTimer = 0;
+    spawnInterval = Math.max(40, 90 - Math.floor(dScore / 200) * 5);
+  }
+
+  // Move cacti
+  cacti.forEach(c => c.x -= dSpeed);
+  cacti = cacti.filter(c => c.x > -60);
+
+  // Speed ramp
+  dSpeed = 4 + dScore / 800;
+  dScore += dSpeed * 0.04;
+
+  // Collision — shrink hitbox slightly for fairness
+  const hb = { x: dino.x + 8, y: dino.y + 6, w: dino.w - 14, h: dino.h - 8 };
+  for (const c of cacti) {
+    const cx = c.count === 2 ? c.x + 2 : c.x;
+    if (hb.x < cx + c.w - 4 && hb.x + hb.w > cx + 4 && hb.y < c.y + c.h && hb.y + hb.h > c.y) {
+      endDino(); return;
+    }
+  }
+
+  drawDinoScene();
+  dinoAnimId = requestAnimationFrame(dinoLoop);
+}
+
+function endDino() {
+  dinoRunning = false; dinoOver = true;
+  if (dScore > hiScore) { hiScore = Math.floor(dScore); hiEl.textContent = hiScore; }
+  drawDinoScene();
+  const dark = isDark();
+  gctx.fillStyle = dark ? 'rgba(13,17,23,0.8)' : 'rgba(253,246,251,0.85)';
+  gctx.fillRect(0, 0, GW, GH);
+  gctx.fillStyle = dark ? '#E6EDF3' : '#2A2035';
+  gctx.font = 'bold 24px DM Sans, sans-serif';
+  gctx.textAlign = 'center'; gctx.textBaseline = 'middle';
+  gctx.fillText('🦕  Game Over!', GW/2, GH/2 - 18);
+  gctx.font = '13px DM Sans, sans-serif';
+  gctx.fillStyle = dark ? '#8B949E' : '#7A6880';
+  gctx.fillText(`Score: ${Math.floor(dScore)}  ·  Best: ${hiScore}`, GW/2, GH/2 + 12);
+  resetBtn.style.display = 'inline-block';
+  scoreEl.textContent = `Game over · High score: ${hiScore}`;
+}
+
+function startDino() {
+  resetDino(); dinoRunning = true;
+  startBtn.style.display = 'none'; resetBtn.style.display = 'none';
+  if (dinoAnimId) cancelAnimationFrame(dinoAnimId);
+  dinoLoop();
+}
+
+startBtn.addEventListener('click', startDino);
+resetBtn.addEventListener('click', startDino);
+document.addEventListener('keydown', e => { if (e.code === 'Space' || e.key === 'ArrowUp') { e.preventDefault(); jump(); } });
+gameCanvas.addEventListener('click', jump);
+gameCanvas.addEventListener('touchstart', e => { e.preventDefault(); jump(); }, { passive: false });
+
+// Idle screen
+(function dinoIdle() {
+  const dark = isDark();
+  gctx.fillStyle = dark ? '#0D1117' : '#FDF6FB';
+  gctx.fillRect(0, 0, GW, GH);
+  gctx.fillStyle = dark ? '#8B949E' : '#7A6880';
+  gctx.font = '13px DM Sans, sans-serif';
+  gctx.textAlign = 'center'; gctx.textBaseline = 'middle';
+  gctx.fillText('🦕  Press Start or Space to run', GW/2, GH/2);
+})();
+
+// ── HIDDEN FLOWER + QUOTES ───────────────────────────────────────
+const QUOTES = [
+  { text: "The secret of getting ahead is getting started.", author: "Mark Twain" },
+  { text: "It always seems impossible until it's done.", author: "Nelson Mandela" },
+  { text: "Don't watch the clock; do what it does. Keep going.", author: "Sam Levenson" },
+  { text: "You are never too old to set another goal or dream a new dream.", author: "C.S. Lewis" },
+  { text: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" },
+  { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
+  { text: "In the middle of every difficulty lies opportunity.", author: "Albert Einstein" },
+  { text: "It does not matter how slowly you go as long as you do not stop.", author: "Confucius" },
+  { text: "Hard things take time to do. Impossible things take a little longer.", author: "Percy Cerutty" },
+  { text: "What we plant in the soil of contemplation, we shall reap in the harvest of action.", author: "Meister Eckhart" },
+];
+
+const FLOWER_EMOJIS = ['🌸', '🌼', '🌷', '🌺', '💐', '🌻'];
+const secretSection = document.getElementById('flower-secret');
+const quotesGrid = document.getElementById('quotes-grid');
+let secretRevealed = false;
+
+function renderQuotes() {
+  quotesGrid.innerHTML = QUOTES.map((q, i) => `
+    <div class="quote-card">
+      <div class="quote-flower">${FLOWER_EMOJIS[i % FLOWER_EMOJIS.length]}</div>
+      <p class="quote-text">"${q.text}"</p>
+      <div class="quote-author">— ${q.author}</div>
+    </div>
+  `).join('');
+}
+
+function revealSecret() {
+  if (secretRevealed) {
+    secretSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    return;
+  }
+  secretRevealed = true;
+  secretSection.style.display = 'block';
+  renderQuotes();
+  setTimeout(() => {
+    secretSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Re-observe new elements for scroll reveal
+    secretSection.querySelectorAll('.reveal, .reveal-stagger').forEach(el => revealObserver2.observe(el));
+  }, 80);
+}
+
+function spawnFlowers() {
+  // Find all divider elements and empty-ish section ends — plant flowers there
+  const targets = document.querySelectorAll('.divider, footer');
+  targets.forEach((el, ti) => {
+    const btn = document.createElement('button');
+    btn.className = 'hidden-flower';
+    btn.textContent = FLOWER_EMOJIS[ti % FLOWER_EMOJIS.length];
+    btn.title = 'Find a secret...';
+    btn.setAttribute('aria-label', 'Discover hidden section');
+    btn.addEventListener('click', revealSecret);
+    // Insert after dividers, before footer
+    if (el.tagName === 'FOOTER') {
+      el.parentNode.insertBefore(btn, el);
+    } else {
+      el.parentNode.insertBefore(btn, el.nextSibling);
+    }
+  });
+}
+
+spawnFlowers();
+
 
 function randomBlock() {
   const idx = Math.floor(Math.random()*CODES.length);
