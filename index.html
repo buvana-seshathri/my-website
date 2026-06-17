@@ -7,25 +7,25 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --ivory: #FAF8F4;
-  --warm-white: #F5F2EC;
-  --cream: #EDE8DE;
-  --rose: #C97B6A;
-  --rose-light: #F2E6E2;
-  --rose-mid: #D9907E;
-  --sage: #7A9E8E;
-  --sage-light: #EAF2EE;
-  --charcoal: #2C2825;
-  --muted: #6B6460;
-  --border: rgba(44,40,37,0.12);
+  --ivory: #FDF6FB;
+  --warm-white: #F9F0F7;
+  --cream: #EFE3F0;
+  --rose: #C06FA0;
+  --rose-light: #F7E3F2;
+  --rose-mid: #D485B8;
+  --sage: #6BAF8A;
+  --sage-light: #DFF2E8;
+  --charcoal: #2A2035;
+  --muted: #7A6880;
+  --border: rgba(42,32,53,0.1);
   --font-display: 'DM Serif Display', serif;
   --font-body: 'DM Sans', sans-serif;
-  --nav-bg: rgba(250,248,244,0.92);
+  --nav-bg: rgba(253,246,251,0.92);
 }
 
 /* ── DARK / TECH MODE ── */
@@ -42,6 +42,7 @@ body.dark {
   --muted: #8B949E;
   --border: rgba(255,255,255,0.08);
   --nav-bg: rgba(13,17,23,0.92);
+  --font-body: 'JetBrains Mono', monospace;
 }
 body.dark .hero-eyebrow { background: rgba(88,166,255,0.15); }
 body.dark .role-tag { background: var(--warm-white); }
@@ -854,16 +855,20 @@ footer { background: var(--charcoal); color: rgba(255,255,255,0.5); text-align: 
 <div id="garden-tooltip"></div>
 
 <script>
+// ── gardenData hoisted first — prevents Chrome TDZ ReferenceError ──
+// function declarations are hoisted but let/const are not; applyTheme
+// (a function) runs at load time and references gardenData, so gardenData
+// must be declared before any code executes.
+let gardenData = [];
+
 // ── DARK MODE ─────────────────────────────────────────────────────
 const themeBtn = document.getElementById('theme-toggle');
 const isDark = () => document.body.classList.contains('dark');
 
-// Single definitive applyTheme — gardenData guarded with typeof check
-// so it's safe whether called before or after gardenData is initialized
 function applyTheme(dark) {
   document.body.classList.toggle('dark', dark);
   localStorage.setItem('theme', dark ? 'dark' : 'light');
-  if (typeof gardenData !== 'undefined' && gardenData.length) renderGarden(gardenData);
+  if (gardenData.length) renderGarden(gardenData);
 }
 themeBtn.addEventListener('click', () => applyTheme(!isDark()));
 // Init from saved preference
@@ -1000,8 +1005,6 @@ function langToSpecies(lang) {
   if (l === 'html' || l === 'css') return 5;
   return 4;
 }
-
-let gardenData = []; // [{date, count, level, repos:[{name,lang}]}]
 
 function buildLegend(speciesUsed) {
   gardenLegend.innerHTML = [...speciesUsed].map(si => {
