@@ -122,8 +122,6 @@ nav {
   border-bottom: 0.5px solid var(--border);
   display: flex; align-items: center; justify-content: space-between;
   padding: 14px 48px;
-  /* needed so the hint bubble positions relative to nav */
-  isolation: isolate;
 }
 .nav-name { font-family: var(--font-display); font-size: 20px; color: var(--charcoal); }
 .nav-links { display: flex; gap: 28px; list-style: none; }
@@ -478,14 +476,42 @@ footer { background: var(--charcoal); color: rgba(255,255,255,0.5); text-align: 
 
 /* ── RESPONSIVE ── */
 @media (max-width: 700px) {
-  nav { padding: 12px 20px; }
-  .nav-links { gap: 14px; }
+  nav {
+    padding: 10px 16px;
+    flex-wrap: wrap;
+    gap: 0;
+    isolation: isolate;
+  }
+  /* Row 1: name centred, toggle floated right */
+  .nav-name {
+    flex: 1;
+    text-align: center;
+    font-size: 18px;
+  }
+  #theme-switcher {
+    /* stays on the right in row 1 */
+  }
+  /* Row 2: links fill full width, centred */
+  .nav-links {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px 16px;
+    padding: 8px 0 2px;
+    border-top: 0.5px solid var(--border);
+    margin-top: 8px;
+  }
+  .nav-links a { font-size: 12px; }
+
   .hero { grid-template-columns: 1fr; padding: 60px 20px 40px; gap: 32px; }
   .hero h1 { font-size: 36px; }
   section { padding: 56px 20px; }
   .divider { margin: 0 20px; }
   .edu-grid { grid-template-columns: 1fr; }
   .exp-header { flex-direction: column; gap: 4px; }
+  #game-section { padding: 0 20px 56px; }
+  .skills-grid { grid-template-columns: 1fr 1fr; }
 }
 </style>
 </head>
@@ -588,7 +614,6 @@ footer { background: var(--charcoal); color: rgba(255,255,255,0.5); text-align: 
         <div class="garden-legend" id="garden-legend"></div>
       </div>
       <div id="garden-bed"></div>
-      <div id="garden-tooltip"></div>
       <p id="heatmap-note"></p>
     </div>
   </div>
@@ -1319,5 +1344,8 @@ gameCanvas.addEventListener('touchmove', e => {
   gctx.fillText('Press Start to play ↑', GW/2, GH/2);
 })();
 </script>
+<!-- GARDEN TOOLTIP — at body level so position:fixed is never broken by ancestor transforms -->
+<div id="garden-tooltip"></div>
+
 </body>
 </html>
