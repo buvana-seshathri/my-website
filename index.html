@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Buvana Seshathri — ML Engineer & Software Developer</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
@@ -856,17 +857,20 @@ footer { background: var(--charcoal); color: rgba(255,255,255,0.5); text-align: 
 // ── DARK MODE ─────────────────────────────────────────────────────
 const themeBtn = document.getElementById('theme-toggle');
 const isDark = () => document.body.classList.contains('dark');
+
+// Single definitive applyTheme — gardenData guarded with typeof check
+// so it's safe whether called before or after gardenData is initialized
 function applyTheme(dark) {
   document.body.classList.toggle('dark', dark);
   localStorage.setItem('theme', dark ? 'dark' : 'light');
-  // Garden re-render is handled by the overriding applyTheme below after garden loads
+  if (typeof gardenData !== 'undefined' && gardenData.length) renderGarden(gardenData);
 }
 themeBtn.addEventListener('click', () => applyTheme(!isDark()));
 // Init from saved preference
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme === 'dark') applyTheme(true);
 
-function updateLegendColors() {} // no-op placeholder — garden handles its own legend
+function updateLegendColors() {} // no-op — garden handles its own legend
 
 // ── 1. SCROLL PROGRESS BAR ───────────────────────────────────────
 const progressBar = document.getElementById('progress-bar');
@@ -1173,12 +1177,6 @@ async function buildGarden() {
 }
 
 buildGarden();
-// Re-render garden on theme toggle (colors change)
-function applyTheme(dark) {
-  document.body.classList.toggle('dark', dark);
-  localStorage.setItem('theme', dark ? 'dark' : 'light');
-  if (gardenData.length) renderGarden(gardenData);
-}
 
 
 const gameCanvas = document.getElementById('game-canvas');
