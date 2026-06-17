@@ -56,52 +56,48 @@ body.dark .pill.rose { background: var(--rose-light); color: var(--rose); }
 body.dark .pill.sage { background: var(--sage-light); color: var(--sage); }
 
 /* ── THEME TOGGLE BTN ── */
-#theme-toggle {
-  background: none; border: 0.5px solid var(--border);
-  border-radius: 50%; width: 34px; height: 34px;
-  cursor: pointer; display: flex; align-items: center; justify-content: center;
-  font-size: 16px; transition: background 0.2s, border-color 0.2s;
-  flex-shrink: 0;
-}
-#theme-toggle:hover { background: var(--rose-light); border-color: var(--rose); }
-
-/* ── THEME HINT BUBBLE ── */
-#theme-hint {
-  position: absolute;
-  right: 56px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: var(--rose);
-  color: white;
-  font-size: 11px;
-  font-weight: 500;
-  padding: 5px 10px 5px 9px;
-  border-radius: 20px;
-  white-space: nowrap;
-  pointer-events: none;
+/* ── THEME TOGGLE PILL ── */
+#theme-switcher {
   display: flex;
   align-items: center;
-  gap: 5px;
-  animation: hint-bob 2s ease-in-out infinite;
-  box-shadow: 0 2px 10px rgba(201,123,106,0.35);
-  transition: opacity 0.4s;
+  gap: 6px;
+  flex-shrink: 0;
 }
-/* little tail pointing right toward button */
-#theme-hint::after {
+#theme-switcher .theme-icon {
+  font-size: 15px;
+  line-height: 1;
+  user-select: none;
+}
+#theme-toggle {
+  position: relative;
+  width: 40px; height: 22px;
+  background: var(--cream);
+  border: 0.5px solid var(--border);
+  border-radius: 11px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.3s, border-color 0.3s;
+  padding: 0;
+  outline: none;
+}
+#theme-toggle::after {
   content: '';
   position: absolute;
-  right: -6px;
-  top: 50%;
-  transform: translateY(-50%);
-  border: 5px solid transparent;
-  border-left-color: var(--rose);
-  border-right: 0;
+  top: 3px; left: 3px;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--rose);
+  transition: transform 0.3s cubic-bezier(0.34,1.4,0.64,1), background 0.3s;
 }
-#theme-hint.hidden { opacity: 0; pointer-events: none; }
-@keyframes hint-bob {
-  0%, 100% { transform: translateY(-50%) translateX(0); }
-  50%       { transform: translateY(-50%) translateX(-4px); }
+body.dark #theme-toggle {
+  background: #1C2330;
+  border-color: rgba(255,255,255,0.12);
 }
+body.dark #theme-toggle::after {
+  transform: translateX(18px);
+  background: #58A6FF;
+}
+#theme-toggle:hover { border-color: var(--rose); }
 
 /* ── SCROLL PROGRESS BAR ── */
 #progress-bar {
@@ -509,8 +505,11 @@ footer { background: var(--charcoal); color: rgba(255,255,255,0.5); text-align: 
     <li><a href="#research">Research</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <button id="theme-toggle" title="Toggle dark mode" aria-label="Toggle dark mode">☀️</button>
-  <span id="theme-hint">✨ click for surprise</span>
+  <div id="theme-switcher">
+    <span class="theme-icon">☀️</span>
+    <button id="theme-toggle" title="Toggle dark mode" aria-label="Toggle dark mode"></button>
+    <span class="theme-icon">🌙</span>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -831,22 +830,10 @@ const themeBtn = document.getElementById('theme-toggle');
 const isDark = () => document.body.classList.contains('dark');
 function applyTheme(dark) {
   document.body.classList.toggle('dark', dark);
-  themeBtn.textContent = dark ? '🌙' : '☀️';
   localStorage.setItem('theme', dark ? 'dark' : 'light');
   // Garden re-render is handled by the overriding applyTheme below after garden loads
 }
-themeBtn.addEventListener('click', () => {
-  applyTheme(!isDark());
-  // Dismiss hint on first click, remember it
-  const hint = document.getElementById('theme-hint');
-  if (hint) { hint.classList.add('hidden'); setTimeout(() => hint.remove(), 500); }
-  localStorage.setItem('theme-hint-seen', '1');
-});
-// If already clicked before, hide hint immediately
-if (localStorage.getItem('theme-hint-seen')) {
-  const hint = document.getElementById('theme-hint');
-  if (hint) hint.remove();
-}
+themeBtn.addEventListener('click', () => applyTheme(!isDark()));
 // Init from saved preference
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme === 'dark') applyTheme(true);
@@ -1077,23 +1064,21 @@ function renderGarden(data) {
 
 function showTip(e, text, color) {
   const lines = text.split('\n');
-  gardenTooltip.innerHTML = `<strong style="color:${color||'#fff'}">${lines[0]}</strong>${lines.slice(1).map(l=>`<br>${l}`).join('')}`;
+  gardenTooltip.innerHTML = `<strong style="color:${color||'#C97B6A'}">${lines[0]}</strong>${lines.slice(1).map(l=>`<br>${l}`).join('')}`;
   gardenTooltip.classList.add('show');
   moveTip(e);
 }
 function moveTip(e) {
-  const x = e.clientX ?? e.pageX, y = e.clientY ?? e.pageY;
+  // Use clientX/Y (viewport-relative) with position:fixed — clamp so it never overflows
+  const x = e.clientX;
+  const y = e.clientY;
   const tw = gardenTooltip.offsetWidth || 160;
-  const th = gardenTooltip.offsetHeight || 40;
-  const vw = window.innerWidth, vh = window.innerHeight;
-  // Place above-right by default; flip left if too close to right edge, flip below if too close to top
-  let left = x + 14;
-  let top  = y - th - 10;
-  if (left + tw > vw - 8) left = x - tw - 14;
-  if (top < 8) top = y + 18;
+  const vw = window.innerWidth;
+  let left = x - tw / 2;                      // centre under cursor
   if (left < 8) left = 8;
+  if (left + tw > vw - 8) left = vw - tw - 8;
   gardenTooltip.style.left = left + 'px';
-  gardenTooltip.style.top  = top  + 'px';
+  gardenTooltip.style.top  = (y + 16) + 'px'; // directly below cursor
 }
 function hideTip() { gardenTooltip.classList.remove('show'); }
 document.addEventListener('mousemove', e => { if (gardenTooltip.classList.contains('show')) moveTip(e); });
@@ -1163,7 +1148,6 @@ buildGarden();
 // Re-render garden on theme toggle (colors change)
 function applyTheme(dark) {
   document.body.classList.toggle('dark', dark);
-  themeBtn.textContent = dark ? '🌙' : '☀️';
   localStorage.setItem('theme', dark ? 'dark' : 'light');
   if (gardenData.length) renderGarden(gardenData);
 }
