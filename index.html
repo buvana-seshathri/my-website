@@ -273,19 +273,30 @@ section { padding: 60px 48px; max-width: 1000px; margin: 0 auto; }
 .game-wrap h3 { font-family: var(--font-display); font-size: 26px; margin-bottom: 6px; }
 .game-wrap p  { color: var(--muted); font-size: 14px; margin-bottom: 20px; }
 #godot-wrap {
-  position: relative; width: 100%; padding-bottom: 56.25%; height: 0;
-  border-radius: 12px; overflow: hidden; border: 0.5px solid var(--border); background: #000;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 0.5px solid var(--border);
+  background: #000;
 }
-#godot-frame { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; display: block; }
+#godot-frame {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  border: none; display: block;
+}
 #mobile-tap-overlay {
   position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-  display: none; align-items: flex-end; justify-content: center;
-  padding-bottom: 16px; pointer-events: none; z-index: 10;
+  display: none; align-items: center; justify-content: center;
+  pointer-events: none; z-index: 10;
 }
 #mobile-tap-hint {
-  background: rgba(0,0,0,0.55); color: white; font-size: 13px;
-  padding: 7px 18px; border-radius: 20px; pointer-events: all;
-  cursor: pointer; backdrop-filter: blur(4px); user-select: none;
+  background: rgba(0,0,0,0.62); color: white; font-size: 14px;
+  padding: 10px 24px; border-radius: 24px; pointer-events: all;
+  cursor: pointer; backdrop-filter: blur(6px); user-select: none;
+  border: 1px solid rgba(255,255,255,0.18); letter-spacing: 0.03em;
 }
 
 /* ── FOOTER ── */
@@ -542,11 +553,11 @@ footer { background: var(--charcoal); color: rgba(255,255,255,0.5); text-align: 
   <div class="game-wrap reveal">
     <div class="section-label" style="margin-bottom:8px">Just for fun</div>
     <h3>🦕 Dino Run</h3>
-    <p>Press <strong>Space</strong> or <strong>Enter</strong> to jump · tap the screen on mobile</p>
+    <p>Press <strong>↑ Arrow Up</strong> to jump · tap the button on mobile</p>
     <div id="godot-wrap">
       <iframe id="godot-frame" src="dino-game/index.html" allowfullscreen allow="autoplay; fullscreen" scrolling="no" title="Dino Game"></iframe>
       <div id="mobile-tap-overlay">
-        <div id="mobile-tap-hint">▶ Tap to Start</div>
+        <div id="mobile-tap-hint">▶ Tap here to Start</div>
       </div>
     </div>
   </div>
@@ -771,23 +782,86 @@ async function buildGarden() {
 buildGarden();
 
 // ── GODOT MOBILE TAP FIX ─────────────────────────────────────────
-const godotFrame   = document.getElementById('godot-frame');
+const godotFrame    = document.getElementById('godot-frame');
 const mobileTapHint = document.getElementById('mobile-tap-hint');
+const mobileOverlay = document.getElementById('mobile-tap-overlay');
 
-function sendEnterToGodot() {
+// Show tap overlay on any touch device
+if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+  mobileOverlay.style.display = 'flex';
+}
+
+// Godot 4 web export listens on the iframe's *window*, not document.
+// We also inject CSS to force the Godot canvas to fill its container.
+function injectGodotCanvasCSS() {
   try {
-    const doc = godotFrame.contentDocument || godotFrame.contentWindow.document;
-    doc.dispatchEvent(new KeyboardEvent('keydown',{key:'Enter',code:'Enter',keyCode:13,bubbles:true}));
-    doc.dispatchEvent(new KeyboardEvent('keyup',  {key:'Enter',code:'Enter',keyCode:13,bubbles:true}));
-  } catch { godotFrame.focus(); }
+    const iwin = godotFrame.contentWindow;
+    const idoc = iwin.document;
+    const style = idoc.createElement('style');
+    style.textContent = `
+      body, html { margin:0 !important; padding:0 !important; overflow:hidden !important; background:#000 !important; }
+      canvas { width:100% !important; height:100% !important; display:block !important; }
+      #canvas { width:100% !important; height:100% !important; }
+    `;
+    idoc.head.appendChild(style);
+  } catch(e) { /* cross-origin guard */ }
 }
+
+godotFrame.addEventListener('load', () => {
+  injectGodotCanvasCSS();
+});
+
+// Send key event to iframe window (Godot 4 target)
+function sendKeyToGodot(key, code, keyCode) {
+  try {
+    const iwin = godotFrame.contentWindow;
+    iwin.dispatchEvent(new KeyboardEvent('keydown', { key, code, keyCode, bubbles: true, cancelable: true }));
+    setTimeout(() => {
+      iwin.dispatchEvent(new KeyboardEvent('keyup', { key, code, keyCode, bubbles: true, cancelable: true }));
+    }, 80);
+  } catch(e) {
+    // Cross-origin fallback: focus the iframe so hardware keys work
+    godotFrame.focus();
+  }
+}
+
+function sendJumpToGodot() {
+  sendKeyToGodot('ArrowUp', 'ArrowUp', 38);
+}
+
+function sendStartToGodot() {
+  sendKeyToGodot('Enter', 'Enter', 13);
+  // Also send Space as some Godot games map that too
+  setTimeout(() => sendKeyToGodot(' ', 'Space', 32), 50);
+}
+
 if (mobileTapHint) {
-  mobileTapHint.addEventListener('click', sendEnterToGodot);
-  mobileTapHint.addEventListener('touchstart', e => { e.preventDefault(); sendEnterToGodot(); }, {passive:false});
+  let tapped = false;
+  mobileTapHint.addEventListener('touchstart', e => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!tapped) {
+      tapped = true;
+      mobileTapHint.textContent = '▲ Tap to Jump';
+      sendStartToGodot();
+    } else {
+      sendJumpToGodot();
+    }
+  }, { passive: false });
+  mobileTapHint.addEventListener('click', () => {
+    if (!tapped) { tapped = true; mobileTapHint.textContent = '▲ Tap to Jump'; sendStartToGodot(); }
+    else sendJumpToGodot();
+  });
 }
+
+// Also forward Space / ArrowUp / Enter from the parent page into Godot
 window.addEventListener('keydown', e => {
-  if ((e.code==='Space'||e.key==='Enter') && document.activeElement !== godotFrame)
-    sendEnterToGodot();
+  if (document.activeElement === godotFrame) return; // already going to iframe
+  if (e.code === 'Space' || e.key === 'ArrowUp' || e.key === 'Enter') {
+    e.preventDefault();
+    if (e.key === 'ArrowUp' || e.code === 'Space') sendJumpToGodot();
+    else sendStartToGodot();
+  }
 });
 </script>
 </body>
