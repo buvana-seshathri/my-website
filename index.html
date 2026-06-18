@@ -45,81 +45,51 @@ body.dark {
   --font-body: 'JetBrains Mono', monospace;
   --font-display: 'Orbitron', sans-serif;
 }
-body.dark .hero h1       { font-size: 38px; letter-spacing: -0.5px; }
-body.dark .section-title { font-size: 26px; letter-spacing: 0px; }
-body.dark .exp-title     { font-size: 17px; }
-body.dark .project-name  { font-size: 18px; }
-body.dark .research-title{ font-size: 17px; }
-body.dark .edu-degree    { font-size: 16px; }
-body.dark .gh-card-name  { font-size: 14px; }
-body.dark .contact-wrap h2 { font-size: 26px; }
-body.dark .hero-eyebrow { background: rgba(88,166,255,0.15); }
-body.dark .role-tag { background: var(--warm-white); }
+body.dark .hero h1        { font-size: 36px; letter-spacing: -0.5px; }
+body.dark .section-title  { font-size: 26px; letter-spacing: 0px; }
+body.dark .exp-title      { font-size: 17px; }
+body.dark .project-name   { font-size: 18px; }
+body.dark .research-title { font-size: 17px; }
+body.dark .edu-degree     { font-size: 16px; }
+body.dark .gh-card-name   { font-size: 14px; }
+body.dark .contact-wrap h2{ font-size: 26px; }
+body.dark .hero-eyebrow   { background: rgba(88,166,255,0.15); }
+body.dark .role-tag       { background: var(--warm-white); }
 body.dark .role-tag.active, body.dark .role-tag:hover { background: var(--rose-light); color: var(--rose); border-color: var(--rose); }
-body.dark .btn-primary { background: var(--rose); color: #0D1117; }
+body.dark .btn-primary    { background: var(--rose); color: #0D1117; }
 body.dark .btn-primary:hover { background: var(--rose-mid); }
-body.dark .btn-secondary { color: var(--charcoal); }
-body.dark nav { background: var(--nav-bg); }
-body.dark footer { background: #010409; }
-body.dark .typed-cursor { background: var(--rose); }
-body.dark .pill { background: var(--cream); color: var(--charcoal); }
-body.dark .pill.rose { background: var(--rose-light); color: var(--rose); }
-body.dark .pill.sage { background: var(--sage-light); color: var(--sage); }
+body.dark .btn-secondary  { color: var(--charcoal); }
+body.dark footer          { background: #010409; }
+body.dark .typed-cursor   { background: var(--rose); }
+body.dark .pill           { background: var(--cream); color: var(--charcoal); }
+body.dark .pill.rose      { background: var(--rose-light); color: var(--rose); }
+body.dark .pill.sage      { background: var(--sage-light); color: var(--sage); }
+body.dark .soil           { background: #1C2330; }
+body.dark .stem           { background: #3FB950; }
 
-/* ── THEME TOGGLE BTN ── */
 /* ── THEME TOGGLE PILL ── */
-#theme-switcher {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex-shrink: 0;
-}
-#theme-switcher .theme-icon {
-  font-size: 15px;
-  line-height: 1;
-  user-select: none;
-}
+#theme-switcher { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+#theme-switcher .theme-icon { font-size: 15px; line-height: 1; user-select: none; }
 #theme-toggle {
-  position: relative;
-  width: 40px; height: 22px;
-  background: var(--cream);
-  border: 0.5px solid var(--border);
-  border-radius: 11px;
-  cursor: pointer;
-  flex-shrink: 0;
-  transition: background 0.3s, border-color 0.3s;
-  padding: 0;
-  outline: none;
+  position: relative; width: 40px; height: 22px;
+  background: var(--cream); border: 0.5px solid var(--border);
+  border-radius: 11px; cursor: pointer; flex-shrink: 0;
+  transition: background 0.3s, border-color 0.3s; padding: 0; outline: none;
 }
 #theme-toggle::after {
-  content: '';
-  position: absolute;
-  top: 3px; left: 3px;
-  width: 14px; height: 14px;
-  border-radius: 50%;
-  background: var(--rose);
+  content: ''; position: absolute; top: 3px; left: 3px;
+  width: 14px; height: 14px; border-radius: 50%; background: var(--rose);
   transition: transform 0.3s cubic-bezier(0.34,1.4,0.64,1), background 0.3s;
 }
-body.dark #theme-toggle {
-  background: #1C2330;
-  border-color: rgba(255,255,255,0.12);
-}
-body.dark #theme-toggle::after {
-  transform: translateX(18px);
-  background: #58A6FF;
-}
+body.dark #theme-toggle { background: #1C2330; border-color: rgba(255,255,255,0.12); }
+body.dark #theme-toggle::after { transform: translateX(18px); background: #58A6FF; }
 #theme-toggle:hover { border-color: var(--rose); }
 
 /* ── SCROLL PROGRESS BAR ── */
 #progress-bar {
-  position: fixed;
-  top: 0; left: 0;
-  height: 2.5px;
-  width: 0%;
+  position: fixed; top: 0; left: 0; height: 2.5px; width: 0%;
   background: linear-gradient(90deg, var(--rose), var(--rose-mid));
-  z-index: 9999;
-  transition: width 0.1s linear;
-  border-radius: 0 2px 2px 0;
+  z-index: 9999; transition: width 0.1s linear; border-radius: 0 2px 2px 0;
 }
 
 /* ── BASE ── */
@@ -128,8 +98,7 @@ body { font-family: var(--font-body); background: var(--ivory); color: var(--cha
 /* ── NAV ── */
 nav {
   position: sticky; top: 0; z-index: 100;
-  background: var(--nav-bg);
-  backdrop-filter: blur(8px);
+  background: var(--nav-bg); backdrop-filter: blur(8px);
   border-bottom: 0.5px solid var(--border);
   display: flex; align-items: center; justify-content: space-between;
   padding: 14px 48px;
@@ -140,100 +109,61 @@ nav {
 .nav-links a:hover { color: var(--rose); }
 
 /* ── SCROLL REVEAL ── */
-.reveal {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.55s ease, transform 0.55s ease;
-}
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-.reveal-stagger > * {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-.reveal-stagger.visible > *:nth-child(1) { opacity:1; transform:translateY(0); transition-delay: 0s; }
-.reveal-stagger.visible > *:nth-child(2) { opacity:1; transform:translateY(0); transition-delay: 0.08s; }
-.reveal-stagger.visible > *:nth-child(3) { opacity:1; transform:translateY(0); transition-delay: 0.16s; }
-.reveal-stagger.visible > *:nth-child(4) { opacity:1; transform:translateY(0); transition-delay: 0.24s; }
-.reveal-stagger.visible > *:nth-child(5) { opacity:1; transform:translateY(0); transition-delay: 0.32s; }
-.reveal-stagger.visible > *:nth-child(6) { opacity:1; transform:translateY(0); transition-delay: 0.40s; }
-
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.55s ease, transform 0.55s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-stagger > * { opacity: 0; transform: translateY(24px); transition: opacity 0.5s ease, transform 0.5s ease; }
+.reveal-stagger.visible > *:nth-child(1) { opacity:1; transform:translateY(0); transition-delay:0s; }
+.reveal-stagger.visible > *:nth-child(2) { opacity:1; transform:translateY(0); transition-delay:0.08s; }
+.reveal-stagger.visible > *:nth-child(3) { opacity:1; transform:translateY(0); transition-delay:0.16s; }
+.reveal-stagger.visible > *:nth-child(4) { opacity:1; transform:translateY(0); transition-delay:0.24s; }
+.reveal-stagger.visible > *:nth-child(5) { opacity:1; transform:translateY(0); transition-delay:0.32s; }
+.reveal-stagger.visible > *:nth-child(6) { opacity:1; transform:translateY(0); transition-delay:0.40s; }
 @media (prefers-reduced-motion: reduce) {
-  .reveal, .reveal-stagger > * { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .reveal, .reveal-stagger > * { opacity:1 !important; transform:none !important; transition:none !important; }
 }
 
 /* ── HERO ── */
 .hero {
-  padding: 100px 48px 80px;
-  max-width: 1000px; margin: 0 auto;
+  padding: 100px 48px 80px; max-width: 1000px; margin: 0 auto;
   display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
 }
 .hero-eyebrow {
-  display: inline-block;
-  font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+  display: inline-block; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
   color: var(--rose); font-weight: 500; margin-bottom: 20px;
   background: var(--rose-light); padding: 5px 12px; border-radius: 40px;
 }
-.hero h1 { font-family: var(--font-display); font-size: 48px; line-height: 1.15; color: var(--charcoal); margin-bottom: 20px; }
+.hero h1 { font-family: var(--font-display); font-size: 48px; line-height: 1.2; color: var(--charcoal); margin-bottom: 20px; }
 .hero h1 em { font-style: italic; color: var(--rose); }
-
-/* ── TYPING CURSOR ── */
 .typed-cursor {
-  display: inline-block;
-  width: 2px;
-  height: 0.85em;
-  background: var(--rose);
-  margin-left: 3px;
-  vertical-align: middle;
-  border-radius: 1px;
+  display: inline-block; width: 2px; height: 0.85em; background: var(--rose);
+  margin-left: 3px; vertical-align: middle; border-radius: 1px;
   animation: blink 1s step-end infinite;
 }
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-
-/* ── ROLE TAGS STRIP ── */
-.role-tags-strip {
-  display: flex; flex-wrap: wrap; gap: 8px;
-  margin-bottom: 18px;
-}
+.role-tags-strip { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
 .role-tag {
   font-size: 12px; font-weight: 500; letter-spacing: 0.04em;
-  padding: 5px 14px; border-radius: 40px;
-  border: 0.5px solid var(--border);
-  color: var(--charcoal);
-  background: var(--warm-white);
-  cursor: default;
+  padding: 5px 14px; border-radius: 40px; border: 0.5px solid var(--border);
+  color: var(--charcoal); background: var(--warm-white); cursor: default;
   transition: background 0.2s, color 0.2s, border-color 0.2s;
 }
 .role-tag:hover { background: var(--rose-light); color: var(--rose); border-color: var(--rose-mid); }
 .role-tag.active { background: var(--rose-light); color: var(--rose); border-color: var(--rose-mid); }
-
 .hero-sub { font-size: 16px; color: var(--muted); line-height: 1.75; margin-bottom: 32px; }
 .hero-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
 .btn-primary {
-  background: var(--charcoal); color: white;
-  padding: 11px 24px; border-radius: 40px;
+  background: var(--charcoal); color: white; padding: 11px 24px; border-radius: 40px;
   font-size: 13px; font-weight: 500; text-decoration: none;
-  transition: background 0.2s; font-family: var(--font-body);
-  cursor: pointer; border: none;
+  transition: background 0.2s; font-family: var(--font-body); cursor: pointer; border: none;
 }
 .btn-primary:hover { background: var(--rose); }
 .btn-secondary {
-  background: transparent; color: var(--charcoal);
-  border: 0.5px solid var(--border);
-  padding: 11px 24px; border-radius: 40px;
-  font-size: 13px; font-weight: 400; text-decoration: none;
-  transition: all 0.2s; font-family: var(--font-body);
+  background: transparent; color: var(--charcoal); border: 0.5px solid var(--border);
+  padding: 11px 24px; border-radius: 40px; font-size: 13px; font-weight: 400;
+  text-decoration: none; transition: all 0.2s; font-family: var(--font-body);
 }
 .btn-secondary:hover { border-color: var(--rose); color: var(--rose); }
-
-.hero-card {
-  background: var(--warm-white);
-  border: 0.5px solid var(--border);
-  border-radius: 20px; padding: 32px;
-}
+.hero-card { background: var(--warm-white); border: 0.5px solid var(--border); border-radius: 20px; padding: 32px; }
 .hero-card-line { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 20px; }
 .hero-card-line:last-child { margin-bottom: 0; }
 .hc-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 8px; flex-shrink: 0; }
@@ -246,7 +176,6 @@ nav {
 /* ── LAYOUT ── */
 .divider { height: 0.5px; background: var(--border); margin: 0 48px; }
 section { padding: 60px 48px; max-width: 1000px; margin: 0 auto; }
-
 .section-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--rose); font-weight: 500; margin-bottom: 12px; }
 .section-title { font-family: var(--font-display); font-size: 34px; color: var(--charcoal); margin-bottom: 8px; }
 .section-sub { color: var(--muted); font-size: 15px; max-width: 520px; line-height: 1.75; margin-bottom: 28px; }
@@ -280,27 +209,10 @@ section { padding: 60px 48px; max-width: 1000px; margin: 0 auto; }
 .project-name { font-family: var(--font-display); font-size: 22px; margin-bottom: 10px; }
 .project-desc { font-size: 14px; color: var(--muted); line-height: 1.7; flex: 1; margin-bottom: 18px; }
 .project-stack { display: flex; flex-wrap: wrap; gap: 5px; }
-.project-link { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: var(--rose); text-decoration: none; margin-top: 12px; font-weight: 500; }
-.project-link:hover { text-decoration: underline; }
 
-/* ── GITHUB LIVE SECTION ── */
-#github-repos-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 16px;
-  margin-top: 12px;
-}
-.gh-card {
-  background: var(--warm-white);
-  border: 0.5px solid var(--border);
-  border-radius: 14px;
-  padding: 22px 24px;
-  display: flex; flex-direction: column;
-  gap: 10px;
-  transition: box-shadow 0.2s, transform 0.2s;
-  text-decoration: none;
-  color: inherit;
-}
+/* ── GITHUB LIVE ── */
+#github-repos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-top: 12px; }
+.gh-card { background: var(--warm-white); border: 0.5px solid var(--border); border-radius: 14px; padding: 22px 24px; display: flex; flex-direction: column; gap: 10px; transition: box-shadow 0.2s, transform 0.2s; text-decoration: none; color: inherit; }
 .gh-card:hover { box-shadow: 0 6px 24px rgba(44,40,37,0.08); transform: translateY(-2px); }
 .gh-card-name { font-family: var(--font-display); font-size: 17px; color: var(--charcoal); }
 .gh-card-desc { font-size: 13px; color: var(--muted); line-height: 1.6; flex: 1; }
@@ -309,158 +221,31 @@ section { padding: 60px 48px; max-width: 1000px; margin: 0 auto; }
 .gh-lang-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--rose); flex-shrink: 0; }
 .gh-stars { display: flex; align-items: center; gap: 4px; font-size: 12px; color: var(--muted); }
 .gh-skeleton { background: var(--cream); border-radius: 8px; animation: shimmer 1.4s infinite; }
-@keyframes shimmer {
-  0%,100% { opacity: 0.5; }
-  50% { opacity: 1; }
-}
+@keyframes shimmer { 0%,100%{opacity:0.5} 50%{opacity:1} }
 .gh-error { color: var(--muted); font-size: 14px; padding: 20px 0; }
 
-/* Language dot colors */
-.lang-python { background: #3572A5; }
-.lang-javascript { background: #F1E05A; }
-.lang-typescript { background: #2B7489; }
-.lang-java { background: #B07219; }
-.lang-html { background: #E34C26; }
-.lang-css { background: #563D7C; }
-.lang-shell { background: #89E051; }
-.lang-default { background: var(--rose); }
-
 /* ── CODE GARDEN ── */
-#garden-wrap {
-  margin-top: 28px;
-  background: var(--warm-white);
-  border: 0.5px solid var(--border);
-  border-radius: 16px;
-  padding: 24px 28px 20px;
-  position: relative;
-}
-.garden-header {
-  display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 16px; flex-wrap: wrap; gap: 8px;
-}
+#garden-wrap { margin-top: 28px; background: var(--warm-white); border: 0.5px solid var(--border); border-radius: 16px; padding: 24px 28px 20px; position: relative; }
+.garden-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 8px; }
 .garden-title { font-size: 13px; font-weight: 500; color: var(--charcoal); }
 .garden-sub { font-size: 12px; color: var(--muted); }
-.garden-legend {
-  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
-}
-.garden-legend-item {
-  display: flex; align-items: center; gap: 5px;
-  font-size: 11px; color: var(--muted);
-}
-.garden-legend-dot {
-  width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
-}
-#garden-bed {
-  display: flex;
-  gap: 4px;
-  align-items: flex-end;
-  overflow-x: auto;
-  padding-bottom: 24px;
-  padding-top: 8px;
-  position: relative;
-  min-height: 120px;
-  scrollbar-width: thin;
-  scrollbar-color: var(--cream) transparent;
-}
-.garden-col {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  flex-shrink: 0;
-  position: relative;
-}
-.garden-col-label {
-  position: absolute;
-  bottom: -20px;
-  font-size: 9px;
-  color: var(--muted);
-  white-space: nowrap;
-  text-align: center;
-}
-/* The plant cell */
-.plant {
-  width: 14px;
-  cursor: pointer;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-}
-/* Soil dot always at bottom */
-.soil {
-  width: 14px; height: 5px;
-  border-radius: 3px;
-  background: var(--cream);
-  flex-shrink: 0;
-  transition: background 0.3s;
-}
-body.dark .soil { background: #1C2330; }
-/* Stem */
-.stem {
-  width: 2px;
-  background: #7A9E8E;
-  border-radius: 1px;
-  transition: height 0.6s cubic-bezier(0.34,1.56,0.64,1);
-  flex-shrink: 0;
-}
-body.dark .stem { background: #3FB950; }
-/* Bloom on top */
-.bloom {
-  font-size: 12px;
-  line-height: 1;
-  transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), opacity 0.4s;
-  flex-shrink: 0;
-}
-/* Tooltip */
+.garden-legend { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.garden-legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--muted); }
+#garden-bed { display: flex; gap: 4px; align-items: flex-end; overflow-x: auto; padding-bottom: 24px; padding-top: 8px; min-height: 120px; scrollbar-width: thin; scrollbar-color: var(--cream) transparent; }
+.garden-col { display: flex; flex-direction: column; align-items: center; gap: 2px; flex-shrink: 0; position: relative; }
+.garden-col-label { position: absolute; bottom: -20px; font-size: 9px; color: var(--muted); white-space: nowrap; text-align: center; }
+.plant { width: 14px; cursor: pointer; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; }
+.soil { width: 14px; height: 5px; border-radius: 3px; background: var(--cream); flex-shrink: 0; transition: background 0.3s; }
+.stem { width: 2px; background: #7A9E8E; border-radius: 1px; transition: height 0.6s cubic-bezier(0.34,1.56,0.64,1); flex-shrink: 0; }
+.bloom { font-size: 12px; line-height: 1; transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), opacity 0.4s; flex-shrink: 0; }
 #garden-tooltip {
-  position: fixed;
-  background: var(--charcoal);
-  color: white;
-  font-size: 12px;
-  padding: 7px 12px;
-  border-radius: 8px;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.15s;
-  z-index: 9999;
-  white-space: nowrap;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-  max-width: 220px;
+  position: fixed; background: var(--charcoal); color: white;
+  font-size: 12px; padding: 7px 12px; border-radius: 8px;
+  pointer-events: none; opacity: 0; transition: opacity 0.15s;
+  z-index: 9999; white-space: nowrap; box-shadow: 0 4px 16px rgba(0,0,0,0.2); max-width: 220px;
 }
 #garden-tooltip.show { opacity: 1; }
 #heatmap-note { font-size: 12px; color: var(--muted); margin-top: 12px; }
-
-/* ── GAME ── */
-#game-section {
-  max-width: 1000px; margin: 0 auto;
-  padding: 0 48px 80px;
-}
-.game-wrap {
-  background: var(--warm-white);
-  border: 0.5px solid var(--border);
-  border-radius: 20px;
-  padding: 32px;
-  text-align: center;
-}
-.game-wrap h3 { font-family: var(--font-display); font-size: 26px; margin-bottom: 6px; }
-.game-wrap p { color: var(--muted); font-size: 14px; margin-bottom: 20px; }
-#game-canvas {
-  border-radius: 12px;
-  border: 0.5px solid var(--border);
-  background: var(--ivory);
-  display: block;
-  margin: 0 auto;
-  max-width: 100%;
-}
-.game-controls { margin-top: 16px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
-#game-score { font-size: 14px; color: var(--muted); margin-top: 10px; }
-
-@media (max-width:700px) {
-  .skills-grid { grid-template-columns: 1fr 1fr; }
-  #game-section { padding: 0 20px 56px; }
-}
 
 /* ── RESEARCH ── */
 .research-card { background: var(--warm-white); border: 0.5px solid var(--border); border-radius: 16px; padding: 32px; margin-bottom: 20px; border-left: 3px solid var(--sage); }
@@ -482,53 +267,50 @@ body.dark .stem { background: #3FB950; }
 .contact-wrap p { color: var(--muted); font-size: 15px; margin-bottom: 32px; }
 .contact-links { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 
+/* ── GODOT GAME ── */
+#game-section { max-width: 1000px; margin: 0 auto; padding: 0 48px 80px; }
+.game-wrap { background: var(--warm-white); border: 0.5px solid var(--border); border-radius: 20px; padding: 32px; text-align: center; }
+.game-wrap h3 { font-family: var(--font-display); font-size: 26px; margin-bottom: 6px; }
+.game-wrap p  { color: var(--muted); font-size: 14px; margin-bottom: 20px; }
+#godot-wrap {
+  position: relative; width: 100%; padding-bottom: 56.25%; height: 0;
+  border-radius: 12px; overflow: hidden; border: 0.5px solid var(--border); background: #000;
+}
+#godot-frame { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; display: block; }
+#mobile-tap-overlay {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  display: none; align-items: flex-end; justify-content: center;
+  padding-bottom: 16px; pointer-events: none; z-index: 10;
+}
+#mobile-tap-hint {
+  background: rgba(0,0,0,0.55); color: white; font-size: 13px;
+  padding: 7px 18px; border-radius: 20px; pointer-events: all;
+  cursor: pointer; backdrop-filter: blur(4px); user-select: none;
+}
+
 /* ── FOOTER ── */
 footer { background: var(--charcoal); color: rgba(255,255,255,0.5); text-align: center; padding: 28px; font-size: 12px; }
 
 /* ── RESPONSIVE ── */
 @media (max-width: 700px) {
-  nav {
-    padding: 10px 16px;
-    flex-wrap: wrap;
-    gap: 0;
-    isolation: isolate;
-  }
-  /* Row 1: name centred, toggle floated right */
-  .nav-name {
-    flex: 1;
-    text-align: center;
-    font-size: 18px;
-  }
-  #theme-switcher {
-    /* stays on the right in row 1 */
-  }
-  /* Row 2: links fill full width, centred */
-  .nav-links {
-    order: 3;
-    width: 100%;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px 16px;
-    padding: 8px 0 2px;
-    border-top: 0.5px solid var(--border);
-    margin-top: 8px;
-  }
+  nav { padding: 10px 16px; flex-wrap: wrap; gap: 0; }
+  .nav-name { flex: 1; text-align: center; font-size: 18px; }
+  .nav-links { order: 3; width: 100%; justify-content: center; flex-wrap: wrap; gap: 10px 16px; padding: 8px 0 2px; border-top: 0.5px solid var(--border); margin-top: 8px; }
   .nav-links a { font-size: 12px; }
-
   .hero { grid-template-columns: 1fr; padding: 60px 20px 40px; gap: 32px; }
   .hero h1 { font-size: 36px; }
   section { padding: 56px 20px; }
   .divider { margin: 0 20px; }
   .edu-grid { grid-template-columns: 1fr; }
   .exp-header { flex-direction: column; gap: 4px; }
-  #game-section { padding: 0 20px 56px; }
   .skills-grid { grid-template-columns: 1fr 1fr; }
+  #game-section { padding: 0 20px 56px; }
+  #mobile-tap-overlay { display: flex; }
 }
 </style>
 </head>
 <body>
 
-<!-- PROGRESS BAR -->
 <div id="progress-bar"></div>
 
 <!-- NAV -->
@@ -554,8 +336,6 @@ footer { background: var(--charcoal); color: rgba(255,255,255,0.5); text-align: 
   <div class="reveal">
     <span class="hero-eyebrow">ML Engineer · Researcher · Builder</span>
     <h1><em id="typed-text">machine learning</em><span class="typed-cursor"></span><br>meets engineering craft</h1>
-
-    <!-- ROLE TAGS -->
     <div class="role-tags-strip" id="role-tags">
       <span class="role-tag">Software Engineer</span>
       <span class="role-tag">ML Engineer</span>
@@ -564,7 +344,6 @@ footer { background: var(--charcoal); color: rgba(255,255,255,0.5); text-align: 
       <span class="role-tag">AI/LLM Engineer</span>
       <span class="role-tag">Research Engineer</span>
     </div>
-
     <p class="hero-sub">I build end-to-end ML systems — from HPC inference pipelines to LLM-powered applications — grounded in two years of production engineering and published research.</p>
     <div class="hero-buttons">
       <a href="#projects" class="btn-primary">View my work</a>
@@ -573,55 +352,26 @@ footer { background: var(--charcoal); color: rgba(255,255,255,0.5); text-align: 
     </div>
   </div>
   <div class="hero-card reveal" style="transition-delay:0.15s">
-    <div class="hero-card-line">
-      <div class="hc-dot rose"></div>
-      <div>
-        <div class="hc-label">Degree</div>
-        <div class="hc-val">M.S. Computer Science, UT Dallas — GPA 3.88</div>
-      </div>
-    </div>
-    <div class="hero-card-line">
-      <div class="hc-dot sage"></div>
-      <div>
-        <div class="hc-label">Experience</div>
-        <div class="hc-val">Zoho Corp (SWE) · UT Dallas HPC Lab</div>
-      </div>
-    </div>
-    <div class="hero-card-line">
-      <div class="hc-dot amber"></div>
-      <div>
-        <div class="hc-label">Published</div>
-        <div class="hc-val">IEEE I2CT 2023 · Brain Tumor Detection</div>
-      </div>
-    </div>
-    <div class="hero-card-line">
-      <div class="hc-dot rose"></div>
-      <div>
-        <div class="hc-label">Currently</div>
-        <div class="hc-val">Open to ML/AI Engineering & SWE roles · Dallas, TX</div>
-      </div>
-    </div>
+    <div class="hero-card-line"><div class="hc-dot rose"></div><div><div class="hc-label">Degree</div><div class="hc-val">M.S. Computer Science, UT Dallas — GPA 3.88</div></div></div>
+    <div class="hero-card-line"><div class="hc-dot sage"></div><div><div class="hc-label">Experience</div><div class="hc-val">Zoho Corp (SWE) · UT Dallas HPC Lab</div></div></div>
+    <div class="hero-card-line"><div class="hc-dot amber"></div><div><div class="hc-label">Published</div><div class="hc-val">IEEE I2CT 2023 · Brain Tumor Detection</div></div></div>
+    <div class="hero-card-line"><div class="hc-dot rose"></div><div><div class="hc-label">Currently</div><div class="hc-val">Open to ML/AI Engineering & SWE roles · Dallas, TX</div></div></div>
   </div>
 </div>
 
 <div class="divider"></div>
 
-<!-- ABOUT + HEATMAP -->
+<!-- ABOUT + CODE GARDEN -->
 <section id="about">
   <div class="reveal">
     <div class="section-label">About</div>
     <h2 class="section-title">The full picture</h2>
     <p class="section-sub" style="max-width:680px">I'm a machine learning engineer with a genuine love for hard infrastructure problems — the kind where you're optimizing GPU memory at 2am or debugging a silent LangChain context overflow. I started as a production software engineer at Zoho, where I owned full-stack features and shipped a platform-wide Java upgrade across thousands of files. Then at UT Dallas, I moved deeper into ML research: building Stable Diffusion pipelines on HPC clusters, publishing on deep learning for medical imaging, and working on cross-modal sensing systems combining Wi-Fi and satellite data. I'm most energized at the seam where research meets production — making ML systems actually work, at scale, for real users.</p>
   </div>
-
-  <!-- CODE GARDEN -->
   <div class="reveal" style="transition-delay:0.1s">
     <div id="garden-wrap">
       <div class="garden-header">
-        <div>
-          <span class="garden-title">Code Garden</span>
-          <span class="garden-sub">· last 60 days of GitHub activity</span>
-        </div>
+        <div><span class="garden-title">Code Garden</span><span class="garden-sub"> · last 60 days of GitHub activity</span></div>
         <div class="garden-legend" id="garden-legend"></div>
       </div>
       <div id="garden-bed"></div>
@@ -640,42 +390,12 @@ footer { background: var(--charcoal); color: rgba(255,255,255,0.5); text-align: 
     <p class="section-sub">Spanning ML research tooling, full-stack engineering, and cloud infrastructure.</p>
   </div>
   <div class="skills-grid reveal-stagger">
-    <div class="skill-card">
-      <div class="skill-card-title">ML / AI</div>
-      <div class="skill-pills">
-        <span class="pill rose">PyTorch</span><span class="pill rose">CUDA</span><span class="pill rose">Hugging Face</span><span class="pill rose">LangChain</span><span class="pill rose">RAG</span><span class="pill rose">OpenAI API</span><span class="pill rose">Anthropic API</span><span class="pill rose">SLURM</span>
-      </div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-card-title">Languages</div>
-      <div class="skill-pills">
-        <span class="pill">Python</span><span class="pill">Java</span><span class="pill">C</span><span class="pill">JavaScript</span><span class="pill">TypeScript</span><span class="pill">Shell / Bash</span><span class="pill">SQL</span>
-      </div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-card-title">Backend & Web</div>
-      <div class="skill-pills">
-        <span class="pill sage">Spring Boot</span><span class="pill sage">FastAPI</span><span class="pill sage">Flask</span><span class="pill sage">REST APIs</span><span class="pill sage">Microservices</span><span class="pill sage">React</span><span class="pill sage">Angular</span>
-      </div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-card-title">Cloud & Infra</div>
-      <div class="skill-pills">
-        <span class="pill">AWS EC2</span><span class="pill">AWS S3</span><span class="pill">SageMaker</span><span class="pill">Docker</span><span class="pill">Kubernetes</span><span class="pill">Linux</span><span class="pill">Git</span>
-      </div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-card-title">Databases</div>
-      <div class="skill-pills">
-        <span class="pill">MySQL</span><span class="pill">PostgreSQL</span><span class="pill">MongoDB</span><span class="pill">Redis</span><span class="pill">SQLite</span><span class="pill">Elastic DB</span><span class="pill">GraphQL</span>
-      </div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-card-title">Tools & Practices</div>
-      <div class="skill-pills">
-        <span class="pill">Git</span><span class="pill">GitHub Actions</span><span class="pill">CI/CD</span><span class="pill">JIRA</span><span class="pill">Postman</span><span class="pill">Jupyter</span><span class="pill">VS Code</span>
-      </div>
-    </div>
+    <div class="skill-card"><div class="skill-card-title">ML / AI</div><div class="skill-pills"><span class="pill rose">PyTorch</span><span class="pill rose">CUDA</span><span class="pill rose">Hugging Face</span><span class="pill rose">LangChain</span><span class="pill rose">RAG</span><span class="pill rose">OpenAI API</span><span class="pill rose">Anthropic API</span><span class="pill rose">SLURM</span></div></div>
+    <div class="skill-card"><div class="skill-card-title">Languages</div><div class="skill-pills"><span class="pill">Python</span><span class="pill">Java</span><span class="pill">C</span><span class="pill">JavaScript</span><span class="pill">TypeScript</span><span class="pill">Shell / Bash</span><span class="pill">SQL</span></div></div>
+    <div class="skill-card"><div class="skill-card-title">Backend & Web</div><div class="skill-pills"><span class="pill sage">Spring Boot</span><span class="pill sage">FastAPI</span><span class="pill sage">Flask</span><span class="pill sage">REST APIs</span><span class="pill sage">Microservices</span><span class="pill sage">React</span><span class="pill sage">Angular</span></div></div>
+    <div class="skill-card"><div class="skill-card-title">Cloud & Infra</div><div class="skill-pills"><span class="pill">AWS EC2</span><span class="pill">AWS S3</span><span class="pill">SageMaker</span><span class="pill">Docker</span><span class="pill">Kubernetes</span><span class="pill">Linux</span><span class="pill">Git</span></div></div>
+    <div class="skill-card"><div class="skill-card-title">Databases</div><div class="skill-pills"><span class="pill">MySQL</span><span class="pill">PostgreSQL</span><span class="pill">MongoDB</span><span class="pill">Redis</span><span class="pill">SQLite</span><span class="pill">Elastic DB</span><span class="pill">GraphQL</span></div></div>
+    <div class="skill-card"><div class="skill-card-title">Tools & Practices</div><div class="skill-pills"><span class="pill">Git</span><span class="pill">GitHub Actions</span><span class="pill">CI/CD</span><span class="pill">JIRA</span><span class="pill">Postman</span><span class="pill">Jupyter</span><span class="pill">VS Code</span></div></div>
   </div>
 </section>
 
@@ -690,46 +410,30 @@ footer { background: var(--charcoal); color: rgba(255,255,255,0.5); text-align: 
   </div>
   <div class="exp-timeline reveal-stagger">
     <div class="exp-card">
-      <div class="exp-header">
-        <div>
-          <div class="exp-title">HPC Student Assistant</div>
-          <div class="exp-org">University of Texas at Dallas — HPC Facilitation</div>
-        </div>
-        <div class="exp-date">Jun 2025 – May 2026</div>
-      </div>
+      <div class="exp-header"><div><div class="exp-title">HPC Student Assistant</div><div class="exp-org">University of Texas at Dallas — HPC Facilitation</div></div><div class="exp-date">Jun 2025 – May 2026</div></div>
       <ul class="exp-bullets">
         <li>Engineered and deployed a multi-model Stable Diffusion inference pipeline using PyTorch, Hugging Face Diffusers, and SLURM — enabling research groups to run complex GPU workloads with minimal setup.</li>
         <li>Abstracted pipeline complexity into a clean execution interface backed by detailed technical documentation, empowering non-technical researchers to operate HPC workflows independently.</li>
         <li>Benchmarked inference across CPU and GPU configurations, advising teams on optimal hardware allocation and model parameters.</li>
       </ul>
-      <div class="exp-tech">
-        <span class="pill rose">PyTorch</span><span class="pill rose">CUDA</span><span class="pill rose">Hugging Face</span><span class="pill">SLURM</span><span class="pill">Linux</span><span class="pill">Bash</span>
-      </div>
+      <div class="exp-tech"><span class="pill rose">PyTorch</span><span class="pill rose">CUDA</span><span class="pill rose">Hugging Face</span><span class="pill">SLURM</span><span class="pill">Linux</span><span class="pill">Bash</span></div>
     </div>
     <div class="exp-card">
-      <div class="exp-header">
-        <div>
-          <div class="exp-title">Member of Technical Staff</div>
-          <div class="exp-org">Zoho Corporation — ServiceDesk Plus</div>
-        </div>
-        <div class="exp-date">Jul 2022 – Jul 2024</div>
-      </div>
+      <div class="exp-header"><div><div class="exp-title">Member of Technical Staff</div><div class="exp-org">Zoho Corporation — ServiceDesk Plus</div></div><div class="exp-date">Jul 2022 – Jul 2024</div></div>
       <ul class="exp-bullets">
         <li>Owned end-to-end delivery of critical full-stack features for a large-scale enterprise ITSM platform — including database design, API architecture, and UI.</li>
         <li>Orchestrated a platform-wide Java runtime upgrade across a multi-thousand-file codebase with zero production regressions.</li>
         <li>Triaged and resolved escalated security vulnerabilities across authentication, server configuration, SSL, and application layers — resolving 90% within SLA targets.</li>
         <li>Served as release owner for a full product release, coordinating feature owners to deliver the final production build.</li>
       </ul>
-      <div class="exp-tech">
-        <span class="pill">Java</span><span class="pill">SQL</span><span class="pill">REST APIs</span><span class="pill">Redis</span><span class="pill">Tomcat</span><span class="pill">Nginx</span><span class="pill">OpenSSL</span><span class="pill">Maven</span>
-      </div>
+      <div class="exp-tech"><span class="pill">Java</span><span class="pill">SQL</span><span class="pill">REST APIs</span><span class="pill">Redis</span><span class="pill">Tomcat</span><span class="pill">Nginx</span><span class="pill">OpenSSL</span><span class="pill">Maven</span></div>
     </div>
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- PROJECTS (static) -->
+<!-- PROJECTS -->
 <section id="projects">
   <div class="reveal">
     <div class="section-label">Projects</div>
@@ -741,33 +445,25 @@ footer { background: var(--charcoal); color: rgba(255,255,255,0.5); text-align: 
       <span class="project-tag">LLM · Sensing</span>
       <div class="project-name">HomeSense</div>
       <p class="project-desc">Context-aware proactive LLM inference using indoor localization. Combines BLE and IMU sensors to achieve 92% room-level accuracy without GPS, then surfaces proactive LLM responses via an event-driven pipeline — no user prompting needed.</p>
-      <div class="project-stack">
-        <span class="pill rose">GPT-4o-mini</span><span class="pill">Python</span><span class="pill">FastAPI</span><span class="pill">SQLite</span><span class="pill">BLE</span><span class="pill">IMU</span>
-      </div>
+      <div class="project-stack"><span class="pill rose">GPT-4o-mini</span><span class="pill">Python</span><span class="pill">FastAPI</span><span class="pill">SQLite</span><span class="pill">BLE</span><span class="pill">IMU</span></div>
     </div>
     <div class="project-card">
       <span class="project-tag">RAG · NLP</span>
       <div class="project-name">ScholarMind</div>
       <p class="project-desc">A retrieval-augmented generation pipeline over academic research papers. Enables semantic search and context-grounded Q&A with page-level source citations — built with FAISS vector retrieval and LangChain orchestration.</p>
-      <div class="project-stack">
-        <span class="pill rose">LangChain</span><span class="pill rose">FAISS</span><span class="pill">Python</span><span class="pill">FastAPI</span><span class="pill">RAG</span>
-      </div>
+      <div class="project-stack"><span class="pill rose">LangChain</span><span class="pill rose">FAISS</span><span class="pill">Python</span><span class="pill">FastAPI</span><span class="pill">RAG</span></div>
     </div>
     <div class="project-card">
       <span class="project-tag">Full-Stack · SaaS</span>
       <div class="project-name">AI Task Manager</div>
       <p class="project-desc">A full-stack SaaS platform with LLM-powered task summarization and workflow insights. Features RBAC, JWT auth, RESTful APIs, and containerized CI/CD — built as a Java/Spring Boot backend with an Angular SPA.</p>
-      <div class="project-stack">
-        <span class="pill sage">Spring Boot</span><span class="pill sage">Angular</span><span class="pill">MySQL</span><span class="pill">Docker</span><span class="pill">JWT</span><span class="pill rose">LLM</span>
-      </div>
+      <div class="project-stack"><span class="pill sage">Spring Boot</span><span class="pill sage">Angular</span><span class="pill">MySQL</span><span class="pill">Docker</span><span class="pill">JWT</span><span class="pill rose">LLM</span></div>
     </div>
   </div>
-
-  <!-- LIVE GITHUB REPOS -->
   <div class="reveal" style="margin-top:48px; transition-delay:0.1s">
     <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
       <div class="section-label" style="margin-bottom:0">Live from GitHub</div>
-      <span style="font-size:11px;color:var(--muted);background:var(--sage-light);color:var(--sage);padding:2px 8px;border-radius:20px;letter-spacing:0.05em;">auto-updated</span>
+      <span style="font-size:11px;background:var(--sage-light);color:var(--sage);padding:2px 8px;border-radius:20px;letter-spacing:0.05em;">auto-updated</span>
     </div>
     <p style="font-size:14px;color:var(--muted);margin-bottom:0;">Public repositories, pulled live from the GitHub API.</p>
     <div id="github-repos-grid"></div>
@@ -841,50 +537,33 @@ footer { background: var(--charcoal); color: rgba(255,255,255,0.5); text-align: 
 
 <div class="divider"></div>
 
-<!-- HIDDEN FLOWER QUOTES SECTION -->
-<div id="flower-secret" style="display:none">
-  <div class="divider"></div>
-  <section id="secret-quotes">
-    <div class="reveal">
-      <div class="section-label">you found it 🌸</div>
-      <h2 class="section-title">A little garden of words</h2>
-      <p class="section-sub">Quotes that keep me going.</p>
-    </div>
-    <div id="quotes-grid" class="reveal-stagger"></div>
-  </section>
-</div>
-
-<!-- DINO GAME -->
+<!-- GODOT GAME -->
 <div id="game-section">
   <div class="game-wrap reveal">
     <div class="section-label" style="margin-bottom:8px">Just for fun</div>
     <h3>🦕 Dino Run</h3>
-    <p>Press <strong>Space</strong> or tap to jump. Don't hit the cacti!</p>
-    <canvas id="game-canvas" width="600" height="160"></canvas>
-    <div class="game-controls">
-      <button class="btn-primary" id="game-start-btn">Start</button>
-      <button class="btn-secondary" id="game-reset-btn" style="display:none">Restart</button>
+    <p>Press <strong>Space</strong> or <strong>Enter</strong> to jump · tap the screen on mobile</p>
+    <div id="godot-wrap">
+      <iframe id="godot-frame" src="dino-game/index.html" allowfullscreen allow="autoplay; fullscreen" scrolling="no" title="Dino Game"></iframe>
+      <div id="mobile-tap-overlay">
+        <div id="mobile-tap-hint">▶ Tap to Start</div>
+      </div>
     </div>
-    <div id="game-score">Press Start · High score: <span id="game-hi">0</span></div>
   </div>
 </div>
 
 <footer>
   <p>© 2026 Buvana Seshathri · Built with intention, not a template.</p>
-  <p style="margin-top:6px;font-size:11px;opacity:0.4">psst — find the hidden 🌸 flowers on the page</p>
 </footer>
 
-<!-- GARDEN TOOLTIP — body-level so position:fixed never breaks from ancestor transforms -->
+<!-- Tooltip at body level — position:fixed works correctly here -->
 <div id="garden-tooltip"></div>
 
 <script>
-// ── gardenData hoisted first — prevents Chrome TDZ ReferenceError ──
-// function declarations are hoisted but let/const are not; applyTheme
-// (a function) runs at load time and references gardenData, so gardenData
-// must be declared before any code executes.
+// ── gardenData hoisted — prevents Chrome TDZ error ────────────────
 let gardenData = [];
 
-// ── DARK MODE ─────────────────────────────────────────────────────
+// ── DARK MODE ────────────────────────────────────────────────────
 const themeBtn = document.getElementById('theme-toggle');
 const isDark = () => document.body.classList.contains('dark');
 
@@ -894,76 +573,41 @@ function applyTheme(dark) {
   if (gardenData.length) renderGarden(gardenData);
 }
 themeBtn.addEventListener('click', () => applyTheme(!isDark()));
-// Init from saved preference
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme === 'dark') applyTheme(true);
 
-function updateLegendColors() {} // no-op — garden handles its own legend
-
-// ── 1. SCROLL PROGRESS BAR ───────────────────────────────────────
+// ── SCROLL PROGRESS ──────────────────────────────────────────────
 const progressBar = document.getElementById('progress-bar');
 window.addEventListener('scroll', () => {
-  const scrollTop = window.scrollY;
-  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-  const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  const pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
   progressBar.style.width = pct + '%';
 }, { passive: true });
 
-// ── 2. SCROLL REVEAL ─────────────────────────────────────────────
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    } else {
-      // Remove on exit so it re-animates when scrolled back into view
-      entry.target.classList.remove('visible');
-    }
-  });
-}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => revealObserver.observe(el));
-// Hero is above fold — mark visible immediately and don't unmark it
-document.querySelectorAll('.hero .reveal').forEach(el => {
-  el.classList.add('visible');
-  el.dataset.heroEl = '1';
-});
-// Override: keep hero elements permanently visible
-const _origDisconnect = revealObserver.observe.bind(revealObserver);
+// ── SCROLL REVEAL ────────────────────────────────────────────────
 const heroEls = new Set(document.querySelectorAll('.hero .reveal'));
 const revealObserver2 = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
-    if (heroEls.has(entry.target)) return; // never un-reveal hero
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    } else {
-      entry.target.classList.remove('visible');
-    }
+    if (heroEls.has(entry.target)) { entry.target.classList.add('visible'); return; }
+    entry.target.classList.toggle('visible', entry.isIntersecting);
   });
 }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-// Re-observe everything with the hero-aware observer
-revealObserver.disconnect();
 document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => revealObserver2.observe(el));
+heroEls.forEach(el => el.classList.add('visible'));
 
-// ── 3. TYPING HEADLINE ───────────────────────────────────────────
-const phrases = ['machine learning', 'LLM engineering', 'HPC research', 'full-stack systems', 'applied AI', 'published research'];
+// ── TYPING HEADLINE ──────────────────────────────────────────────
+const phrases = ['machine learning','LLM engineering','HPC research','full-stack systems','applied AI','published research'];
 const typedEl = document.getElementById('typed-text');
 let phraseIdx = 0, charIdx = 0, deleting = false;
 function type() {
-  const current = phrases[phraseIdx];
-  if (!deleting) {
-    typedEl.textContent = current.slice(0, charIdx + 1);
-    charIdx++;
-    if (charIdx === current.length) { deleting = true; setTimeout(type, 1800); return; }
-    setTimeout(type, 75);
-  } else {
-    typedEl.textContent = current.slice(0, charIdx - 1);
-    charIdx--;
-    if (charIdx === 0) { deleting = false; phraseIdx = (phraseIdx + 1) % phrases.length; setTimeout(type, 300); return; }
-    setTimeout(type, 40);
-  }
+  const cur = phrases[phraseIdx];
+  typedEl.textContent = deleting ? cur.slice(0, --charIdx) : cur.slice(0, ++charIdx);
+  if (!deleting && charIdx === cur.length) { deleting = true; setTimeout(type, 1800); return; }
+  if (deleting && charIdx === 0) { deleting = false; phraseIdx = (phraseIdx + 1) % phrases.length; setTimeout(type, 300); return; }
+  setTimeout(type, deleting ? 40 : 75);
 }
 setTimeout(type, 1200);
 
-// ── 4. ROLE TAG ROTATION ─────────────────────────────────────────
+// ── ROLE TAG ROTATION ────────────────────────────────────────────
 const roleTags = document.querySelectorAll('#role-tags .role-tag');
 let activeRoleIdx = 0;
 function rotateTags() {
@@ -974,152 +618,95 @@ function rotateTags() {
 rotateTags();
 setInterval(rotateTags, 2000);
 
-// ── 5. GITHUB LIVE REPOS ─────────────────────────────────────────
+// ── GITHUB REPOS ─────────────────────────────────────────────────
 const GITHUB_USER = 'buvana-seshathri';
 const reposGrid = document.getElementById('github-repos-grid');
 const langColors = { Python:'#3572A5',JavaScript:'#F1E05A',TypeScript:'#2B7489',Java:'#B07219',HTML:'#E34C26',CSS:'#563D7C',Shell:'#89E051',Jupyter:'#DA5B0B' };
-const getLangColor = l => langColors[l] || '#C97B6A';
 reposGrid.innerHTML = Array(6).fill(0).map(() => `<div class="gh-card" style="pointer-events:none"><div class="gh-skeleton" style="height:18px;width:60%;border-radius:6px;margin-bottom:8px"></div><div class="gh-skeleton" style="height:12px;width:90%;border-radius:4px;margin-bottom:4px"></div><div class="gh-skeleton" style="height:12px;width:70%;border-radius:4px;margin-bottom:12px"></div><div class="gh-skeleton" style="height:10px;width:40%;border-radius:4px"></div></div>`).join('');
 fetch(`https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=12`)
-  .then(r => { if (!r.ok) throw new Error(); return r.json(); })
+  .then(r => { if(!r.ok) throw new Error(); return r.json(); })
   .then(repos => {
-    const filtered = repos.filter(r => !r.fork && r.name !== GITHUB_USER).slice(0, 9);
-    if (!filtered.length) { reposGrid.innerHTML = `<p class="gh-error">No public repositories found.</p>`; return; }
+    const filtered = repos.filter(r => !r.fork && r.name !== GITHUB_USER).slice(0,9);
+    if (!filtered.length) { reposGrid.innerHTML = '<p class="gh-error">No public repositories found.</p>'; return; }
     reposGrid.innerHTML = filtered.map(repo => {
-      const lang = repo.language || '';
-      const color = getLangColor(lang);
-      const desc = repo.description ? repo.description.slice(0, 100) + (repo.description.length > 100 ? '…' : '') : 'No description provided.';
-      const stars = repo.stargazers_count;
-      const updated = new Date(repo.updated_at).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
-      return `<a class="gh-card" href="${repo.html_url}" target="_blank" rel="noopener"><div class="gh-card-name">${repo.name}</div><div class="gh-card-desc">${desc}</div><div class="gh-card-meta">${lang ? `<div class="gh-lang"><div class="gh-lang-dot" style="background:${color}"></div>${lang}</div>` : ''}${stars > 0 ? `<div class="gh-stars">★ ${stars}</div>` : ''}<div style="font-size:11px;color:var(--muted);margin-left:auto">${updated}</div></div></a>`;
+      const lang = repo.language||'', color = langColors[lang]||'#C97B6A';
+      const desc = repo.description ? repo.description.slice(0,100)+(repo.description.length>100?'…':'') : 'No description provided.';
+      const updated = new Date(repo.updated_at).toLocaleDateString('en-US',{month:'short',year:'numeric'});
+      return `<a class="gh-card" href="${repo.html_url}" target="_blank" rel="noopener"><div class="gh-card-name">${repo.name}</div><div class="gh-card-desc">${desc}</div><div class="gh-card-meta">${lang?`<div class="gh-lang"><div class="gh-lang-dot" style="background:${color}"></div>${lang}</div>`:''  }${repo.stargazers_count>0?`<div class="gh-stars">★ ${repo.stargazers_count}</div>`:''}<div style="font-size:11px;color:var(--muted);margin-left:auto">${updated}</div></div></a>`;
     }).join('');
-    document.querySelectorAll('.gh-card').forEach((el, i) => {
-      el.style.opacity='0'; el.style.transform='translateY(16px)';
-      el.style.transition=`opacity 0.4s ease ${i*0.06}s, transform 0.4s ease ${i*0.06}s`;
-      requestAnimationFrame(() => { el.style.opacity='1'; el.style.transform='translateY(0)'; });
+    document.querySelectorAll('.gh-card').forEach((el,i) => {
+      el.style.cssText=`opacity:0;transform:translateY(16px);transition:opacity 0.4s ease ${i*0.06}s,transform 0.4s ease ${i*0.06}s`;
+      requestAnimationFrame(()=>{ el.style.opacity='1'; el.style.transform='translateY(0)'; });
     });
   })
   .catch(() => { reposGrid.innerHTML = `<p class="gh-error" style="grid-column:1/-1">Unable to load repositories — <a href="https://github.com/${GITHUB_USER}" style="color:var(--rose)" target="_blank" rel="noopener">view on GitHub ↗</a></p>`; });
 
-// ── 6. CODE GARDEN ───────────────────────────────────────────────
-const gardenBed = document.getElementById('garden-bed');
-const gardenTooltip = document.getElementById('garden-tooltip');
-const gardenNote = document.getElementById('heatmap-note');
+// ── CODE GARDEN ──────────────────────────────────────────────────
+const gardenBed    = document.getElementById('garden-bed');
+const gardenTooltip= document.getElementById('garden-tooltip');
+const gardenNote   = document.getElementById('heatmap-note');
 const gardenLegend = document.getElementById('garden-legend');
 
-// Plant species per repo type / language — emoji + color
 const PLANT_SPECIES = [
-  { emoji: '🌸', color: '#C97B6A', darkColor: '#FF7B9C', label: 'Python' },
-  { emoji: '🌻', color: '#C9A26A', darkColor: '#F9C74F', label: 'JavaScript' },
-  { emoji: '🌿', color: '#7A9E8E', darkColor: '#3FB950', label: 'Java' },
-  { emoji: '🌷', color: '#D9907E', darkColor: '#FF9EBC', label: 'TypeScript' },
-  { emoji: '🍀', color: '#8BAE7A', darkColor: '#56D364', label: 'Shell/Other' },
-  { emoji: '🌵', color: '#6B9E7A', darkColor: '#2EA043', label: 'HTML/CSS' },
+  { emoji:'🌸', color:'#C97B6A', darkColor:'#FF7B9C', label:'Python' },
+  { emoji:'🌻', color:'#C9A26A', darkColor:'#F9C74F', label:'JavaScript' },
+  { emoji:'🌿', color:'#7A9E8E', darkColor:'#3FB950', label:'Java' },
+  { emoji:'🌷', color:'#D9907E', darkColor:'#FF9EBC', label:'TypeScript' },
+  { emoji:'🍀', color:'#8BAE7A', darkColor:'#56D364', label:'Shell/Other' },
+  { emoji:'🌵', color:'#6B9E7A', darkColor:'#2EA043', label:'HTML/CSS' },
 ];
-
-// Map repo language → species index
 function langToSpecies(lang) {
   if (!lang) return 4;
   const l = lang.toLowerCase();
-  if (l === 'python') return 0;
-  if (l === 'javascript') return 1;
-  if (l === 'java') return 2;
-  if (l === 'typescript') return 3;
-  if (l === 'html' || l === 'css') return 5;
-  return 4;
+  if (l==='python') return 0; if (l==='javascript') return 1; if (l==='java') return 2;
+  if (l==='typescript') return 3; if (l==='html'||l==='css') return 5; return 4;
 }
-
-function buildLegend(speciesUsed) {
-  gardenLegend.innerHTML = [...speciesUsed].map(si => {
-    const s = PLANT_SPECIES[si];
-    return `<div class="garden-legend-item"><span>${s.emoji}</span><span>${s.label}</span></div>`;
-  }).join('');
+function buildLegend(used) {
+  gardenLegend.innerHTML = [...used].map(si => `<div class="garden-legend-item"><span>${PLANT_SPECIES[si].emoji}</span><span>${PLANT_SPECIES[si].label}</span></div>`).join('');
 }
-
 function renderGarden(data) {
   gardenBed.innerHTML = '';
-  const speciesUsed = new Set();
-  const dark = isDark();
-
+  const used = new Set(), dark = isDark();
   data.forEach((day, i) => {
-    const col = document.createElement('div');
-    col.className = 'garden-col';
-
-    // Date label every ~7 days or on 1st of month
+    const col = document.createElement('div'); col.className = 'garden-col';
     const d = new Date(day.date);
-    const showLabel = d.getDate() === 1 || i === 0 || i === data.length - 1;
-    if (showLabel) {
-      const lbl = document.createElement('div');
-      lbl.className = 'garden-col-label';
-      lbl.textContent = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-      col.appendChild(lbl);
+    if (d.getDate()===1 || i===0 || i===data.length-1) {
+      const lbl = document.createElement('div'); lbl.className = 'garden-col-label';
+      lbl.textContent = d.toLocaleDateString('en-US',{month:'short',day:'numeric'}); col.appendChild(lbl);
     }
-
     if (day.count === 0) {
-      // Empty soil
-      const plant = document.createElement('div');
-      plant.className = 'plant';
-      plant.innerHTML = `<div class="soil"></div>`;
-      plant.title = `${day.date}: no activity`;
-      plant.addEventListener('mouseenter', e => showTip(e, `${day.date}\nNo commits`, null));
-      plant.addEventListener('mouseleave', hideTip);
-      col.appendChild(plant);
+      const p = document.createElement('div'); p.className = 'plant';
+      p.innerHTML = '<div class="soil"></div>';
+      p.addEventListener('mouseenter', e => showTip(e, `${day.date}\nNo commits`, null));
+      p.addEventListener('mouseleave', hideTip);
+      col.appendChild(p);
     } else {
-      // Pick species from most-used repo or fallback
-      const si = day.repos && day.repos.length ? langToSpecies(day.repos[0].lang) : 0;
-      speciesUsed.add(si);
-      const species = PLANT_SPECIES[si];
-      const stemH = Math.min(4 + day.level * 14, 72); // 4–72px
-      const bloomSize = day.level >= 3 ? '14px' : day.level === 2 ? '12px' : '10px';
-
-      const plant = document.createElement('div');
-      plant.className = 'plant';
-      plant.style.cursor = 'pointer';
-
-      const bloom = document.createElement('div');
-      bloom.className = 'bloom';
-      bloom.textContent = species.emoji;
-      bloom.style.fontSize = bloomSize;
-      bloom.style.opacity = '0';
-      bloom.style.transform = 'scale(0.3)';
-
-      const stem = document.createElement('div');
-      stem.className = 'stem';
-      stem.style.height = '0px';
-
-      const soil = document.createElement('div');
-      soil.className = 'soil';
-      soil.style.background = dark ? species.darkColor + '44' : species.color + '44';
-
-      plant.appendChild(bloom);
-      plant.appendChild(stem);
-      plant.appendChild(soil);
-
-      // Animate in with stagger
-      setTimeout(() => {
-        stem.style.height = stemH + 'px';
-        bloom.style.opacity = '1';
-        bloom.style.transform = 'scale(1)';
-      }, 30 + i * 12);
-
-      const repoNames = day.repos ? day.repos.map(r => r.name).join(', ') : '';
-      const tipText = `${day.date}\n${day.count} event${day.count !== 1 ? 's' : ''}${repoNames ? '\n' + repoNames : ''}`;
-      plant.addEventListener('mouseenter', e => showTip(e, tipText, species.color));
-      plant.addEventListener('mouseleave', hideTip);
-      plant.addEventListener('touchstart', e => { e.preventDefault(); showTip(e.touches[0], tipText, species.color); }, { passive: false });
-      plant.addEventListener('touchend', hideTip);
-
-      col.appendChild(plant);
+      const si = day.repos?.length ? langToSpecies(day.repos[0].lang) : 0;
+      used.add(si);
+      const sp = PLANT_SPECIES[si];
+      const stemH = Math.min(4 + day.level * 14, 72);
+      const p = document.createElement('div'); p.className = 'plant';
+      const bloom = document.createElement('div'); bloom.className = 'bloom';
+      bloom.textContent = sp.emoji;
+      bloom.style.cssText = `font-size:${day.level>=3?'14px':day.level===2?'12px':'10px'};opacity:0;transform:scale(0.3)`;
+      const stem = document.createElement('div'); stem.className = 'stem'; stem.style.height = '0px';
+      const soil = document.createElement('div'); soil.className = 'soil';
+      soil.style.background = dark ? sp.darkColor+'44' : sp.color+'44';
+      p.append(bloom, stem, soil);
+      setTimeout(() => { stem.style.height = stemH+'px'; bloom.style.opacity='1'; bloom.style.transform='scale(1)'; }, 30+i*12);
+      const repoNames = day.repos?.map(r=>r.name).join(', ')||'';
+      const tip = `${day.date}\n${day.count} event${day.count!==1?'s':''}${repoNames?'\n'+repoNames:''}`;
+      p.addEventListener('mouseenter', e => showTip(e, tip, sp.color));
+      p.addEventListener('mouseleave', hideTip);
+      p.addEventListener('touchstart', e => { e.preventDefault(); showTip(e.touches[0], tip, sp.color); }, {passive:false});
+      p.addEventListener('touchend', hideTip);
+      col.appendChild(p);
     }
-
     gardenBed.appendChild(col);
   });
-
-  buildLegend(speciesUsed);
-  // Scroll to end (most recent)
+  buildLegend(used);
   setTimeout(() => { gardenBed.scrollLeft = gardenBed.scrollWidth; }, 100);
 }
-
 function showTip(e, text, color) {
   const lines = text.split('\n');
   gardenTooltip.innerHTML = `<strong style="color:${color||'#C97B6A'}">${lines[0]}</strong>${lines.slice(1).map(l=>`<br>${l}`).join('')}`;
@@ -1127,16 +714,13 @@ function showTip(e, text, color) {
   moveTip(e);
 }
 function moveTip(e) {
-  // Use clientX/Y (viewport-relative) with position:fixed — clamp so it never overflows
-  const x = e.clientX;
-  const y = e.clientY;
-  const tw = gardenTooltip.offsetWidth || 160;
-  const vw = window.innerWidth;
-  let left = x - tw / 2;                      // centre under cursor
+  const x = e.clientX, y = e.clientY;
+  const tw = gardenTooltip.offsetWidth || 160, vw = window.innerWidth;
+  let left = x - tw/2;
   if (left < 8) left = 8;
   if (left + tw > vw - 8) left = vw - tw - 8;
   gardenTooltip.style.left = left + 'px';
-  gardenTooltip.style.top  = (y + 16) + 'px'; // directly below cursor
+  gardenTooltip.style.top  = (y + 16) + 'px';
 }
 function hideTip() { gardenTooltip.classList.remove('show'); }
 document.addEventListener('mousemove', e => { if (gardenTooltip.classList.contains('show')) moveTip(e); });
@@ -1144,474 +728,67 @@ document.addEventListener('mousemove', e => { if (gardenTooltip.classList.contai
 async function buildGarden() {
   const DAYS = 60;
   const today = new Date(); today.setHours(0,0,0,0);
-  // Start from exactly 59 days ago so we get today as day 60
-  const startDate = new Date(today); startDate.setDate(today.getDate() - (DAYS - 1));
-
-  const activityMap = {}; // date → {count, repos:[{name,lang}]}
-
+  const startDate = new Date(today); startDate.setDate(today.getDate()-(DAYS-1));
+  const activityMap = {};
   try {
     const [evts, repos] = await Promise.all([
-      fetch(`https://api.github.com/users/${GITHUB_USER}/events/public?per_page=100`).then(r => r.json()),
-      fetch(`https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=30`).then(r => r.json()),
+      fetch(`https://api.github.com/users/${GITHUB_USER}/events/public?per_page=100`).then(r=>r.json()),
+      fetch(`https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=30`).then(r=>r.json()),
     ]);
-    // Build repo→lang map
     const repoLangMap = {};
-    if (Array.isArray(repos)) repos.forEach(r => { repoLangMap[r.name] = r.language || ''; });
-
+    if (Array.isArray(repos)) repos.forEach(r => { repoLangMap[r.name] = r.language||''; });
     if (Array.isArray(evts)) {
       evts.forEach(e => {
-        const dateStr = e.created_at ? e.created_at.slice(0,10) : null;
-        if (!dateStr) return;
-        if (!activityMap[dateStr]) activityMap[dateStr] = { count: 0, repos: [] };
-        activityMap[dateStr].count++;
-        const rname = e.repo?.name?.split('/')[1];
-        if (rname) {
-          const existing = activityMap[dateStr].repos.find(r => r.name === rname);
-          if (!existing) activityMap[dateStr].repos.push({ name: rname, lang: repoLangMap[rname] || '' });
-        }
+        const ds = e.created_at?.slice(0,10); if (!ds) return;
+        if (!activityMap[ds]) activityMap[ds] = {count:0,repos:[]};
+        activityMap[ds].count++;
+        const rn = e.repo?.name?.split('/')[1];
+        if (rn && !activityMap[ds].repos.find(r=>r.name===rn))
+          activityMap[ds].repos.push({name:rn, lang:repoLangMap[rn]||''});
       });
-      gardenNote.textContent = 'Each plant represents a day of GitHub activity. Height = commits. Species = repository language. Hover for details.';
+      gardenNote.textContent = 'Each plant = a day of GitHub activity. Height = commits. Species = repo language. Hover for details.';
     }
-  } catch(err) {
+  } catch {
     gardenNote.textContent = 'Live data unavailable — showing a representative garden.';
-    const species = [0,1,2,3,4];
-    for (let i = 0; i < 35; i++) {
-      const d = new Date(startDate);
-      d.setDate(startDate.getDate() + Math.floor(Math.random() * DAYS));
-      const key = d.toISOString().slice(0,10);
-      const si = species[Math.floor(Math.random()*species.length)];
-      if (!activityMap[key]) activityMap[key] = { count: 0, repos: [] };
-      activityMap[key].count += Math.floor(Math.random()*6)+1;
-      activityMap[key].repos.push({ name: 'sample-repo', lang: PLANT_SPECIES[si].label });
+    for (let i=0;i<35;i++) {
+      const d=new Date(startDate); d.setDate(startDate.getDate()+Math.floor(Math.random()*DAYS));
+      const k=d.toISOString().slice(0,10), si=Math.floor(Math.random()*5);
+      if(!activityMap[k]) activityMap[k]={count:0,repos:[]};
+      activityMap[k].count+=Math.floor(Math.random()*6)+1;
+      activityMap[k].repos.push({name:'sample-repo',lang:PLANT_SPECIES[si].label});
     }
   }
-
   gardenData = [];
-  for (let i = 0; i < DAYS; i++) {
-    const d = new Date(startDate); d.setDate(startDate.getDate() + i);
-    const key = d.toISOString().slice(0,10);
-    const entry = activityMap[key] || { count: 0, repos: [] };
-    let level = 0;
-    if (entry.count >= 1) level = 1;
-    if (entry.count >= 3) level = 2;
-    if (entry.count >= 6) level = 3;
-    if (entry.count >= 10) level = 4;
-    gardenData.push({ date: key, count: entry.count, level, repos: entry.repos });
+  for (let i=0;i<DAYS;i++) {
+    const d=new Date(startDate); d.setDate(startDate.getDate()+i);
+    const k=d.toISOString().slice(0,10), e=activityMap[k]||{count:0,repos:[]};
+    let level=0;
+    if(e.count>=1)level=1; if(e.count>=3)level=2; if(e.count>=6)level=3; if(e.count>=10)level=4;
+    gardenData.push({date:k, count:e.count, level, repos:e.repos});
   }
-
   renderGarden(gardenData);
 }
-
 buildGarden();
 
-// ── DINO GAME ─────────────────────────────────────────────────────
-const gameCanvas = document.getElementById('game-canvas');
-const gctx = gameCanvas.getContext('2d');
-const startBtn = document.getElementById('game-start-btn');
-const resetBtn = document.getElementById('game-reset-btn');
-const scoreEl  = document.getElementById('game-score');
-const hiEl     = document.getElementById('game-hi');
-const GW = 600, GH = 160;
-const GROUND_Y = GH - 30;
-let dinoRunning = false, dinoOver = false, dinoAnimId = null;
-let hiScore = 0, dScore = 0, dSpeed = 4, dFrame = 0;
+// ── GODOT MOBILE TAP FIX ─────────────────────────────────────────
+const godotFrame   = document.getElementById('godot-frame');
+const mobileTapHint = document.getElementById('mobile-tap-hint');
 
-let dino = { x: 60, y: GROUND_Y, w: 40, h: 50, vy: 0, jumping: false, frame: 0 };
-let cacti = [], clouds = [];
-let spawnTimer = 0, spawnInterval = 90;
-
-function resetDino() {
-  dino = { x: 60, y: GROUND_Y, w: 40, h: 50, vy: 0, jumping: false, frame: 0 };
-  cacti = []; clouds = [{ x: GW, y: 25, w: 60 }, { x: GW*0.6, y: 18, w: 45 }];
-  dSpeed = 4; dScore = 0; dFrame = 0; spawnTimer = 0; spawnInterval = 90; dinoOver = false;
+function sendEnterToGodot() {
+  try {
+    const doc = godotFrame.contentDocument || godotFrame.contentWindow.document;
+    doc.dispatchEvent(new KeyboardEvent('keydown',{key:'Enter',code:'Enter',keyCode:13,bubbles:true}));
+    doc.dispatchEvent(new KeyboardEvent('keyup',  {key:'Enter',code:'Enter',keyCode:13,bubbles:true}));
+  } catch { godotFrame.focus(); }
 }
-
-function jump() {
-  if (!dinoRunning) return;
-  if (!dino.jumping) { dino.vy = -13; dino.jumping = true; }
+if (mobileTapHint) {
+  mobileTapHint.addEventListener('click', sendEnterToGodot);
+  mobileTapHint.addEventListener('touchstart', e => { e.preventDefault(); sendEnterToGodot(); }, {passive:false});
 }
-
-function spawnCactus() {
-  const h = 30 + Math.random() * 25;
-  const w = 16 + Math.random() * 12;
-  const count = Math.random() < 0.3 ? 2 : 1;
-  cacti.push({ x: GW + 10, y: GROUND_Y + dino.h - h, w: count === 2 ? w + 20 : w, h, count });
-}
-
-function drawDinoScene() {
-  const dark = isDark();
-  const bg    = dark ? '#0D1117' : '#FDF6FB';
-  const fg    = dark ? '#58A6FF' : '#C06FA0';
-  const ground= dark ? '#1C2330' : '#EFE3F0';
-  const muted = dark ? '#8B949E' : '#7A6880';
-  const cactusFill = dark ? '#3FB950' : '#6BAF8A';
-  const cloudFill  = dark ? '#1C2330' : '#F0E0EF';
-
-  gctx.fillStyle = bg;
-  gctx.fillRect(0, 0, GW, GH);
-
-  // Clouds
-  clouds.forEach(c => {
-    gctx.fillStyle = cloudFill;
-    gctx.beginPath();
-    gctx.ellipse(c.x, c.y, c.w/2, 10, 0, 0, Math.PI*2);
-    gctx.ellipse(c.x - c.w*0.2, c.y + 5, c.w*0.3, 8, 0, 0, Math.PI*2);
-    gctx.ellipse(c.x + c.w*0.2, c.y + 5, c.w*0.3, 8, 0, 0, Math.PI*2);
-    gctx.fill();
-  });
-
-  // Ground
-  gctx.fillStyle = ground;
-  gctx.fillRect(0, GROUND_Y + dino.h + 2, GW, 3);
-
-  // Dino — simple pixel-art style
-  const dx = dino.x, dy = dino.y;
-  // Leg animation
-  const legOff = (dino.jumping || dFrame % 10 < 5) ? 0 : 8;
-  gctx.fillStyle = fg;
-  // Body
-  gctx.beginPath(); gctx.roundRect(dx, dy + 8, dino.w, dino.h - 16, 6); gctx.fill();
-  // Head
-  gctx.beginPath(); gctx.roundRect(dx + dino.w - 18, dy, 22, 22, 5); gctx.fill();
-  // Eye
-  gctx.fillStyle = bg;
-  gctx.beginPath(); gctx.arc(dx + dino.w + 1, dy + 8, 3, 0, Math.PI*2); gctx.fill();
-  gctx.fillStyle = dark ? '#0D1117' : '#2A2035';
-  gctx.beginPath(); gctx.arc(dx + dino.w + 1, dy + 8, 1.5, 0, Math.PI*2); gctx.fill();
-  // Legs
-  gctx.fillStyle = fg;
-  if (!dino.jumping) {
-    gctx.fillRect(dx + 8,  dy + dino.h - 8, 8, legOff === 0 ? 10 : 4);
-    gctx.fillRect(dx + 22, dy + dino.h - 8, 8, legOff === 0 ? 4  : 10);
-  } else {
-    gctx.fillRect(dx + 8,  dy + dino.h - 8, 8, 6);
-    gctx.fillRect(dx + 22, dy + dino.h - 8, 8, 6);
-  }
-  // Tail
-  gctx.beginPath();
-  gctx.moveTo(dx, dy + 16);
-  gctx.quadraticCurveTo(dx - 14, dy + 20, dx - 8, dy + 30);
-  gctx.lineWidth = 7; gctx.strokeStyle = fg; gctx.lineCap = 'round';
-  gctx.stroke(); gctx.lineWidth = 1;
-
-  // Cacti
-  cacti.forEach(c => {
-    gctx.fillStyle = cactusFill;
-    gctx.beginPath(); gctx.roundRect(c.x + (c.count===2?10:0), c.y, c.count===2?c.w-18:c.w, c.h, 3); gctx.fill();
-    if (c.count === 2) {
-      gctx.beginPath(); gctx.roundRect(c.x, c.y + 8, 10, c.h - 8, 2); gctx.fill();
-      gctx.beginPath(); gctx.roundRect(c.x + c.w - 10, c.y + 8, 10, c.h - 8, 2); gctx.fill();
-    }
-    // Arms
-    gctx.beginPath(); gctx.roundRect(c.x + (c.count===2?14:2), c.y + c.h*0.35, c.count===2?10:8, 5, 2); gctx.fill();
-  });
-
-  // HUD
-  gctx.fillStyle = muted;
-  gctx.font = '12px DM Sans, sans-serif';
-  gctx.textAlign = 'right'; gctx.textBaseline = 'top';
-  gctx.fillText(`${Math.floor(dScore)}`, GW - 14, 10);
-}
-
-function dinoLoop() {
-  if (!dinoRunning) return;
-  dFrame++;
-
-  // Gravity
-  dino.vy += 0.7;
-  dino.y += dino.vy;
-  if (dino.y >= GROUND_Y) { dino.y = GROUND_Y; dino.vy = 0; dino.jumping = false; }
-
-  // Move clouds
-  clouds.forEach(c => c.x -= dSpeed * 0.3);
-  clouds = clouds.filter(c => c.x > -80);
-  if (Math.random() < 0.005) clouds.push({ x: GW + 60, y: 15 + Math.random() * 25, w: 40 + Math.random() * 40 });
-
-  // Spawn cacti
-  spawnTimer++;
-  if (spawnTimer >= spawnInterval) {
-    spawnCactus();
-    spawnTimer = 0;
-    spawnInterval = Math.max(40, 90 - Math.floor(dScore / 200) * 5);
-  }
-
-  // Move cacti
-  cacti.forEach(c => c.x -= dSpeed);
-  cacti = cacti.filter(c => c.x > -60);
-
-  // Speed ramp
-  dSpeed = 4 + dScore / 800;
-  dScore += dSpeed * 0.04;
-
-  // Collision — shrink hitbox slightly for fairness
-  const hb = { x: dino.x + 8, y: dino.y + 6, w: dino.w - 14, h: dino.h - 8 };
-  for (const c of cacti) {
-    const cx = c.count === 2 ? c.x + 2 : c.x;
-    if (hb.x < cx + c.w - 4 && hb.x + hb.w > cx + 4 && hb.y < c.y + c.h && hb.y + hb.h > c.y) {
-      endDino(); return;
-    }
-  }
-
-  drawDinoScene();
-  dinoAnimId = requestAnimationFrame(dinoLoop);
-}
-
-function endDino() {
-  dinoRunning = false; dinoOver = true;
-  if (dScore > hiScore) { hiScore = Math.floor(dScore); hiEl.textContent = hiScore; }
-  drawDinoScene();
-  const dark = isDark();
-  gctx.fillStyle = dark ? 'rgba(13,17,23,0.8)' : 'rgba(253,246,251,0.85)';
-  gctx.fillRect(0, 0, GW, GH);
-  gctx.fillStyle = dark ? '#E6EDF3' : '#2A2035';
-  gctx.font = 'bold 24px DM Sans, sans-serif';
-  gctx.textAlign = 'center'; gctx.textBaseline = 'middle';
-  gctx.fillText('🦕  Game Over!', GW/2, GH/2 - 18);
-  gctx.font = '13px DM Sans, sans-serif';
-  gctx.fillStyle = dark ? '#8B949E' : '#7A6880';
-  gctx.fillText(`Score: ${Math.floor(dScore)}  ·  Best: ${hiScore}`, GW/2, GH/2 + 12);
-  resetBtn.style.display = 'inline-block';
-  scoreEl.textContent = `Game over · High score: ${hiScore}`;
-}
-
-function startDino() {
-  resetDino(); dinoRunning = true;
-  startBtn.style.display = 'none'; resetBtn.style.display = 'none';
-  if (dinoAnimId) cancelAnimationFrame(dinoAnimId);
-  dinoLoop();
-}
-
-startBtn.addEventListener('click', startDino);
-resetBtn.addEventListener('click', startDino);
-document.addEventListener('keydown', e => { if (e.code === 'Space' || e.key === 'ArrowUp') { e.preventDefault(); jump(); } });
-gameCanvas.addEventListener('click', jump);
-gameCanvas.addEventListener('touchstart', e => { e.preventDefault(); jump(); }, { passive: false });
-
-// Idle screen
-(function dinoIdle() {
-  const dark = isDark();
-  gctx.fillStyle = dark ? '#0D1117' : '#FDF6FB';
-  gctx.fillRect(0, 0, GW, GH);
-  gctx.fillStyle = dark ? '#8B949E' : '#7A6880';
-  gctx.font = '13px DM Sans, sans-serif';
-  gctx.textAlign = 'center'; gctx.textBaseline = 'middle';
-  gctx.fillText('🦕  Press Start or Space to run', GW/2, GH/2);
-})();
-
-// ── HIDDEN FLOWER + QUOTES ───────────────────────────────────────
-const QUOTES = [
-  { text: "The secret of getting ahead is getting started.", author: "Mark Twain" },
-  { text: "It always seems impossible until it's done.", author: "Nelson Mandela" },
-  { text: "Don't watch the clock; do what it does. Keep going.", author: "Sam Levenson" },
-  { text: "You are never too old to set another goal or dream a new dream.", author: "C.S. Lewis" },
-  { text: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" },
-  { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
-  { text: "In the middle of every difficulty lies opportunity.", author: "Albert Einstein" },
-  { text: "It does not matter how slowly you go as long as you do not stop.", author: "Confucius" },
-  { text: "Hard things take time to do. Impossible things take a little longer.", author: "Percy Cerutty" },
-  { text: "What we plant in the soil of contemplation, we shall reap in the harvest of action.", author: "Meister Eckhart" },
-];
-
-const FLOWER_EMOJIS = ['🌸', '🌼', '🌷', '🌺', '💐', '🌻'];
-const secretSection = document.getElementById('flower-secret');
-const quotesGrid = document.getElementById('quotes-grid');
-let secretRevealed = false;
-
-function renderQuotes() {
-  quotesGrid.innerHTML = QUOTES.map((q, i) => `
-    <div class="quote-card">
-      <div class="quote-flower">${FLOWER_EMOJIS[i % FLOWER_EMOJIS.length]}</div>
-      <p class="quote-text">"${q.text}"</p>
-      <div class="quote-author">— ${q.author}</div>
-    </div>
-  `).join('');
-}
-
-function revealSecret() {
-  if (secretRevealed) {
-    secretSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    return;
-  }
-  secretRevealed = true;
-  secretSection.style.display = 'block';
-  renderQuotes();
-  setTimeout(() => {
-    secretSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    // Re-observe new elements for scroll reveal
-    secretSection.querySelectorAll('.reveal, .reveal-stagger').forEach(el => revealObserver2.observe(el));
-  }, 80);
-}
-
-function spawnFlowers() {
-  // Find all divider elements and empty-ish section ends — plant flowers there
-  const targets = document.querySelectorAll('.divider, footer');
-  targets.forEach((el, ti) => {
-    const btn = document.createElement('button');
-    btn.className = 'hidden-flower';
-    btn.textContent = FLOWER_EMOJIS[ti % FLOWER_EMOJIS.length];
-    btn.title = 'Find a secret...';
-    btn.setAttribute('aria-label', 'Discover hidden section');
-    btn.addEventListener('click', revealSecret);
-    // Insert after dividers, before footer
-    if (el.tagName === 'FOOTER') {
-      el.parentNode.insertBefore(btn, el);
-    } else {
-      el.parentNode.insertBefore(btn, el.nextSibling);
-    }
-  });
-}
-
-spawnFlowers();
-
-
-function randomBlock() {
-  const idx = Math.floor(Math.random()*CODES.length);
-  const x = Math.random()*(GW - BLOCK_W - 20)+10;
-  const speed = 1.2 + gLevel*0.35 + Math.random()*0.5;
-  const type = Math.random() < 0.15 ? 'bomb' : 'code';
-  return { x, y: -BLOCK_H, w: BLOCK_W, h: BLOCK_H, speed, label: CODES[idx], type };
-}
-
-function drawGame() {
-  const dark = isDark();
-  const bg = dark ? '#0D1117' : '#FAF8F4';
-  const paddleCol = dark ? '#58A6FF' : '#C97B6A';
-  const textCol = dark ? '#E6EDF3' : '#2C2825';
-  const mutedCol = dark ? '#8B949E' : '#6B6460';
-
-  gctx.fillStyle = bg;
-  gctx.fillRect(0,0,GW,GH);
-
-  // Ground line
-  gctx.strokeStyle = dark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.07)';
-  gctx.lineWidth = 1;
-  gctx.beginPath(); gctx.moveTo(0, PADDLE_Y+PADDLE_H+4); gctx.lineTo(GW, PADDLE_Y+PADDLE_H+4); gctx.stroke();
-
-  // Paddle
-  gctx.fillStyle = paddleCol;
-  gctx.beginPath();
-  gctx.roundRect(paddle.x, PADDLE_Y, PADDLE_W, PADDLE_H, 5);
-  gctx.fill();
-
-  // Blocks
-  blocks.forEach(b => {
-    if (b.type === 'bomb') {
-      gctx.fillStyle = dark ? '#FF7B7B' : '#E05C5C';
-    } else {
-      const cols = dark
-        ? ['#58A6FF','#3FB950','#D2A8FF','#79C0FF','#56D364']
-        : ['#C97B6A','#7A9E8E','#C9A26A','#D9907E','#6B9E7A'];
-      gctx.fillStyle = cols[CODES.indexOf(b.label) % cols.length];
-    }
-    gctx.beginPath(); gctx.roundRect(b.x, b.y, b.w, b.h, 4); gctx.fill();
-    gctx.fillStyle = '#fff';
-    gctx.font = `bold 10px DM Sans, monospace`;
-    gctx.textAlign = 'center'; gctx.textBaseline = 'middle';
-    gctx.fillText(b.type==='bomb'?'💥':b.label, b.x+b.w/2, b.y+b.h/2);
-  });
-
-  // HUD
-  gctx.textAlign = 'left'; gctx.textBaseline = 'top';
-  gctx.font = '12px DM Sans, sans-serif';
-  gctx.fillStyle = mutedCol;
-  gctx.fillText(`Score: ${gScore}`, 12, 10);
-  gctx.textAlign = 'right';
-  gctx.fillText(`Lives: ${'♥'.repeat(gLives)}`, GW-12, 10);
-  gctx.textAlign = 'center';
-  gctx.fillStyle = dark ? 'rgba(88,166,255,0.15)' : 'rgba(201,123,106,0.12)';
-  gctx.fillText(`Lvl ${gLevel}`, GW/2, 10);
-}
-
-function gameLoop() {
-  if (!gameRunning) return;
-  // Move paddle
-  if (keys.left && paddle.x > 0) paddle.x = Math.max(0, paddle.x - PADDLE_SPD);
-  if (keys.right && paddle.x+PADDLE_W < GW) paddle.x = Math.min(GW-PADDLE_W, paddle.x + PADDLE_SPD);
-
-  // Spawn blocks
-  if (Math.random() < 0.018 + gLevel*0.003) blocks.push(randomBlock());
-
-  // Move blocks
-  blocks.forEach(b => b.y += b.speed);
-
-  // Collision
-  blocks = blocks.filter(b => {
-    if (b.y+b.h >= PADDLE_Y && b.y < PADDLE_Y+PADDLE_H && b.x+b.w > paddle.x && b.x < paddle.x+PADDLE_W) {
-      if (b.type==='bomb') { gLives--; } else { gScore += 10 * gLevel; }
-      return false;
-    }
-    if (b.y > GH) {
-      if (b.type !== 'bomb') gLives--;
-      return false;
-    }
-    return true;
-  });
-
-  gLevel = Math.floor(gScore/150)+1;
-  scoreEl.textContent = `Score: ${gScore} · Lives: ${'♥'.repeat(Math.max(0,gLives))} · Level: ${gLevel}`;
-
-  if (gLives <= 0) { endGame(); return; }
-  drawGame();
-  gAnimId = requestAnimationFrame(gameLoop);
-}
-
-function endGame() {
-  gameRunning = false; gameOver = true;
-  if (gScore > hiScore) { hiScore = gScore; hiEl.textContent = hiScore; }
-  const dark = isDark();
-  gctx.fillStyle = dark ? 'rgba(13,17,23,0.82)' : 'rgba(250,248,244,0.85)';
-  gctx.fillRect(0,0,GW,GH);
-  gctx.fillStyle = dark ? '#E6EDF3' : '#2C2825';
-  gctx.font = `bold 28px DM Serif Display, serif`;
-  gctx.textAlign='center'; gctx.textBaseline='middle';
-  gctx.fillText('Game Over!', GW/2, GH/2-22);
-  gctx.font='15px DM Sans,sans-serif';
-  gctx.fillStyle = dark ? '#8B949E' : '#6B6460';
-  gctx.fillText(`Score: ${gScore} · High score: ${hiScore}`, GW/2, GH/2+12);
-  resetBtn.style.display='inline-block';
-  scoreEl.textContent = `Game over · High score: ${hiScore}`;
-}
-
-function startGame() {
-  paddle.x = GW/2-PADDLE_W/2;
-  blocks = []; gScore=0; gLives=3; gLevel=1; gameOver=false; gameRunning=true;
-  startBtn.style.display='none'; resetBtn.style.display='none';
-  if (gAnimId) cancelAnimationFrame(gAnimId);
-  gameLoop();
-}
-
-startBtn.addEventListener('click', startGame);
-resetBtn.addEventListener('click', startGame);
-document.addEventListener('keydown', e => {
-  if (e.key==='ArrowLeft'||e.key==='a'||e.key==='A') keys.left=true;
-  if (e.key==='ArrowRight'||e.key==='d'||e.key==='D') keys.right=true;
+window.addEventListener('keydown', e => {
+  if ((e.code==='Space'||e.key==='Enter') && document.activeElement !== godotFrame)
+    sendEnterToGodot();
 });
-document.addEventListener('keyup', e => {
-  if (e.key==='ArrowLeft'||e.key==='a'||e.key==='A') keys.left=false;
-  if (e.key==='ArrowRight'||e.key==='d'||e.key==='D') keys.right=false;
-});
-
-// Touch controls for mobile
-gameCanvas.addEventListener('touchmove', e => {
-  e.preventDefault();
-  const rect = gameCanvas.getBoundingClientRect();
-  const scaleX = GW / rect.width;
-  const tx = (e.touches[0].clientX - rect.left) * scaleX;
-  paddle.x = Math.max(0, Math.min(GW-PADDLE_W, tx - PADDLE_W/2));
-}, { passive: false });
-
-// Draw idle state
-(function idleDraw() {
-  const dark = isDark();
-  gctx.fillStyle = dark ? '#0D1117' : '#FAF8F4';
-  gctx.fillRect(0,0,GW,GH);
-  gctx.fillStyle = dark ? '#58A6FF' : '#C97B6A';
-  gctx.beginPath(); gctx.roundRect(GW/2-PADDLE_W/2, PADDLE_Y, PADDLE_W, PADDLE_H, 5); gctx.fill();
-  gctx.fillStyle = dark ? '#8B949E' : '#6B6460';
-  gctx.font='13px DM Sans,sans-serif'; gctx.textAlign='center'; gctx.textBaseline='middle';
-  gctx.fillText('Press Start to play ↑', GW/2, GH/2);
-})();
 </script>
-
 </body>
 </html>
