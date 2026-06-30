@@ -242,8 +242,9 @@ section { padding: 60px 48px; max-width: 1000px; margin: 0 auto; }
   position: fixed; background: var(--charcoal); color: white;
   font-size: 12px; padding: 7px 12px; border-radius: 8px;
   pointer-events: none; opacity: 0; transition: opacity 0.15s;
-  z-index: 9999; white-space: nowrap; box-shadow: 0 4px 16px rgba(0,0,0,0.2); max-width: 220px;
+  z-index: 9999; white-space: normal; box-shadow: 0 4px 16px rgba(0,0,0,0.2); max-width: 180px;
 }
+body.dark #garden-tooltip { color: #000; background: #E6EDF3; }
 #garden-tooltip.show { opacity: 1; }
 #heatmap-note { font-size: 12px; color: var(--muted); margin-top: 12px; }
 
@@ -548,8 +549,8 @@ footer { background: var(--charcoal); color: rgba(255,255,255,0.5); text-align: 
 
 <div class="divider"></div>
 
-<!-- GODOT GAME -->
-<div id="game-section">
+<!-- GODOT GAME (hidden for now) -->
+<div id="game-section" style="display:none">
   <div class="game-wrap reveal">
     <div class="section-label" style="margin-bottom:8px">Just for fun</div>
     <h3>🦕 Dino Run</h3>
@@ -706,7 +707,8 @@ function renderGarden(data) {
       p.append(bloom, stem, soil);
       setTimeout(() => { stem.style.height = stemH+'px'; bloom.style.opacity='1'; bloom.style.transform='scale(1)'; }, 30+i*12);
       const repoNames = day.repos?.map(r=>r.name).join(', ')||'';
-      const tip = `${day.date}\n${day.count} event${day.count!==1?'s':''}${repoNames?'\n'+repoNames:''}`;
+      const truncated = repoNames.length > 40 ? repoNames.slice(0,37)+'...' : repoNames;
+      const tip = `${day.date}\n${day.count} event${day.count!==1?'s':''}${truncated?'\n'+truncated:''}`;
       p.addEventListener('mouseenter', e => showTip(e, tip, sp.color));
       p.addEventListener('mouseleave', hideTip);
       p.addEventListener('touchstart', e => { e.preventDefault(); showTip(e.touches[0], tip, sp.color); }, {passive:false});
