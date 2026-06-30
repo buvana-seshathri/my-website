@@ -326,8 +326,8 @@ footer a:hover { color: white; }
 
 <div class="page-hero reveal">
   <div class="section-label">Fun Projects</div>
-  <h1>The stuff I make for joy</h1>
-  <p>Not everything needs a use case. Here's where I make 3D art in Blender, experiment with renders, and collect whatever else sparks something.</p>
+  <h1>The stuff I do for fun</h1>
+  <p>Not everything needs a purpose or a use case. Sometimes it's enough to explore something just because it interests you. Here are a few fun side quests and hobbies I've picked up throughout my life.</p>
 </div>
 
 <div class="content-layout">
@@ -342,14 +342,6 @@ footer a:hover { color: white; }
     <div class="gallery-stage">
       <div class="masonry-grid" id="masonry-grid">
         <!-- Populated by JS -->
-      </div>
-      <div class="gallery-empty" id="gallery-empty" style="display:none">
-        <div class="gallery-empty-icon">🎨</div>
-        <div class="gallery-empty-title">Gallery loading...</div>
-        <p class="gallery-empty-sub">
-          Drop your renders into the <code>fun/blender/</code> folder and update the
-          <code>IMAGES</code> array in this file — they'll appear here automatically.
-        </p>
       </div>
     </div>
   </div>
@@ -486,14 +478,10 @@ document.querySelectorAll('.reveal').forEach(el => {
 });
 
 // ── BUILD GALLERY ────────────────────────────────────────────────
-const grid = document.getElementById('masonry-grid');
-const emptyState = document.getElementById('gallery-empty');
+const grid = document.getElementById('masonry-grid');]
 const countEl = document.getElementById('gallery-count');
 
-if (!IMAGES.length) {
-  emptyState.style.display = 'block';
-  countEl.textContent = '0 renders';
-} else {
+if (IMAGES.length) {
   countEl.textContent = `${IMAGES.length} render${IMAGES.length !== 1 ? 's' : ''}`;
   IMAGES.forEach((img, idx) => {
     const item = document.createElement('div');
@@ -509,7 +497,7 @@ if (!IMAGES.length) {
         alt="${img.title}"
         loading="lazy"
         decoding="async"
-        style="min-height:140px; background:rgba(255,255,255,0.04);"
+        style="min-height:140px; "
       >
       <div class="masonry-overlay">
         <div class="masonry-item-title">${img.title}</div>
