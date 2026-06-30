@@ -179,6 +179,7 @@ section { padding: 60px 48px; max-width: 1000px; margin: 0 auto; }
 .section-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--rose); font-weight: 500; margin-bottom: 12px; }
 .section-title { font-family: var(--font-display); font-size: 34px; color: var(--charcoal); margin-bottom: 8px; }
 .section-sub { color: var(--muted); font-size: 15px; max-width: 520px; line-height: 1.75; margin-bottom: 28px; }
+.section-header-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
 
 /* ── SKILLS ── */
 .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
@@ -201,7 +202,7 @@ section { padding: 60px 48px; max-width: 1000px; margin: 0 auto; }
 .exp-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--rose); }
 .exp-tech { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
 
-/* ── PROJECTS ── */
+/* ── PROJECT TEASER CARDS (homepage condensed) ── */
 .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
 .project-card { background: var(--warm-white); border: 0.5px solid var(--border); border-radius: 16px; padding: 28px 26px; display: flex; flex-direction: column; transition: box-shadow 0.2s, transform 0.2s; }
 .project-card:hover { box-shadow: 0 8px 32px rgba(44,40,37,0.08); transform: translateY(-2px); }
@@ -248,7 +249,7 @@ body.dark #garden-tooltip { color: #000; background: #E6EDF3; }
 #garden-tooltip.show { opacity: 1; }
 #heatmap-note { font-size: 12px; color: var(--muted); margin-top: 12px; }
 
-/* ── RESEARCH ── */
+/* ── RESEARCH TEASER ── */
 .research-card { background: var(--warm-white); border: 0.5px solid var(--border); border-radius: 16px; padding: 32px; margin-bottom: 20px; border-left: 3px solid var(--sage); }
 .research-type { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--sage); margin-bottom: 10px; }
 .research-title { font-family: var(--font-display); font-size: 20px; margin-bottom: 8px; }
@@ -318,6 +319,7 @@ footer { background: var(--charcoal); color: rgba(255,255,255,0.5); text-align: 
   .skills-grid { grid-template-columns: 1fr 1fr; }
   #game-section { padding: 0 20px 56px; }
   #mobile-tap-overlay { display: flex; }
+  .section-header-row { flex-direction: column; align-items: flex-start; gap: 8px; }
 }
 </style>
 </head>
@@ -332,10 +334,10 @@ footer { background: var(--charcoal); color: rgba(255,255,255,0.5); text-align: 
     <li><a href="#about">About</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#experience">Experience</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#research">Research</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="research.html">Research</a></li>
     <li><a href="blog.html">Blog</a></li>
+    <li><a href="#contact">Contact</a></li>
   </ul>
   <div id="theme-switcher">
     <span class="theme-icon">☀️</span>
@@ -359,7 +361,7 @@ footer { background: var(--charcoal); color: rgba(255,255,255,0.5); text-align: 
     </div>
     <p class="hero-sub">I build end-to-end ML systems — from HPC inference pipelines to LLM-powered applications — grounded in two years of production engineering and published research.</p>
     <div class="hero-buttons">
-      <a href="#projects" class="btn-primary">View my work</a>
+      <a href="projects.html" class="btn-primary">View my work</a>
       <a href="https://github.com/buvana-seshathri/" class="btn-secondary" target="_blank" rel="noopener">GitHub</a>
       <a href="https://www.linkedin.com/in/buvanaseshathri/" class="btn-secondary" target="_blank" rel="noopener">LinkedIn</a>
     </div>
@@ -446,12 +448,17 @@ footer { background: var(--charcoal); color: rgba(255,255,255,0.5); text-align: 
 
 <div class="divider"></div>
 
-<!-- PROJECTS -->
+<!-- PROJECTS (teaser → full page) -->
 <section id="projects">
   <div class="reveal">
-    <div class="section-label">Projects</div>
-    <h2 class="section-title">Things I've built</h2>
-    <p class="section-sub">Applied ML systems and full-stack platforms, built from scratch.</p>
+    <div class="section-header-row">
+      <div>
+        <div class="section-label">Projects</div>
+        <h2 class="section-title">Things I've built</h2>
+        <p class="section-sub">Applied ML systems and full-stack platforms, built from scratch.</p>
+      </div>
+      <a href="projects.html" class="btn-secondary">View all projects →</a>
+    </div>
   </div>
   <div class="projects-grid reveal-stagger">
     <div class="project-card">
@@ -485,12 +492,17 @@ footer { background: var(--charcoal); color: rgba(255,255,255,0.5); text-align: 
 
 <div class="divider"></div>
 
-<!-- RESEARCH -->
+<!-- RESEARCH (teaser → full page) -->
 <section id="research">
   <div class="reveal">
-    <div class="section-label">Research</div>
-    <h2 class="section-title">Research & publications</h2>
-    <p class="section-sub">Published work on deep learning for medical imaging, and ongoing cross-modal sensing research.</p>
+    <div class="section-header-row">
+      <div>
+        <div class="section-label">Research</div>
+        <h2 class="section-title">Research & publications</h2>
+        <p class="section-sub">Published work on deep learning for medical imaging, and ongoing cross-modal sensing research.</p>
+      </div>
+      <a href="research.html" class="btn-secondary">View all research →</a>
+    </div>
   </div>
   <div class="reveal-stagger">
     <div class="research-card">
