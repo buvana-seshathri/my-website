@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fun Projects — Buvana Seshathri</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@300;400;500&family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ivory: #FDF6FB;
+  --warm-white: #F9F0F7;
+  --cream: #EFE3F0;
+  --rose: #C06FA0;
+  --rose-light: #F7E3F2;
+  --rose-mid: #D485B8;
+  --sage: #6BAF8A;
+  --sage-light: #DFF2E8;
+  --charcoal: #2A2035;
+  --muted: #7A6880;
+  --border: rgba(42,32,53,0.1);
+  --font-display: 'DM Serif Display', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --nav-bg: rgba(253,246,251,0.92);
+
+  /* Gallery-specific — dark studio canvas */
+  --studio: #14101C;
+  --studio-card: #1E1828;
+  --studio-border: rgba(255,255,255,0.07);
+}
+
+body.dark {
+  --ivory: #0D1117;
+  --warm-white: #161B22;
+  --cream: #1C2330;
+  --rose: #58A6FF;
+  --rose-light: rgba(88,166,255,0.12);
+  --rose-mid: #79C0FF;
+  --sage: #3FB950;
+  --sage-light: rgba(63,185,80,0.12);
+  --charcoal: #E6EDF3;
+  --muted: #8B949E;
+  --border: rgba(255,255,255,0.08);
+  --nav-bg: rgba(13,17,23,0.92);
+  --font-body: 'JetBrains Mono', monospace;
+  --font-display: 'Orbitron', sans-serif;
+  --studio: #0D1117;
+  --studio-card: #161B22;
+}
+body.dark .btn-primary { background: var(--rose); color: #0D1117; }
+body.dark footer { background: #010409; }
+body.dark .pill { background: var(--cream); color: var(--charcoal); }
+body.dark .pill.rose { background: var(--rose-light); color: var(--rose); }
+body.dark .pill.sage { background: var(--sage-light); color: var(--sage); }
+
+/* ── THEME TOGGLE ── */
+#theme-switcher { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+#theme-switcher .theme-icon { font-size: 15px; line-height: 1; user-select: none; }
+#theme-toggle {
+  position: relative; width: 40px; height: 22px;
+  background: var(--cream); border: 0.5px solid var(--border);
+  border-radius: 11px; cursor: pointer; flex-shrink: 0;
+  transition: background 0.3s, border-color 0.3s; padding: 0; outline: none;
+}
+#theme-toggle::after {
+  content: ''; position: absolute; top: 3px; left: 3px;
+  width: 14px; height: 14px; border-radius: 50%; background: var(--rose);
+  transition: transform 0.3s cubic-bezier(0.34,1.4,0.64,1), background 0.3s;
+}
+body.dark #theme-toggle { background: #1C2330; border-color: rgba(255,255,255,0.12); }
+body.dark #theme-toggle::after { transform: translateX(18px); background: #58A6FF; }
+#theme-toggle:hover { border-color: var(--rose); }
+
+/* ── PROGRESS BAR ── */
+#progress-bar {
+  position: fixed; top: 0; left: 0; height: 2.5px; width: 0%;
+  background: linear-gradient(90deg, var(--rose), var(--rose-mid));
+  z-index: 9999; transition: width 0.1s linear; border-radius: 0 2px 2px 0;
+}
+
+body { font-family: var(--font-body); background: var(--ivory); color: var(--charcoal); font-size: 15px; line-height: 1.7; }
+
+/* ── NAV ── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--nav-bg); backdrop-filter: blur(8px);
+  border-bottom: 0.5px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 48px;
+}
+.nav-name { font-family: var(--font-display); font-size: 20px; color: var(--charcoal); text-decoration: none; }
+.nav-links { display: flex; gap: 28px; list-style: none; }
+.nav-links a { color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 400; transition: color 0.2s; }
+.nav-links a:hover { color: var(--rose); }
+.nav-links a.active { color: var(--rose); }
+
+/* ── SCROLL REVEAL ── */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.5s ease, transform 0.5s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+}
+
+/* ── PAGE HERO ── */
+.page-hero { padding: 64px 48px 40px; max-width: 1100px; margin: 0 auto; }
+.section-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--rose); font-weight: 500; margin-bottom: 12px; }
+.page-hero h1 { font-family: var(--font-display); font-size: 44px; line-height: 1.2; color: var(--charcoal); margin-bottom: 14px; }
+.page-hero p { color: var(--muted); font-size: 15px; line-height: 1.75; max-width: 560px; }
+
+/* ── MAIN LAYOUT ── */
+.content-layout {
+  max-width: 1100px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 40px;
+  padding: 12px 48px 80px;
+  align-items: start;
+}
+
+/* ── GALLERY SECTION ── */
+.gallery-section { min-width: 0; }
+.gallery-section-header { display: flex; align-items: baseline; gap: 14px; margin-bottom: 28px; flex-wrap: wrap; }
+.gallery-section-title { font-family: var(--font-display); font-size: 26px; color: var(--charcoal); }
+.gallery-section-count { font-size: 12px; color: var(--muted); }
+
+/* ── MASONRY GRID ── */
+.gallery-stage {
+  background: var(--studio);
+  border-radius: 20px;
+  padding: 24px;
+  position: relative;
+}
+
+/* CSS columns masonry */
+.masonry-grid {
+  columns: 3;
+  column-gap: 12px;
+}
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: 12px;
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  display: block;
+  background: var(--studio-card);
+  border: 1px solid var(--studio-border);
+}
+.masonry-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.3s;
+  filter: brightness(0.95);
+}
+.masonry-item:hover img {
+  transform: scale(1.04);
+  filter: brightness(1.05);
+}
+.masonry-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(20,16,28,0.85) 0%, rgba(20,16,28,0) 55%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 16px;
+  pointer-events: none;
+}
+.masonry-item:hover .masonry-overlay { opacity: 1; }
+.masonry-item-title {
+  font-family: var(--font-display);
+  font-size: 15px;
+  color: white;
+  line-height: 1.3;
+  margin-bottom: 5px;
+  transform: translateY(6px);
+  transition: transform 0.3s ease;
+}
+.masonry-item:hover .masonry-item-title { transform: translateY(0); }
+.masonry-item-meta {
+  font-size: 11px;
+  color: rgba(255,255,255,0.6);
+  transform: translateY(4px);
+  transition: transform 0.3s ease 0.03s;
+}
+.masonry-item:hover .masonry-item-meta { transform: translateY(0); }
+
+/* ── EMPTY STATE ── */
+.gallery-empty {
+  text-align: center;
+  padding: 60px 30px;
+  color: rgba(255,255,255,0.35);
+}
+.gallery-empty-icon { font-size: 40px; margin-bottom: 14px; opacity: 0.5; }
+.gallery-empty-title { font-family: var(--font-display); font-size: 20px; color: rgba(255,255,255,0.5); margin-bottom: 8px; }
+.gallery-empty-sub { font-size: 13px; line-height: 1.65; color: rgba(255,255,255,0.3); max-width: 320px; margin: 0 auto; }
+.gallery-empty code {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  background: rgba(255,255,255,0.06);
+  padding: 2px 8px;
+  border-radius: 5px;
+  color: rgba(255,255,255,0.5);
+  margin-top: 12px;
+}
+
+/* ── LIGHTBOX ── */
+#lightbox {
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(14, 10, 22, 0.95);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.25s ease;
+  backdrop-filter: blur(6px);
+  padding: 24px;
+}
+#lightbox.open { opacity: 1; pointer-events: all; }
+.lightbox-inner { position: relative; max-width: 90vw; max-height: 90vh; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+#lightbox-img {
+  max-width: 100%; max-height: 78vh; border-radius: 10px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+  transform: scale(0.96);
+  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  object-fit: contain;
+}
+#lightbox.open #lightbox-img { transform: scale(1); }
+.lightbox-caption { text-align: center; }
+.lightbox-title { font-family: var(--font-display); font-size: 18px; color: white; margin-bottom: 4px; }
+.lightbox-sub { font-size: 12px; color: rgba(255,255,255,0.45); }
+#lightbox-close {
+  position: fixed; top: 24px; right: 28px;
+  background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
+  color: white; width: 38px; height: 38px; border-radius: 50%;
+  font-size: 18px; line-height: 1; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s; backdrop-filter: blur(4px);
+}
+#lightbox-close:hover { background: rgba(255,255,255,0.2); }
+#lightbox-prev, #lightbox-next {
+  position: fixed; top: 50%; transform: translateY(-50%);
+  background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
+  color: white; width: 44px; height: 44px; border-radius: 50%;
+  font-size: 18px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s, opacity 0.2s; backdrop-filter: blur(4px);
+}
+#lightbox-prev { left: 20px; }
+#lightbox-next { right: 20px; }
+#lightbox-prev:hover, #lightbox-next:hover { background: rgba(255,255,255,0.2); }
+#lightbox-prev.hidden, #lightbox-next.hidden { opacity: 0; pointer-events: none; }
+#lightbox-counter { font-size: 11px; color: rgba(255,255,255,0.35); margin-top: -8px; }
+
+/* ── SIDEBAR ── */
+.sidebar { min-width: 0; display: flex; flex-direction: column; gap: 20px; position: sticky; top: 80px; }
+.sidebar-card {
+  background: var(--warm-white); border: 0.5px solid var(--border);
+  border-radius: 16px; padding: 24px 22px;
+}
+.sidebar-card-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--rose); font-weight: 500; margin-bottom: 14px; }
+.sidebar-card-title { font-family: var(--font-display); font-size: 18px; color: var(--charcoal); margin-bottom: 8px; }
+.sidebar-card-desc { font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 12px; }
+.coming-soon-chip {
+  display: inline-block; font-size: 10px; letter-spacing: 0.1em;
+  text-transform: uppercase; padding: 3px 10px; border-radius: 20px;
+  background: var(--cream); color: var(--muted); border: 0.5px solid var(--border);
+}
+.sidebar-divider { height: 0.5px; background: var(--border); margin: 4px 0 16px; }
+
+.pill { background: var(--cream); color: var(--charcoal); font-size: 11px; padding: 3px 9px; border-radius: 20px; }
+.pill.rose { background: var(--rose-light); color: var(--rose); }
+.pill.sage { background: var(--sage-light); color: var(--sage); }
+
+/* ── FOOTER ── */
+footer { background: var(--charcoal); color: rgba(255,255,255,0.5); text-align: center; padding: 28px; font-size: 12px; }
+footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
+footer a:hover { color: white; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .content-layout { grid-template-columns: 1fr; gap: 28px; padding: 12px 20px 64px; }
+  .sidebar { position: static; }
+  .masonry-grid { columns: 2; }
+}
+@media (max-width: 700px) {
+  nav { padding: 10px 16px; flex-wrap: wrap; gap: 0; }
+  .nav-name { flex: 1; text-align: center; font-size: 18px; }
+  .nav-links { order: 3; width: 100%; justify-content: center; flex-wrap: wrap; gap: 10px 16px; padding: 8px 0 2px; border-top: 0.5px solid var(--border); margin-top: 8px; }
+  .nav-links a { font-size: 12px; }
+  .page-hero { padding: 48px 20px 28px; }
+  .page-hero h1 { font-size: 32px; }
+  .masonry-grid { columns: 1; }
+  .gallery-stage { padding: 14px; border-radius: 14px; }
+  #lightbox-prev { left: 8px; }
+  #lightbox-next { right: 8px; }
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<nav>
+  <a href="index.html" class="nav-name">Buvana Seshathri</a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#skills">Skills</a></li>
+    <li><a href="index.html#experience">Experience</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="research.html">Research</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="fun.html" class="active">Fun</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <div id="theme-switcher">
+    <span class="theme-icon">☀️</span>
+    <button id="theme-toggle" title="Toggle dark mode" aria-label="Toggle dark mode"></button>
+    <span class="theme-icon">🌙</span>
+  </div>
+</nav>
+
+<div class="page-hero reveal">
+  <div class="section-label">Fun Projects</div>
+  <h1>The stuff I make for joy</h1>
+  <p>Not everything needs a use case. Here's where I make 3D art in Blender, experiment with renders, and collect whatever else sparks something.</p>
+</div>
+
+<div class="content-layout">
+
+  <!-- MAIN GALLERY -->
+  <div class="gallery-section reveal">
+    <div class="gallery-section-header">
+      <span class="gallery-section-title">3D Art & Renders</span>
+      <span class="gallery-section-count" id="gallery-count"></span>
+    </div>
+
+    <div class="gallery-stage">
+      <div class="masonry-grid" id="masonry-grid">
+        <!-- Populated by JS -->
+      </div>
+      <div class="gallery-empty" id="gallery-empty" style="display:none">
+        <div class="gallery-empty-icon">🎨</div>
+        <div class="gallery-empty-title">Gallery loading...</div>
+        <p class="gallery-empty-sub">
+          Drop your renders into the <code>fun/blender/</code> folder and update the
+          <code>IMAGES</code> array in this file — they'll appear here automatically.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar reveal" style="transition-delay:0.1s">
+
+    <div class="sidebar-card">
+      <div class="sidebar-card-label">About this page</div>
+      <p class="sidebar-card-desc">
+        A creative corner outside my technical work — 3D renders, experiments, and things I built purely for the fun of making them.
+      </p>
+      <div style="display:flex; flex-wrap:wrap; gap:5px;">
+        <span class="pill rose">Blender</span>
+        <span class="pill">3D Renders</span>
+        <span class="pill">Art</span>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-card-label">Other fun stuff</div>
+      <div class="sidebar-card-title">More to come</div>
+      <div class="sidebar-divider"></div>
+
+      <!-- ── Each block below is a future "fun" category. Uncomment / fill in when ready. ── -->
+
+      <div style="display:flex; flex-direction:column; gap:14px;">
+
+        <div>
+          <div style="font-size:13px; font-weight:500; color:var(--charcoal); margin-bottom:4px;">🎮 Game Dev</div>
+          <div style="font-size:12px; color:var(--muted); line-height:1.6;">Tinkering with Godot — little experiments and mini-games.</div>
+          <span class="coming-soon-chip" style="margin-top:7px; display:inline-block;">Coming soon</span>
+        </div>
+
+        <div style="height:0.5px; background:var(--border)"></div>
+
+        <div>
+          <div style="font-size:13px; font-weight:500; color:var(--charcoal); margin-bottom:4px;">✏️ Sketches & Doodles</div>
+          <div style="font-size:12px; color:var(--muted); line-height:1.6;">Digital and paper sketches that never make it to a portfolio.</div>
+          <span class="coming-soon-chip" style="margin-top:7px; display:inline-block;">Coming soon</span>
+        </div>
+
+        <div style="height:0.5px; background:var(--border)"></div>
+
+        <div>
+          <div style="font-size:13px; font-weight:500; color:var(--charcoal); margin-bottom:4px;">📚 Currently reading</div>
+          <div style="font-size:12px; color:var(--muted); line-height:1.6;">Books I'm working through — mostly nonfiction, some fiction.</div>
+          <span class="coming-soon-chip" style="margin-top:7px; display:inline-block;">Coming soon</span>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-card-label">Tools I use</div>
+      <div style="display:flex; flex-wrap:wrap; gap:5px;">
+        <span class="pill">Blender</span>
+        <span class="pill">Cycles</span>
+        <span class="pill">EEVEE</span>
+        <span class="pill">Substance</span>
+        <span class="pill">Photoshop</span>
+      </div>
+    </div>
+
+  </aside>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button id="lightbox-close" aria-label="Close">✕</button>
+  <button id="lightbox-prev" aria-label="Previous">‹</button>
+  <button id="lightbox-next" aria-label="Next">›</button>
+  <div class="lightbox-inner">
+    <img id="lightbox-img" src="" alt="">
+    <div class="lightbox-caption">
+      <div class="lightbox-title" id="lightbox-title"></div>
+      <div class="lightbox-sub" id="lightbox-sub"></div>
+    </div>
+    <div id="lightbox-counter"></div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 Buvana Seshathri · <a href="index.html">Back to home</a></p>
+</footer>
+
+<script>
+// ─────────────────────────────────────────────────────────────────────────────
+//  ★  EDIT THIS ARRAY to add your Blender renders.
+//
+//  Each entry:
+//    src   — path relative to this HTML file  e.g. "fun/blender/donut.png"
+//    title — name shown in the overlay & lightbox
+//    year  — optional year string
+//    span  — optional: "wide" makes the item take up extra visual weight
+//            (achieved via a taller placeholder before image loads)
+//
+//  Supported formats: .jpg  .jpeg  .png  .webp  .avif
+//
+//  To add images: drop them into the "fun/blender/" folder on GitHub,
+//  then add an entry here.
+// ─────────────────────────────────────────────────────────────────────────────
+const IMAGES = [
+  // Example entries — replace with your real files:
+  // { src: "fun/blender/donut.png",       title: "The Classic Donut",   year: "2024" },
+  // { src: "fun/blender/room.jpg",        title: "Cozy Room Scene",     year: "2024", span: "wide" },
+  // { src: "fun/blender/sword.webp",      title: "Stylised Sword",      year: "2025" },
+];
+
+// ─────────────────────────────────────────────────────────────────────────────
+
+// ── DARK MODE ───────────────────────────────────────────────────
+const themeBtn = document.getElementById('theme-toggle');
+function applyTheme(dark) {
+  document.body.classList.toggle('dark', dark);
+  localStorage.setItem('theme', dark ? 'dark' : 'light');
+}
+themeBtn.addEventListener('click', () => applyTheme(!document.body.classList.contains('dark')));
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'dark') applyTheme(true);
+
+// ── SCROLL PROGRESS ─────────────────────────────────────────────
+const progressBar = document.getElementById('progress-bar');
+window.addEventListener('scroll', () => {
+  const pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+  progressBar.style.width = pct + '%';
+}, { passive: true });
+
+// ── SCROLL REVEAL ───────────────────────────────────────────────
+document.querySelectorAll('.reveal').forEach(el => {
+  if (el.closest('.page-hero')) { el.classList.add('visible'); return; }
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.06, rootMargin: '0px 0px -40px 0px' });
+  obs.observe(el);
+});
+
+// ── BUILD GALLERY ────────────────────────────────────────────────
+const grid = document.getElementById('masonry-grid');
+const emptyState = document.getElementById('gallery-empty');
+const countEl = document.getElementById('gallery-count');
+
+if (!IMAGES.length) {
+  emptyState.style.display = 'block';
+  countEl.textContent = '0 renders';
+} else {
+  countEl.textContent = `${IMAGES.length} render${IMAGES.length !== 1 ? 's' : ''}`;
+  IMAGES.forEach((img, idx) => {
+    const item = document.createElement('div');
+    item.className = 'masonry-item';
+    item.setAttribute('role', 'button');
+    item.setAttribute('tabindex', '0');
+    item.setAttribute('aria-label', `Open ${img.title}`);
+
+    // Skeleton placeholder while image loads
+    item.innerHTML = `
+      <img
+        src="${img.src}"
+        alt="${img.title}"
+        loading="lazy"
+        decoding="async"
+        style="min-height:140px; background:rgba(255,255,255,0.04);"
+      >
+      <div class="masonry-overlay">
+        <div class="masonry-item-title">${img.title}</div>
+        ${img.year ? `<div class="masonry-item-meta">${img.year}</div>` : ''}
+      </div>
+    `;
+
+    // Click → lightbox
+    item.addEventListener('click', () => openLightbox(idx));
+    item.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(idx); } });
+
+    // Staggered entrance
+    item.style.cssText = `opacity:0; transform:translateY(18px); transition: opacity 0.5s ease ${idx * 0.06}s, transform 0.5s ease ${idx * 0.06}s;`;
+    grid.appendChild(item);
+    // trigger after paint
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      item.style.opacity = '1';
+      item.style.transform = 'translateY(0)';
+    }));
+  });
+}
+
+// ── LIGHTBOX ─────────────────────────────────────────────────────
+const lightbox = document.getElementById('lightbox');
+const lbImg    = document.getElementById('lightbox-img');
+const lbTitle  = document.getElementById('lightbox-title');
+const lbSub    = document.getElementById('lightbox-sub');
+const lbCounter= document.getElementById('lightbox-counter');
+const lbPrev   = document.getElementById('lightbox-prev');
+const lbNext   = document.getElementById('lightbox-next');
+let currentIdx = 0;
+
+function openLightbox(idx) {
+  currentIdx = idx;
+  updateLightbox();
+  lightbox.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  lightbox.focus();
+}
+
+function closeLightbox() {
+  lightbox.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function updateLightbox() {
+  const img = IMAGES[currentIdx];
+  lbImg.src = img.src;
+  lbImg.alt = img.title;
+  lbTitle.textContent = img.title;
+  lbSub.textContent = img.year || '';
+  lbCounter.textContent = `${currentIdx + 1} / ${IMAGES.length}`;
+  lbPrev.classList.toggle('hidden', currentIdx === 0);
+  lbNext.classList.toggle('hidden', currentIdx === IMAGES.length - 1);
+}
+
+document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+lbPrev.addEventListener('click', () => { if (currentIdx > 0) { currentIdx--; updateLightbox(); } });
+lbNext.addEventListener('click', () => { if (currentIdx < IMAGES.length - 1) { currentIdx++; updateLightbox(); } });
+
+// Click outside image to close
+lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+
+// Keyboard navigation
+document.addEventListener('keydown', e => {
+  if (!lightbox.classList.contains('open')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft' && currentIdx > 0) { currentIdx--; updateLightbox(); }
+  if (e.key === 'ArrowRight' && currentIdx < IMAGES.length - 1) { currentIdx++; updateLightbox(); }
+});
+
+// Touch swipe
+let touchStartX = 0;
+lightbox.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+lightbox.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  if (Math.abs(dx) < 40) return;
+  if (dx < 0 && currentIdx < IMAGES.length - 1) { currentIdx++; updateLightbox(); }
+  if (dx > 0 && currentIdx > 0) { currentIdx--; updateLightbox(); }
+});
+</script>
+</body>
+</html>
