@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — Buvana Seshathri</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@300;400;500&family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ivory: #FDF6FB;
+  --warm-white: #F9F0F7;
+  --cream: #EFE3F0;
+  --rose: #C06FA0;
+  --rose-light: #F7E3F2;
+  --rose-mid: #D485B8;
+  --sage: #6BAF8A;
+  --sage-light: #DFF2E8;
+  --charcoal: #2A2035;
+  --muted: #7A6880;
+  --border: rgba(42,32,53,0.1);
+  --font-display: 'DM Serif Display', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --nav-bg: rgba(253,246,251,0.92);
+}
+
+body.dark {
+  --ivory: #0D1117;
+  --warm-white: #161B22;
+  --cream: #1C2330;
+  --rose: #58A6FF;
+  --rose-light: rgba(88,166,255,0.12);
+  --rose-mid: #79C0FF;
+  --sage: #3FB950;
+  --sage-light: rgba(63,185,80,0.12);
+  --charcoal: #E6EDF3;
+  --muted: #8B949E;
+  --border: rgba(255,255,255,0.08);
+  --nav-bg: rgba(13,17,23,0.92);
+  --font-body: 'JetBrains Mono', monospace;
+  --font-display: 'Orbitron', sans-serif;
+}
+body.dark .hero h1, body.dark .post-title { letter-spacing: -0.3px; }
+body.dark .btn-primary { background: var(--rose); color: #0D1117; }
+body.dark .btn-primary:hover { background: var(--rose-mid); }
+body.dark footer { background: #010409; }
+body.dark .pill { background: var(--cream); color: var(--charcoal); }
+body.dark .pill.rose { background: var(--rose-light); color: var(--rose); }
+body.dark .pill.sage { background: var(--sage-light); color: var(--sage); }
+
+#theme-switcher { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+#theme-switcher .theme-icon { font-size: 15px; line-height: 1; user-select: none; }
+#theme-toggle {
+  position: relative; width: 40px; height: 22px;
+  background: var(--cream); border: 0.5px solid var(--border);
+  border-radius: 11px; cursor: pointer; flex-shrink: 0;
+  transition: background 0.3s, border-color 0.3s; padding: 0; outline: none;
+}
+#theme-toggle::after {
+  content: ''; position: absolute; top: 3px; left: 3px;
+  width: 14px; height: 14px; border-radius: 50%; background: var(--rose);
+  transition: transform 0.3s cubic-bezier(0.34,1.4,0.64,1), background 0.3s;
+}
+body.dark #theme-toggle { background: #1C2330; border-color: rgba(255,255,255,0.12); }
+body.dark #theme-toggle::after { transform: translateX(18px); background: #58A6FF; }
+#theme-toggle:hover { border-color: var(--rose); }
+
+#progress-bar {
+  position: fixed; top: 0; left: 0; height: 2.5px; width: 0%;
+  background: linear-gradient(90deg, var(--rose), var(--rose-mid));
+  z-index: 9999; transition: width 0.1s linear; border-radius: 0 2px 2px 0;
+}
+
+body { font-family: var(--font-body); background: var(--ivory); color: var(--charcoal); font-size: 15px; line-height: 1.7; }
+
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--nav-bg); backdrop-filter: blur(8px);
+  border-bottom: 0.5px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 48px;
+}
+.nav-name { font-family: var(--font-display); font-size: 20px; color: var(--charcoal); text-decoration: none; }
+.nav-links { display: flex; gap: 28px; list-style: none; }
+.nav-links a { color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 400; transition: color 0.2s; }
+.nav-links a:hover { color: var(--rose); }
+.nav-links a.active { color: var(--rose); }
+
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.55s ease, transform 0.55s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-stagger > * { opacity: 0; transform: translateY(24px); transition: opacity 0.5s ease, transform 0.5s ease; }
+.reveal-stagger.visible > *:nth-child(1) { opacity:1; transform:translateY(0); transition-delay:0s; }
+.reveal-stagger.visible > *:nth-child(2) { opacity:1; transform:translateY(0); transition-delay:0.08s; }
+.reveal-stagger.visible > *:nth-child(3) { opacity:1; transform:translateY(0); transition-delay:0.16s; }
+.reveal-stagger.visible > *:nth-child(4) { opacity:1; transform:translateY(0); transition-delay:0.24s; }
+.reveal-stagger.visible > *:nth-child(5) { opacity:1; transform:translateY(0); transition-delay:0.32s; }
+.reveal-stagger.visible > *:nth-child(6) { opacity:1; transform:translateY(0); transition-delay:0.40s; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal-stagger > * { opacity:1 !important; transform:none !important; transition:none !important; }
+}
+
+.page-hero { padding: 80px 48px 48px; max-width: 800px; margin: 0 auto; }
+.section-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--rose); font-weight: 500; margin-bottom: 12px; }
+.page-hero h1 { font-family: var(--font-display); font-size: 44px; line-height: 1.2; color: var(--charcoal); margin-bottom: 16px; }
+.page-hero p { color: var(--muted); font-size: 16px; line-height: 1.75; max-width: 560px; }
+
+.divider { height: 0.5px; background: var(--border); margin: 0 48px; }
+
+.filter-row { display: flex; gap: 8px; flex-wrap: wrap; max-width: 800px; margin: 0 auto; padding: 28px 48px 0; }
+.filter-tag {
+  font-size: 12px; font-weight: 500; letter-spacing: 0.02em;
+  padding: 6px 14px; border-radius: 40px; border: 0.5px solid var(--border);
+  color: var(--muted); background: var(--warm-white); cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s; font-family: var(--font-body);
+}
+.filter-tag:hover { border-color: var(--rose-mid); color: var(--rose); }
+.filter-tag.active { background: var(--rose-light); color: var(--rose); border-color: var(--rose-mid); }
+
+.posts-wrap { max-width: 800px; margin: 0 auto; padding: 32px 48px 90px; display: flex; flex-direction: column; gap: 20px; }
+.post-card {
+  background: var(--warm-white); border: 0.5px solid var(--border); border-radius: 16px;
+  padding: 32px; text-decoration: none; color: inherit; display: block;
+  transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+}
+.post-card:hover { box-shadow: 0 8px 32px rgba(44,40,37,0.08); transform: translateY(-2px); border-color: var(--rose-mid); }
+.post-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+.post-date { font-size: 12px; color: var(--muted); }
+.post-title { font-family: var(--font-display); font-size: 24px; color: var(--charcoal); margin-bottom: 10px; line-height: 1.3; }
+.post-excerpt { font-size: 14px; color: var(--muted); line-height: 1.75; margin-bottom: 18px; }
+.post-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.pill { background: var(--cream); color: var(--charcoal); font-size: 11px; padding: 4px 10px; border-radius: 20px; }
+.pill.rose { background: var(--rose-light); color: var(--rose); }
+.pill.sage { background: var(--sage-light); color: var(--sage); }
+.post-readmore { font-size: 13px; color: var(--rose); margin-top: 16px; display: inline-flex; align-items: center; gap: 4px; }
+
+.empty-state { text-align: center; padding: 60px 20px; color: var(--muted); font-size: 14px; }
+
+footer { background: var(--charcoal); color: rgba(255,255,255,0.5); text-align: center; padding: 28px; font-size: 12px; }
+footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
+footer a:hover { color: white; }
+
+@media (max-width: 700px) {
+  nav { padding: 10px 16px; flex-wrap: wrap; gap: 0; }
+  .nav-name { flex: 1; text-align: center; font-size: 18px; }
+  .nav-links { order: 3; width: 100%; justify-content: center; flex-wrap: wrap; gap: 10px 16px; padding: 8px 0 2px; border-top: 0.5px solid var(--border); margin-top: 8px; }
+  .nav-links a { font-size: 12px; }
+  .page-hero { padding: 56px 20px 32px; }
+  .page-hero h1 { font-size: 32px; }
+  .divider { margin: 0 20px; }
+  .filter-row { padding: 24px 20px 0; }
+  .posts-wrap { padding: 24px 20px 64px; }
+  .post-card { padding: 24px; }
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<nav>
+  <a href="index.html" class="nav-name">Buvana Seshathri</a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#skills">Skills</a></li>
+    <li><a href="index.html#experience">Experience</a></li>
+    <li><a href="index.html#projects">Projects</a></li>
+    <li><a href="index.html#research">Research</a></li>
+    <li><a href="blog.html" class="active">Blog</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <div id="theme-switcher">
+    <span class="theme-icon">☀️</span>
+    <button id="theme-toggle" title="Toggle dark mode" aria-label="Toggle dark mode"></button>
+    <span class="theme-icon">🌙</span>
+  </div>
+</nav>
+
+<div class="page-hero reveal">
+  <div class="section-label">Blog</div>
+  <h1>Notes from the lab & the codebase</h1>
+  <p>Writing about ML systems, HPC infrastructure, and the occasional debugging war story — mostly so future-me remembers how I solved it.</p>
+</div>
+
+<div class="divider"></div>
+
+<div class="filter-row reveal" id="filter-row">
+  <button class="filter-tag active" data-filter="all">All</button>
+  <button class="filter-tag" data-filter="ml">ML / AI</button>
+  <button class="filter-tag" data-filter="hpc">HPC & Infra</button>
+  <button class="filter-tag" data-filter="career">Career</button>
+  <button class="filter-tag" data-filter="research">Research</button>
+</div>
+
+<div class="posts-wrap reveal-stagger" id="posts-wrap"></div>
+
+<footer>
+  <p>© 2026 Buvana Seshathri · <a href="index.html">Back to home</a></p>
+</footer>
+
+<script>
+// ── DARK MODE ────────────────────────────────────────────────────
+const themeBtn = document.getElementById('theme-toggle');
+function applyTheme(dark) {
+  document.body.classList.toggle('dark', dark);
+  localStorage.setItem('theme', dark ? 'dark' : 'light');
+}
+themeBtn.addEventListener('click', () => applyTheme(!document.body.classList.contains('dark')));
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'dark') applyTheme(true);
+
+// ── SCROLL PROGRESS ──────────────────────────────────────────────
+const progressBar = document.getElementById('progress-bar');
+window.addEventListener('scroll', () => {
+  const pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+  progressBar.style.width = pct + '%';
+}, { passive: true });
+
+// ── SCROLL REVEAL ────────────────────────────────────────────────
+document.querySelectorAll('.page-hero.reveal, .filter-row.reveal').forEach(el => el.classList.add('visible'));
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => entry.target.classList.toggle('visible', entry.isIntersecting));
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal-stagger').forEach(el => revealObserver.observe(el));
+
+// ── POSTS DATA ───────────────────────────────────────────────────
+// Edit this array to add, remove, or update blog posts.
+// `slug` should match a real post file later (e.g. posts/my-post.html) if you create one.
+const posts = [
+  {
+    title: "Debugging a Silent LangChain Context Overflow",
+    date: "2026-06-12",
+    excerpt: "A walkthrough of how a RAG pipeline kept truncating retrieved context without throwing a single error — and the logging setup that finally surfaced it.",
+    tags: [{label:"LangChain", cls:"rose"},{label:"RAG", cls:"rose"},{label:"Debugging", cls:""}],
+    category: "ml",
+    slug: "#"
+  },
+  {
+    title: "What I Learned Running Stable Diffusion on SLURM",
+    date: "2026-05-02",
+    excerpt: "Notes from building a multi-model inference pipeline for the HPC lab — job scheduling quirks, GPU memory budgeting, and the documentation that made it usable by non-engineers.",
+    tags: [{label:"SLURM", cls:""},{label:"PyTorch", cls:"rose"},{label:"HPC", cls:"sage"}],
+    category: "hpc",
+    slug: "#"
+  },
+  {
+    title: "From Production Java to ML Research: A Year of Switching Tracks",
+    date: "2026-03-18",
+    excerpt: "Reflections on moving from a SWE role at Zoho into HPC and ML research at UT Dallas — what transferred, what didn't, and what I'd tell someone making the same jump.",
+    tags: [{label:"Career", cls:"sage"},{label:"Reflections", cls:""}],
+    category: "career",
+    slug: "#"
+  },
+  {
+    title: "Benchmarking VGG-19 vs ResNet-50 for Medical Imaging",
+    date: "2026-01-09",
+    excerpt: "Behind the scenes of the IEEE I2CT publication — why architecture choice mattered more than dataset size for brain tumor classification accuracy.",
+    tags: [{label:"Research", cls:"sage"},{label:"Computer Vision", cls:"rose"}],
+    category: "research",
+    slug: "#"
+  },
+  {
+    title: "Building HomeSense: Proactive LLM Inference Without GPS",
+    date: "2025-11-22",
+    excerpt: "How combining BLE and IMU sensor fusion got room-level localization to 92% accuracy, and the event-driven pipeline that lets the LLM respond before you ask.",
+    tags: [{label:"LLM", cls:"rose"},{label:"Sensing", cls:""}],
+    category: "ml",
+    slug: "#"
+  },
+  {
+    title: "Breaking the Re-Reading Habit: Studying for Curiosity, Not Exams",
+    date: "2025-09-30",
+    excerpt: "A personal log on unlearning anxiety-driven, exam-conditioned study habits while working through a structured DSA sprint — and what's actually sticking.",
+    tags: [{label:"Career", cls:"sage"},{label:"Learning", cls:""}],
+    category: "career",
+    slug: "#"
+  }
+];
+
+// ── RENDER ───────────────────────────────────────────────────────
+const postsWrap = document.getElementById('posts-wrap');
+const filterRow = document.getElementById('filter-row');
+
+function formatDate(iso) {
+  return new Date(iso + 'T00:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+}
+
+function renderPosts(filter) {
+  const filtered = filter === 'all' ? posts : posts.filter(p => p.category === filter);
+  if (!filtered.length) {
+    postsWrap.innerHTML = '<div class="empty-state">No posts in this category yet.</div>';
+    return;
+  }
+  postsWrap.innerHTML = filtered.map(p => `
+    <a class="post-card" href="${p.slug}">
+      <div class="post-meta"><span class="post-date">${formatDate(p.date)}</span></div>
+      <div class="post-title">${p.title}</div>
+      <p class="post-excerpt">${p.excerpt}</p>
+      <div class="post-tags">${p.tags.map(t => `<span class="pill ${t.cls}">${t.label}</span>`).join('')}</div>
+      <span class="post-readmore">Read more →</span>
+    </a>
+  `).join('');
+  // re-trigger stagger animation
+  postsWrap.classList.remove('visible');
+  requestAnimationFrame(() => requestAnimationFrame(() => postsWrap.classList.add('visible')));
+}
+
+filterRow.addEventListener('click', e => {
+  const btn = e.target.closest('.filter-tag');
+  if (!btn) return;
+  filterRow.querySelectorAll('.filter-tag').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderPosts(btn.dataset.filter);
+});
+
+renderPosts('all');
+</script>
+</body>
+</html>
