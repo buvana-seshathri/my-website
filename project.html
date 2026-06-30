@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects — Buvana Seshathri</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@300;400;500&family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ivory: #FDF6FB;
+  --warm-white: #F9F0F7;
+  --cream: #EFE3F0;
+  --rose: #C06FA0;
+  --rose-light: #F7E3F2;
+  --rose-mid: #D485B8;
+  --sage: #6BAF8A;
+  --sage-light: #DFF2E8;
+  --charcoal: #2A2035;
+  --muted: #7A6880;
+  --border: rgba(42,32,53,0.1);
+  --font-display: 'DM Serif Display', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --nav-bg: rgba(253,246,251,0.92);
+}
+
+body.dark {
+  --ivory: #0D1117;
+  --warm-white: #161B22;
+  --cream: #1C2330;
+  --rose: #58A6FF;
+  --rose-light: rgba(88,166,255,0.12);
+  --rose-mid: #79C0FF;
+  --sage: #3FB950;
+  --sage-light: rgba(63,185,80,0.12);
+  --charcoal: #E6EDF3;
+  --muted: #8B949E;
+  --border: rgba(255,255,255,0.08);
+  --nav-bg: rgba(13,17,23,0.92);
+  --font-body: 'JetBrains Mono', monospace;
+  --font-display: 'Orbitron', sans-serif;
+}
+body.dark .btn-primary { background: var(--rose); color: #0D1117; }
+body.dark .btn-primary:hover { background: var(--rose-mid); }
+body.dark footer { background: #010409; }
+body.dark .pill { background: var(--cream); color: var(--charcoal); }
+body.dark .pill.rose { background: var(--rose-light); color: var(--rose); }
+body.dark .pill.sage { background: var(--sage-light); color: var(--sage); }
+
+#theme-switcher { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+#theme-switcher .theme-icon { font-size: 15px; line-height: 1; user-select: none; }
+#theme-toggle {
+  position: relative; width: 40px; height: 22px;
+  background: var(--cream); border: 0.5px solid var(--border);
+  border-radius: 11px; cursor: pointer; flex-shrink: 0;
+  transition: background 0.3s, border-color 0.3s; padding: 0; outline: none;
+}
+#theme-toggle::after {
+  content: ''; position: absolute; top: 3px; left: 3px;
+  width: 14px; height: 14px; border-radius: 50%; background: var(--rose);
+  transition: transform 0.3s cubic-bezier(0.34,1.4,0.64,1), background 0.3s;
+}
+body.dark #theme-toggle { background: #1C2330; border-color: rgba(255,255,255,0.12); }
+body.dark #theme-toggle::after { transform: translateX(18px); background: #58A6FF; }
+#theme-toggle:hover { border-color: var(--rose); }
+
+#progress-bar {
+  position: fixed; top: 0; left: 0; height: 2.5px; width: 0%;
+  background: linear-gradient(90deg, var(--rose), var(--rose-mid));
+  z-index: 9999; transition: width 0.1s linear; border-radius: 0 2px 2px 0;
+}
+
+body { font-family: var(--font-body); background: var(--ivory); color: var(--charcoal); font-size: 15px; line-height: 1.7; }
+
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--nav-bg); backdrop-filter: blur(8px);
+  border-bottom: 0.5px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 48px;
+}
+.nav-name { font-family: var(--font-display); font-size: 20px; color: var(--charcoal); text-decoration: none; }
+.nav-links { display: flex; gap: 28px; list-style: none; }
+.nav-links a { color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 400; transition: color 0.2s; }
+.nav-links a:hover { color: var(--rose); }
+.nav-links a.active { color: var(--rose); }
+
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.55s ease, transform 0.55s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-stagger > * { opacity: 0; transform: translateY(24px); transition: opacity 0.5s ease, transform 0.5s ease; }
+.reveal-stagger.visible > *:nth-child(1) { opacity:1; transform:translateY(0); transition-delay:0s; }
+.reveal-stagger.visible > *:nth-child(2) { opacity:1; transform:translateY(0); transition-delay:0.08s; }
+.reveal-stagger.visible > *:nth-child(3) { opacity:1; transform:translateY(0); transition-delay:0.16s; }
+.reveal-stagger.visible > *:nth-child(4) { opacity:1; transform:translateY(0); transition-delay:0.24s; }
+.reveal-stagger.visible > *:nth-child(5) { opacity:1; transform:translateY(0); transition-delay:0.32s; }
+.reveal-stagger.visible > *:nth-child(6) { opacity:1; transform:translateY(0); transition-delay:0.40s; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal-stagger > * { opacity:1 !important; transform:none !important; transition:none !important; }
+}
+
+.page-hero { padding: 80px 48px 48px; max-width: 800px; margin: 0 auto; }
+.section-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--rose); font-weight: 500; margin-bottom: 12px; }
+.page-hero h1 { font-family: var(--font-display); font-size: 44px; line-height: 1.2; color: var(--charcoal); margin-bottom: 16px; }
+.page-hero p { color: var(--muted); font-size: 16px; line-height: 1.75; max-width: 560px; }
+
+.divider { height: 0.5px; background: var(--border); margin: 0 48px; }
+
+.filter-row { display: flex; gap: 8px; flex-wrap: wrap; max-width: 1000px; margin: 0 auto; padding: 28px 48px 0; }
+.filter-tag {
+  font-size: 12px; font-weight: 500; letter-spacing: 0.02em;
+  padding: 6px 14px; border-radius: 40px; border: 0.5px solid var(--border);
+  color: var(--muted); background: var(--warm-white); cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s; font-family: var(--font-body);
+}
+.filter-tag:hover { border-color: var(--rose-mid); color: var(--rose); }
+.filter-tag.active { background: var(--rose-light); color: var(--rose); border-color: var(--rose-mid); }
+
+.projects-wrap { max-width: 1000px; margin: 0 auto; padding: 32px 48px 90px; }
+.projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+.project-card {
+  background: var(--warm-white); border: 0.5px solid var(--border); border-radius: 16px;
+  padding: 30px; display: flex; flex-direction: column;
+  transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+}
+.project-card:hover { box-shadow: 0 8px 32px rgba(44,40,37,0.08); transform: translateY(-2px); border-color: var(--rose-mid); }
+.project-tag { display: inline-block; font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--sage); background: var(--sage-light); padding: 3px 10px; border-radius: 20px; margin-bottom: 14px; align-self: flex-start; }
+.project-name { font-family: var(--font-display); font-size: 22px; margin-bottom: 10px; }
+.project-desc { font-size: 14px; color: var(--muted); line-height: 1.7; flex: 1; margin-bottom: 16px; }
+.project-highlights { list-style: none; display: flex; flex-direction: column; gap: 7px; margin-bottom: 18px; }
+.project-highlights li { font-size: 13px; color: var(--muted); padding-left: 16px; position: relative; line-height: 1.6; }
+.project-highlights li::before { content: '—'; position: absolute; left: 0; color: var(--rose); }
+.project-stack { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 14px; }
+.project-links { display: flex; gap: 10px; margin-top: auto; }
+.project-link { font-size: 13px; color: var(--rose); text-decoration: none; display: inline-flex; align-items: center; gap: 4px; }
+.project-link:hover { text-decoration: underline; }
+
+.empty-state { text-align: center; padding: 60px 20px; color: var(--muted); font-size: 14px; }
+
+.btn-primary {
+  background: var(--charcoal); color: white; padding: 11px 24px; border-radius: 40px;
+  font-size: 13px; font-weight: 500; text-decoration: none;
+  transition: background 0.2s; font-family: var(--font-body); cursor: pointer; border: none;
+  display: inline-block;
+}
+.btn-primary:hover { background: var(--rose); }
+
+footer { background: var(--charcoal); color: rgba(255,255,255,0.5); text-align: center; padding: 28px; font-size: 12px; }
+footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
+footer a:hover { color: white; }
+
+@media (max-width: 700px) {
+  nav { padding: 10px 16px; flex-wrap: wrap; gap: 0; }
+  .nav-name { flex: 1; text-align: center; font-size: 18px; }
+  .nav-links { order: 3; width: 100%; justify-content: center; flex-wrap: wrap; gap: 10px 16px; padding: 8px 0 2px; border-top: 0.5px solid var(--border); margin-top: 8px; }
+  .nav-links a { font-size: 12px; }
+  .page-hero { padding: 56px 20px 32px; }
+  .page-hero h1 { font-size: 32px; }
+  .divider { margin: 0 20px; }
+  .filter-row { padding: 24px 20px 0; }
+  .projects-wrap { padding: 24px 20px 64px; }
+  .project-card { padding: 24px; }
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<nav>
+  <a href="index.html" class="nav-name">Buvana Seshathri</a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#skills">Skills</a></li>
+    <li><a href="index.html#experience">Experience</a></li>
+    <li><a href="projects.html" class="active">Projects</a></li>
+    <li><a href="research.html">Research</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <div id="theme-switcher">
+    <span class="theme-icon">☀️</span>
+    <button id="theme-toggle" title="Toggle dark mode" aria-label="Toggle dark mode"></button>
+    <span class="theme-icon">🌙</span>
+  </div>
+</nav>
+
+<div class="page-hero reveal">
+  <div class="section-label">Projects</div>
+  <h1>Things I've built</h1>
+  <p>Applied ML systems and full-stack platforms, built from scratch — spanning LLM applications, retrieval pipelines, and production-grade SaaS architecture.</p>
+</div>
+
+<div class="divider"></div>
+
+<div class="filter-row reveal" id="filter-row">
+  <button class="filter-tag active" data-filter="all">All</button>
+  <button class="filter-tag" data-filter="llm">LLM / AI</button>
+  <button class="filter-tag" data-filter="fullstack">Full-Stack</button>
+  <button class="filter-tag" data-filter="sensing">Sensing</button>
+</div>
+
+<div class="projects-wrap reveal-stagger">
+  <div class="projects-grid" id="projects-grid"></div>
+</div>
+
+<footer>
+  <p>© 2026 Buvana Seshathri · <a href="index.html">Back to home</a></p>
+</footer>
+
+<script>
+// ── DARK MODE ────────────────────────────────────────────────────
+const themeBtn = document.getElementById('theme-toggle');
+function applyTheme(dark) {
+  document.body.classList.toggle('dark', dark);
+  localStorage.setItem('theme', dark ? 'dark' : 'light');
+}
+themeBtn.addEventListener('click', () => applyTheme(!document.body.classList.contains('dark')));
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'dark') applyTheme(true);
+
+// ── SCROLL PROGRESS ──────────────────────────────────────────────
+const progressBar = document.getElementById('progress-bar');
+window.addEventListener('scroll', () => {
+  const pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+  progressBar.style.width = pct + '%';
+}, { passive: true });
+
+// ── SCROLL REVEAL ────────────────────────────────────────────────
+document.querySelectorAll('.page-hero.reveal, .filter-row.reveal').forEach(el => el.classList.add('visible'));
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => entry.target.classList.toggle('visible', entry.isIntersecting));
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal-stagger').forEach(el => revealObserver.observe(el));
+
+// ── PROJECTS DATA ────────────────────────────────────────────────
+// Edit this array to add, remove, or update projects.
+const projects = [
+  {
+    name: "HomeSense",
+    tag: "LLM · Sensing",
+    category: "sensing",
+    desc: "Context-aware proactive LLM inference using indoor localization. Combines BLE and IMU sensors to achieve 92% room-level accuracy without GPS, then surfaces proactive LLM responses via an event-driven pipeline — no user prompting needed.",
+    highlights: [
+      "BLE + IMU sensor fusion for GPS-free room-level localization",
+      "Event-driven pipeline triggers proactive GPT-4o-mini responses",
+      "Context injection architecture, not fine-tuning"
+    ],
+    stack: [{label:"GPT-4o-mini",cls:"rose"},{label:"Python",cls:""},{label:"FastAPI",cls:""},{label:"SQLite",cls:""},{label:"BLE",cls:""},{label:"IMU",cls:""}],
+    links: []
+  },
+  {
+    name: "ScholarMind",
+    tag: "RAG · NLP",
+    category: "llm",
+    desc: "A retrieval-augmented generation pipeline over academic research papers. Enables semantic search and context-grounded Q&A with page-level source citations — built with FAISS vector retrieval and LangChain orchestration.",
+    highlights: [
+      "FAISS vector store for fast semantic retrieval over papers",
+      "LangChain orchestration with page-level source citations",
+      "HuggingFace sentence-transformers for embeddings, Groq API for inference"
+    ],
+    stack: [{label:"LangChain",cls:"rose"},{label:"FAISS",cls:"rose"},{label:"Python",cls:""},{label:"FastAPI",cls:""},{label:"RAG",cls:""}],
+    links: [{label:"GitHub", href:"https://github.com/buvana-seshathri/"}]
+  },
+  {
+    name: "AI Task Manager",
+    tag: "Full-Stack · SaaS",
+    category: "fullstack",
+    desc: "A full-stack SaaS platform with LLM-powered task summarization and workflow insights. Features RBAC, JWT auth, RESTful APIs, and containerized CI/CD — built as a Java/Spring Boot backend with an Angular SPA.",
+    highlights: [
+      "Role-based access control and JWT authentication",
+      "LLM-powered task summarization and workflow insights",
+      "Containerized with Docker, CI/CD pipeline for deployment"
+    ],
+    stack: [{label:"Spring Boot",cls:"sage"},{label:"Angular",cls:"sage"},{label:"MySQL",cls:""},{label:"Docker",cls:""},{label:"JWT",cls:""},{label:"LLM",cls:"rose"}],
+    links: []
+  }
+];
+
+// ── RENDER ───────────────────────────────────────────────────────
+const projectsGrid = document.getElementById('projects-grid');
+const filterRow = document.getElementById('filter-row');
+
+function renderProjects(filter) {
+  const filtered = filter === 'all' ? projects : projects.filter(p => p.category === filter);
+  if (!filtered.length) {
+    projectsGrid.innerHTML = '<div class="empty-state" style="grid-column:1/-1">No projects in this category yet.</div>';
+    return;
+  }
+  projectsGrid.innerHTML = filtered.map(p => `
+    <div class="project-card">
+      <span class="project-tag">${p.tag}</span>
+      <div class="project-name">${p.name}</div>
+      <p class="project-desc">${p.desc}</p>
+      <ul class="project-highlights">${p.highlights.map(h => `<li>${h}</li>`).join('')}</ul>
+      <div class="project-stack">${p.stack.map(s => `<span class="pill ${s.cls}">${s.label}</span>`).join('')}</div>
+      ${p.links.length ? `<div class="project-links">${p.links.map(l => `<a class="project-link" href="${l.href}" target="_blank" rel="noopener">${l.label} ↗</a>`).join('')}</div>` : ''}
+    </div>
+  `).join('');
+}
+
+filterRow.addEventListener('click', e => {
+  const btn = e.target.closest('.filter-tag');
+  if (!btn) return;
+  filterRow.querySelectorAll('.filter-tag').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderProjects(btn.dataset.filter);
+});
+
+renderProjects('all');
+</script>
+</body>
+</html>
