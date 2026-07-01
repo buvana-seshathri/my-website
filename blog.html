@@ -183,7 +183,7 @@ footer a:hover { color: white; }
 <div class="page-hero reveal">
   <div class="section-label">Blog</div>
   <h1>Notes from the lab & the codebase</h1>
-  <p>Writing about ML systems, HPC infrastructure, and the occasional debugging war story — mostly so future-me remembers how I solved it.</p>
+  <p>Writing about whatever I feel like.</p>
 </div>
 
 <div class="divider"></div>
@@ -191,7 +191,7 @@ footer a:hover { color: white; }
 <div class="filter-row reveal" id="filter-row">
   <button class="filter-tag active" data-filter="all">All</button>
   <button class="filter-tag" data-filter="ml">ML / AI</button>
-  <button class="filter-tag" data-filter="hpc">HPC & Infra</button>
+  <button class="filter-tag" data-filter="hpc">HPC</button>
   <button class="filter-tag" data-filter="career">Career</button>
   <button class="filter-tag" data-filter="research">Research</button>
 </div>
@@ -228,56 +228,14 @@ const revealObserver = new IntersectionObserver((entries) => {
 document.querySelectorAll('.reveal-stagger').forEach(el => revealObserver.observe(el));
 
 // ── POSTS DATA ───────────────────────────────────────────────────
-// Edit this array to add, remove, or update blog posts.
-// `slug` should match a real post file later (e.g. posts/my-post.html) if you create one.
 const posts = [
   {
-    title: "Debugging a Silent LangChain Context Overflow",
+    title: "Explain like I'm 5: AWQ for LLM quantization",
     date: "2026-06-12",
-    excerpt: "A walkthrough of how a RAG pipeline kept truncating retrieved context without throwing a single error — and the logging setup that finally surfaced it.",
-    tags: [{label:"LangChain", cls:"rose"},{label:"RAG", cls:"rose"},{label:"Debugging", cls:""}],
+    excerpt: "A fun walkthrough of Activation-aware Weight Quantization (AWQ), one of the coolest techniques for running Large Language Models on phones, laptops, and other edge devices.",
+    tags: [{label:"Deep Learning", cls:"rose"},{label:"Quantization", cls:"rose"}],
     category: "ml",
-    slug: "#"
-  },
-  {
-    title: "What I Learned Running Stable Diffusion on SLURM",
-    date: "2026-05-02",
-    excerpt: "Notes from building a multi-model inference pipeline for the HPC lab — job scheduling quirks, GPU memory budgeting, and the documentation that made it usable by non-engineers.",
-    tags: [{label:"SLURM", cls:""},{label:"PyTorch", cls:"rose"},{label:"HPC", cls:"sage"}],
-    category: "hpc",
-    slug: "#"
-  },
-  {
-    title: "From Production Java to ML Research: A Year of Switching Tracks",
-    date: "2026-03-18",
-    excerpt: "Reflections on moving from a SWE role at Zoho into HPC and ML research at UT Dallas — what transferred, what didn't, and what I'd tell someone making the same jump.",
-    tags: [{label:"Career", cls:"sage"},{label:"Reflections", cls:""}],
-    category: "career",
-    slug: "#"
-  },
-  {
-    title: "Benchmarking VGG-19 vs ResNet-50 for Medical Imaging",
-    date: "2026-01-09",
-    excerpt: "Behind the scenes of the IEEE I2CT publication — why architecture choice mattered more than dataset size for brain tumor classification accuracy.",
-    tags: [{label:"Research", cls:"sage"},{label:"Computer Vision", cls:"rose"}],
-    category: "research",
-    slug: "#"
-  },
-  {
-    title: "Building HomeSense: Proactive LLM Inference Without GPS",
-    date: "2025-11-22",
-    excerpt: "How combining BLE and IMU sensor fusion got room-level localization to 92% accuracy, and the event-driven pipeline that lets the LLM respond before you ask.",
-    tags: [{label:"LLM", cls:"rose"},{label:"Sensing", cls:""}],
-    category: "ml",
-    slug: "#"
-  },
-  {
-    title: "Breaking the Re-Reading Habit: Studying for Curiosity, Not Exams",
-    date: "2025-09-30",
-    excerpt: "A personal log on unlearning anxiety-driven, exam-conditioned study habits while working through a structured DSA sprint — and what's actually sticking.",
-    tags: [{label:"Career", cls:"sage"},{label:"Learning", cls:""}],
-    category: "career",
-    slug: "#"
+    slug: "posts/awq.html"
   }
 ];
 
